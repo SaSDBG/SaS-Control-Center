@@ -1,0 +1,19 @@
+{
+    "name": "devmx/sas-cc",
+    "description": "The SaS-Control-Center",
+    "authors": [
+        {
+            "name": "devmx",
+            "email": "admin@devmx.de"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+      "php": "5.4.*",
+      "silex/silex": "1.0.*@dev",
+      "twig/twig": "1.12.*",
+      "doctrine/dbal": "2.3.*",
+      "symfony/security": "2.1.*",
+      "monolog/monolog": "1.3.*"
+    }
+}
