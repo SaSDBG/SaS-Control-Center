@@ -1,1 +1,0 @@
-Companie-managment and worker-assignment

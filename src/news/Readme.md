@@ -1,1 +1,0 @@
-Manage news and events

@@ -1,1 +1,0 @@
-Landing page, and overview over all sub-components
