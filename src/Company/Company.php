@@ -1,14 +1,16 @@
 <?php
-namespace sasCC\Companies\Company;
+namespace sasCC\Entities\Company;
 
 /**
  * Company-model class
  *
  * @author drak3
+ * @ Entity @Table(name="companies")
  */
 class Company {
     /**
      * @var String
+     * 
      */
     protected $name;
     
@@ -29,6 +31,20 @@ class Company {
      */
     protected $needed;
     
+    /**
+     * @Id @Collumn(type="integer") @GeneratedValue
+     * @var int
+     */
+    protected $id;
+    
+    public function getId() {
+        return $this->id;
+    }
+    
+    public function setId($id) {
+        $this->id = $id;
+    }
+        
     
     public function getName() {
         return $this->name;

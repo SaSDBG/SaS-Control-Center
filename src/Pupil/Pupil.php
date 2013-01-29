@@ -1,5 +1,6 @@
 <?php
 
+namespace sasCC\Entities\Pupil;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -12,7 +13,14 @@
  */
 class Pupil {
     protected $name;
+    
     protected $class;
+    
+    protected $id;
+    
+    public function getId() {
+        return $this->id;
+    }
     
     public function getName() {
         return $this->name;
