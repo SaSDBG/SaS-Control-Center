@@ -10,4 +10,8 @@ $app->get('/test', function(Request $r) use ($app) {
     return 'success!!';
 });
 
+$app->get('/companies/add', function(Request $r) use ($app) {
+    return 'nothing here yet';
+})->bind('add-company');
+
 ?>
