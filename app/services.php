@@ -32,7 +32,7 @@ $app['db.params'] = array(
 );
 
 
-$this['db.connection'] = $this->share(function($c) {
+$app['db.connection'] = $app->share(function($c) {
     return \Doctrine\DBAL\DriverManager::getConnection($c['db.params']);
 });
 

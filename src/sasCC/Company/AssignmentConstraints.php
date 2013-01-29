@@ -1,6 +1,6 @@
 <?php
 
-namespace sasCC\Entities\Company;
+namespace sasCC\Company;
 
 /**
  * Description of Constraints

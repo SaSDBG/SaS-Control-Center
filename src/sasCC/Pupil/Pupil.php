@@ -1,6 +1,6 @@
 <?php
 
-namespace sasCC\Entities\Pupil;
+namespace sasCC\upil;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -17,6 +17,13 @@ class Pupil {
     protected $class;
     
     protected $id;
+    
+    protected $company;
+    
+    protected $role;
+    
+    const ROLE_WORKER = 'worker';
+    const ROLE_CHIEF = 'chief';
     
     public function getId() {
         return $this->id;
@@ -37,6 +44,24 @@ class Pupil {
     public function setClass($class) {
         $this->class = $class;
     }
+    
+    public function getCompany() {
+        return $this->company;
+    }
+
+    public function setCompany($company) {
+        $this->company = $company;
+    }
+
+    public function getRole() {
+        return $this->role;
+    }
+
+    public function setRole($role) {
+        $this->role = $role;
+    }
+
+
 
 
 }
