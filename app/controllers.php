@@ -10,8 +10,28 @@ $app->get('/test', function(Request $r) use ($app) {
     return 'success!!';
 });
 
-$app->get('/companies/add', function(Request $r) use ($app) {
-    return 'nothing here yet';
-})->bind('add-company');
+$app->match('/companies/add', function(Request $r) use ($app) {
+    $data = array(
+        'name' => 'Project leader',
+        'class' => 'K1',
+    );
+    $form = $app->form($data)
+                ->add('name')
+                ->add('class')->getForm();
+    if($r->isMethod('POST')) {
+        $form->bind($r);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+
+            var_dump($data);
+
+            // redirect somewhere
+            return '';
+        }
+    }
+    return $app['twig']->render('formtest.html.twig', array('form' => $form->createView()));
+
+})->bind('add_company');
 
 ?>

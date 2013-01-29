@@ -14,8 +14,8 @@ $app->register(new \Silex\Provider\TranslationServiceProvider(), array(
   'translator.messages' => array()
 ));
 
-$app['translator']->addLoader('xlf', new \Symfony\Component\Translation\Loader\XliffFileLoader());
-$app['translator']->addResource('xlf', ROOT.'vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.de.xlf', 'de', 'validators');
+//$app['translator']->addLoader('xlf', new \Symfony\Component\Translation\Loader\XliffFileLoader());
+//$app['translator']->addResource('xlf', ROOT.'/vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.de.xlf', 'de', 'validators');
 
 $app->register(new \Silex\Provider\UrlGeneratorServiceProvider());
 
