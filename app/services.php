@@ -5,7 +5,7 @@ $app['debug'] = false;
 $app->register(new \Silex\Provider\FormServiceProvider());
 
 $app->register(new \Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => array(ROOT, ROOT.'Resources/templates/'),
+    'twig.path' => array(ROOT, ROOT.'resources/tpl/'),
 ));
 
 
