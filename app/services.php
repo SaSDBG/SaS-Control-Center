@@ -1,6 +1,6 @@
 <?php
 
-$app['debug'] = false;
+$app['debug'] = true;
 
 $app->register(new \Silex\Provider\FormServiceProvider());
 
@@ -28,7 +28,8 @@ $app['db.params'] = array(
     'driver' => 'pdo_mysql',
     'user' => 'root',
     'password' => 'foobar',
-    'database' => 'symfony'
+    'dbname' => 'Symfony',
+    'host' => 'localhost'
 );
 
 
@@ -36,5 +37,6 @@ $app['db.connection'] = $app->share(function($c) {
     return \Doctrine\DBAL\DriverManager::getConnection($c['db.params']);
 });
 
-
-
+$app['companies.schemaManager'] = $app->share(function($app){
+    return new sasCC\CompanyManagment\SchemaManager($app['db.connection']);
+});

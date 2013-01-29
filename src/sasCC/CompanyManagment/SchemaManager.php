@@ -16,9 +16,9 @@ class SchemaManager {
      */
     protected $connection;
     
-    const TABLE_PUPILS = 'sas-cc_pupils';
-    const TABLE_CLASSES = 'sas-cc_classes';
-    const TABLE_COMPANIES = 'sas-cc_companies';
+    const TABLE_PUPILS = 'sascc_pupils';
+    const TABLE_CLASSES = 'sascc_classes';
+    const TABLE_COMPANIES = 'sascc_companies';
     
     public function __construct(Connection $c) {
         $this->connection = $c;      
@@ -27,12 +27,13 @@ class SchemaManager {
     public function createTables() {
         $sql = $this->getMigrateStatements();
         foreach ($sql as $statement) {
+            print_r($statement);
             $this->connection->executeQuery($statement);
         }
     }
     
     protected function getMigrateStatements() {
-        $schema = static::getSchema($this->getChannelTableName(), $this->getCrawlDateTableName());
+        $schema = static::getSchema();
         $currentSchema = clone $this->connection->getSchemaManager()->createSchema();
         $diff = \Doctrine\DBAL\Schema\Comparator::compareSchemas($currentSchema, $schema);
         return $diff->toSaveSql($this->connection->getDatabasePlatform());
@@ -42,32 +43,31 @@ class SchemaManager {
     {
         $schema = new Schema();
         
-        $classesTable = $this->generateClassesTable($schema);
-        $companiesTable = $this->generateCompanyTable($schema);
-        $this->generatePupilsTable($schema, $classesTable, $companiesTable);
+        $classesTable = self::createClassesTable($schema);
+        $companiesTable = self::createCompaniesTable($schema);
+        self::createPupilsTable($schema, $classesTable, $companiesTable);
         
         return $schema;
     }
     
-    protected function createClassesTable(Schema $schema) {
+    protected static function createClassesTable(Schema $schema) {
         $classesTable = $schema->createTable(self::TABLE_CLASSES);
         $classesTable->addColumn('id', 'integer')->setAutoincrement(true);
         $classesTable->addColumn('identifier', 'string');
         $classesTable->addColumn('grade', 'string');
         $classesTable->setPrimaryKey(array('id'));
-        $classesTable->setPrimaryKey(array('id'));
         return $classesTable;
     }
     
-    protected function createCompaniesTable(Schema $schema) {
+    protected static function createCompaniesTable(Schema $schema) {
         $companiesTable = $schema->createTable(self::TABLE_COMPANIES);
         $companiesTable->addColumn('id', 'integer')->setAutoincrement(true);
         $companiesTable->addColumn('needs', 'text');
         $companiesTable->addColumn('description', 'text');
         $companiesTable->addColumn('requires_manual_assignment', 'boolean');
         $companiesTable->addColumn('special_rules', 'text');
-        $companiesTable->addColumn('max_workspaces', 'int');
-        $companiesTable->addColumn('min_workspaces', 'int');
+        $companiesTable->addColumn('max_workspaces', 'integer');
+        $companiesTable->addColumn('min_workspaces', 'integer');
         $companiesTable->addColumn('min_grade', 'string');
         $companiesTable->addColumn('max_grade', 'string');
         
@@ -75,7 +75,7 @@ class SchemaManager {
         return $companiesTable;
     }
     
-    protected function createPupilsTable(Schema $schema, $classesTable, $companyTable) {
+    protected static function createPupilsTable(Schema $schema, $classesTable, $companyTable) {
         $pupilsTable = $schema->createTable(self::TABLE_PUPILS);
         $pupilsTable->addColumn('id', 'integer')->setAutoincrement(true);
         $pupilsTable->addColumn('name', 'string');
