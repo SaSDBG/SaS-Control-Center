@@ -1,5 +1,5 @@
 <?php
-namespace sasCC\Entities\Company;
+namespace sasCC\Company;
 
 /**
  * Company-model class
@@ -52,14 +52,6 @@ class Company {
 
     public function setName($name) {
         $this->name = $name;
-    }
-
-    public function getManagers() {
-        return $this->managers;
-    }
-
-    public function setManagers($managers) {
-        $this->managers = $managers;
     }
 
     /**

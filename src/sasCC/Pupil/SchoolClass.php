@@ -1,5 +1,5 @@
 <?php
-namespace sasCC\Entities\Pupil;
+namespace sasCC\Pupil;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -7,26 +7,14 @@ namespace sasCC\Entities\Pupil;
 
 /**
  * Description of Class
- * @Entity @Table(name="classes")
  * @author drak3
  */
 class SchoolClass {
     
-    /**
-     * @Collumn(type="string")
-     * @var string
-     */
     protected $grade;
     
-    /**
-     * @Collumn(type="string")
-     * @var string
-     */
     protected $identifyer;
     
-    /**
-     * @Id @Collumn(type="integer") @GeneratedValue
-     */
     protected $id;
     
     public function getId() {
