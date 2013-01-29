@@ -1,11 +1,11 @@
 <?php
 
-$app['debug'] = false;
+$app['debug'] = true;
 
 $app->register(new \Silex\Provider\FormServiceProvider());
 
 $app->register(new \Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => array(ROOT, ROOT.'resources/tpl/'),
+    'twig.path' => array(ROOT, ROOT.'/resources/tpl/'),
 ));
 
 
