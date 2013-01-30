@@ -1,5 +1,50 @@
-<form action="#" method="post">
-    {{ form_widget(form) }}
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<form method="post">
+    {{ form_row(form.name) }}
+    {{ form_widget(form.constraints) }}
+    <ul class="tags" id="chiefs" data-prototype="{{ form_widget(form.chiefs.vars.prototype)|e }}">
+        {% for chiefs in form.chiefs %}
+            <li>
+            {{ form_row(chiefs.name) }}
+            {{ form_row(chiefs.rawClass) }}
+            </li>
+        {% endfor %}
+    </ul>
+    {{ form_row(form.needs) }}
+    {{ form_row(form.description) }}
 
     <input type="submit" name="submit" />
 </form>
+
+<script type="javascript">
+
+
+jQuery(document).ready(function() {
+// Get the div that holds the collection of tags
+var collectionHolder = $('#chiefs');
+
+// setup an "add a tag" link
+var $addTagLink = $('<a href="#" class="add_tag_link">Add a Company</a>');
+var $newLinkLi = $('<li></li>').append($addTagLink);
+
+    // add the "add a tag" anchor and li to the tags ul
+    collectionHolder.append($newLinkLi);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    collectionHolder.data('index', collectionHolder.find(':input').length);
+
+    $addTagLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // add a new tag form (see next code block)
+        addTagForm(collectionHolder, $newLinkLi);
+    });
+});
+</script>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace sasCC\upil;
+namespace sasCC\Pupil;
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,22 +8,30 @@ namespace sasCC\upil;
 
 /**
  * Description of Pupil
- *
+ * @Entity
  * @author drak3
  */
 class Pupil {
+    
+    /**
+     * @Column
+     */
     protected $name;
     
+    /**
+     * @ManyToOne(targetEntity="SchoolClass", inversedBy="pupils", cascade={"persist"})
+     */
     protected $class;
     
+    /**
+     * @Id @Column(type="integer") @GeneratedValue
+     */
     protected $id;
     
+    /**
+     * @ManyToOne(targetEntity="sasCC\Company\Company", inversedBy="members", cascade={"persist"})
+     */
     protected $company;
-    
-    protected $role;
-    
-    const ROLE_WORKER = 'worker';
-    const ROLE_CHIEF = 'chief';
     
     public function getId() {
         return $this->id;
@@ -45,6 +53,14 @@ class Pupil {
         $this->class = $class;
     }
     
+    public function setRawClass($class) {
+        $this->class = SchoolClass::parse($class);
+    }
+    
+    public function getRawClass() {
+        return $this->class->getGrade().$this->class->getIdentifier();
+    }
+    
     public function getCompany() {
         return $this->company;
     }
@@ -53,17 +69,6 @@ class Pupil {
         $this->company = $company;
     }
 
-    public function getRole() {
-        return $this->role;
-    }
-
-    public function setRole($role) {
-        $this->role = $role;
-    }
-
-
-
-
-}
+ }
 
 ?>
