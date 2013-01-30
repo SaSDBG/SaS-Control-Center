@@ -10,7 +10,7 @@ use sasCC\Company\AssignmentConstraints;
 
 $app->get('/', function(Request $r) use ($app) {
     return $app->render('home.html.twig', array("title" => "SaS CP"));
-})->bind('homepage');
+})->bind('home');
 
 $app->get('/test', function(Request $r) use ($app) {
     $testCompany = new Company();
