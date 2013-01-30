@@ -2,9 +2,14 @@
 
 {% block content %}
 
+<div class="row">
+    <h1>Betrieb hinzuf&uuml;gen</h1>
+</div>
+
 <form method="post">
     {{ form_errors(form) }}
 
+   
     {{ form_row(form.name) }}
     {{ form_widget(form.constraints) }}
         <ul class="tags" id="chiefs" data-prototype="{{ form_widget(form.chiefs.vars.prototype)|e }}">
@@ -20,37 +25,37 @@
 
     {{ form_rest(form) }}
 
-                <button type="submit" name="submit" id="button">Erstellen</button>
-            </form>
+    <button type="submit" name="submit" id="button">Erstellen</button>
+</form>
 
 {% endblock %}
 
 {% block footer %}
-        <script>
-            var collectionHolder = $('#chiefs');
+            <script>
+                var collectionHolder = $('#chiefs');
 
-            var $addTagLink = $('<a href="#" class="add_tag_link">Weiteren Betriebsleiter hinzufügen</a>');
-            var $newLinkLi = $('<li></li>').append($addTagLink);
+                var $addTagLink = $('<a href="#" class="add_tag_link">Weiteren Betriebsleiter hinzufügen</a>');
+                var $newLinkLi = $('<li></li>').append($addTagLink);
 
 
-            jQuery(document).ready(function() {
-                collectionHolder.append($newLinkLi);
-                collectionHolder.data('index', collectionHolder.find(':input').length);
+                jQuery(document).ready(function() {
+                    collectionHolder.append($newLinkLi);
+                    collectionHolder.data('index', collectionHolder.find(':input').length);
 
-                $addTagLink.on('click', function(e) {
-                    e.preventDefault();
-                    addTagForm(collectionHolder, $newLinkLi);
+                    $addTagLink.on('click', function(e) {
+                        e.preventDefault();
+                        addTagForm(collectionHolder, $newLinkLi);
+                    });
                 });
-            });
 
-            function addTagForm(collectionHolder, $newLinkLi) 
-            {
-                var prototype = collectionHolder.data('prototype');
-                var index = collectionHolder.data('index');
-                var newForm = prototype.replace(/\$\$name\$\$/g, index);
-                collectionHolder.data('index', index + 1);
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newLinkLi.before($newFormLi);
-            }
-        </script>
+                function addTagForm(collectionHolder, $newLinkLi) 
+                {
+                    var prototype = collectionHolder.data('prototype');
+                    var index = collectionHolder.data('index');
+                    var newForm = prototype.replace(/\$\$name\$\$/g, index);
+                    collectionHolder.data('index', index + 1);
+                    var $newFormLi = $('<li></li>').append(newForm);
+                    $newLinkLi.before($newFormLi);
+                }
+                </script>
 {% endblock %}

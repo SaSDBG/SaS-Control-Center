@@ -60,7 +60,7 @@ $app->match('/companies/add', function(Request $r) use ($app) {
         }
     }
     
-    return $app['twig']->render('formtest.html.twig', array('form' => $form->createView(), 'title' => 'Betrieb Hinzufügen'));
+    return $app['twig']->render('company.add.html.twig', array('form' => $form->createView(), "title" => "Betrieb hinzufügen"));
 
 })->bind('add_company');
 
