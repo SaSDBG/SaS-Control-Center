@@ -2,7 +2,7 @@
 //use Silex\Application;
 use \sasCC;
 
-define('ROOT', '..');
+define('ROOT', __DIR__.'/..');
 $loader = require_once ROOT.'/vendor/autoload.php';
 $loader->add('sasCC', ROOT.'/src/');
 

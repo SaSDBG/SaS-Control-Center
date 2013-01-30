@@ -1,5 +1,9 @@
 <?php
 
+
+use Doctrine\ORM\Tools\Setup;
+use Doctrine\ORM\EntityManager;
+
 $app['debug'] = true;
 
 $app->register(new \Silex\Provider\FormServiceProvider());
@@ -40,3 +44,15 @@ $app['db.connection'] = $app->share(function($c) {
 $app['companies.schemaManager'] = $app->share(function($app){
     return new sasCC\CompanyManagment\SchemaManager($app['db.connection']);
 });
+
+
+$app['em.entity-paths'] = array(ROOT."/src/sasCC/Company", ROOT."/src/sasCC/Pupil");
+
+$app['em.config'] = $app->share(function($app) {
+    return Setup::createAnnotationMetadataConfiguration($app['em.entity-paths'], $app['debug']);
+});
+
+$app['em'] = $app->share(function($app) {
+    return EntityManager::create($app['db.params'], $app['em.config']);
+});
+
