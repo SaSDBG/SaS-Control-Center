@@ -22,7 +22,7 @@ class Company {
     protected $constraints;
     
     /**
-     * @Column(type="text")
+     * @Column(type="text", nullable=true)
      * @var String
      */
     protected $needs = '';
@@ -56,6 +56,10 @@ class Company {
     public function __construct() {
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chiefs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->constraints = new AssignmentConstraints();
+        $this->chiefs = array(
+          new Pupil,  
+        );
     }
     
     public function getDescription() {

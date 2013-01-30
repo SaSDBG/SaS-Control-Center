@@ -14,8 +14,14 @@ class PupilType extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
-        $builder->add('rawClass');
+        $builder->add('name', null, array(
+            'label' => 'Name (Vorname Nachname)',
+            'required' => true,
+        ));
+        $builder->add('rawClass', null, array(
+            'label' => 'Klasse',
+            'required' => true,
+        ));
     }
 
     public function getName()

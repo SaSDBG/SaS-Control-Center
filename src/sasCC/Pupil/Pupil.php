@@ -33,6 +33,10 @@ class Pupil {
      */
     protected $company;
     
+    public function __construct() {
+        $this->class = new SchoolClass();
+    }
+    
     public function getId() {
         return $this->id;
     }
@@ -54,11 +58,11 @@ class Pupil {
     }
     
     public function setRawClass($class) {
-        $this->class = SchoolClass::parse($class);
+        $this->setClass(SchoolClass::parse($class));
     }
     
     public function getRawClass() {
-        return $this->class->getGrade().$this->class->getIdentifier();
+        return $this->getClass()->getGrade().$this->class->getIdentifyer();
     }
     
     public function getCompany() {

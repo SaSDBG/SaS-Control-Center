@@ -15,11 +15,26 @@ class ConstraintsType extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('maximalNumberOfWorkplaces');
-        $builder->add('minimalNumberOfWorkplaces');
-        $builder->add('minimalGrade');
-        $builder->add('maximalGrade');
-        $builder->add('specialRules', 'textarea');
+        $builder->add('maximalNumberOfWorkplaces', null, array(
+            'label' => 'Maximale Anzahl an Arbeitsplätze',
+            'required' => false,
+        ));
+        $builder->add('minimalNumberOfWorkplaces', null, array(
+            'label' => 'Minimale Anzahl an Arbeitsplätzen',
+            'required' => false,
+        ));
+        $builder->add('minimalGrade', null, array(
+            'label' => 'Mindestklassenstufe',
+            'required' => false,
+        ));
+        $builder->add('maximalGrade', null, array(
+            'label' => 'Höchstklassenstufe',
+            'required' => false,
+        ));
+        $builder->add('specialRules', 'textarea', array(
+            'label' => 'Spezielle Zuteilungsregelungen',
+            'required' => false,
+        ));
     }
 
     public function getName()

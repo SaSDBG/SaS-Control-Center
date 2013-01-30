@@ -16,16 +16,26 @@ class CompanyType extends AbstractType {
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name');
+        $builder->add('name', null, array(
+            'label' => "Name des Betriebs",
+            'required' => true,
+        ));
         //chiefs
         $builder->add('constraints', new ConstraintsType());
         $builder->add('chiefs', 'collection', array(
             'type' => new PupilType(),
             'allow_add' => true,
             'by_reference' => false,
+            'required' => true,
         ));
-        $builder->add('needs', 'textarea');
-        $builder->add('description', 'textarea');
+        $builder->add('needs', 'textarea', array(
+            'label' => "Benötigte Waren u.A.",
+            'required' => false,
+        ));
+        $builder->add('description', 'textarea', array(
+            'label' => "Beschreibung",
+            'required' => true,
+        ));
     }
 
     public function getName()

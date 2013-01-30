@@ -31,7 +31,7 @@ class AssignmentConstraints {
     protected $maxClass = 'K2';
     
     /**
-     * @Column(type="text")
+     * @Column(type="text", nullable=true)
      */
     protected $specialRules = '';
     

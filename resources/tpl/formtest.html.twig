@@ -3,10 +3,11 @@
 {% block content %}
 
 <form method="post">
+    {{ form_errors(form) }}
+    
     {{ form_row(form.name) }}
     {{ form_widget(form.constraints) }}
     <ul class="tags" id="chiefs" data-prototype="{{ form_widget(form.chiefs.vars.prototype)|e }}">
-        <li>test</li>
         {% for chiefs in form.chiefs %}
             <li>
             {{ form_row(chiefs.name) }}
@@ -14,23 +15,24 @@
             </li>
         {% endfor %}
     </ul>
-    {{ form_row(form.needs) }}
     {{ form_row(form.description) }}
+    {{ form_row(form.needs) }}
+        
+    {{ form_rest(form) }}
 
-    <input type="submit" name="submit" />
+    <button type="submit" name="submit" id="button">Erstellen</button>
 </form>
 
 {% endblock %}
 
 {% block footer %}
 
-
 <script>
 // Get the div that holds the collection of tags
 var collectionHolder = $('#chiefs');
 
 // setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_tag_link">Add a tag</a>');
+var $addTagLink = $('<a href="#" class="add_tag_link">Weiteren Betriebsleiter hinzufügen</a>');
 var $newLinkLi = $('<li></li>').append($addTagLink);
 
 

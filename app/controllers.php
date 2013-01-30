@@ -55,14 +55,12 @@ $app->match('/companies/add', function(Request $r) use ($app) {
         $form->bindRequest($r);
         if ($form->isValid()) {
             $app['em']->persist($company);
+            $app['em']->flush();
             return 'success';
-        }
-        else {
-            return 'invalid';
         }
     }
     
-    return $app['twig']->render('formtest.html.twig', array('form' => $form->createView(), 'title' => 'add company'));
+    return $app['twig']->render('formtest.html.twig', array('form' => $form->createView(), 'title' => 'Betrieb Hinzufügen'));
 
 })->bind('add_company');
 
