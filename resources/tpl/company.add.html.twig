@@ -6,27 +6,94 @@
     <h1>Betrieb hinzuf&uuml;gen</h1>
 </div>
 
-<form method="post">
-    {{ form_errors(form) }}
 
-   
-    {{ form_row(form.name) }}
-    {{ form_widget(form.constraints) }}
-        <ul class="tags" id="chiefs" data-prototype="{{ form_widget(form.chiefs.vars.prototype)|e }}">
-        {% for chiefs in form.chiefs %}
-                <li>
-            {{ form_row(chiefs.name) }}
-            {{ form_row(chiefs.rawClass) }}
-                    </li>
+<div class="row">
+    <form method="post" class="form-horizontal">
+        {{ form_errors(form) }}
+
+        <legend>Allgemeines</legend>
+
+        <div class="control-group">
+               {{ form_label(form.name, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+                    {{ form_widget(form.name) }}
+               </div>
+        </div>
+
+
+        {% for cont in form.constraints %}
+        <div class="control-group">
+               {{ form_label(cont, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(cont) }}
+               </div>
+        </div>
         {% endfor %}
-                </ul>
-    {{ form_row(form.description) }}
-    {{ form_row(form.needs) }}
 
-    {{ form_rest(form) }}
+        <legend>Betriebsleiter</legend>
 
-    <button type="submit" name="submit" id="button">Erstellen</button>
-</form>
+        <div class="control-group">
+               {{ form_label(form.chiefs, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+                    <ul class="unstyled tags" id="chiefs" data-prototype="{{'<div class="input-prepend">
+                                <span class="add-on">Vorname</span> '|e}}
+                                {{ form_widget(form.chiefs.vars.prototype.name) | e }}
+                            {{ '</div>
+                            <div class="input-prepend">
+                                <span class="add-on">Nachname</span>
+                                <input id="appendedPrependedInput" type="text">
+                            </div>
+                            <div class="input-prepend">
+                                <span class="add-on">Klasse</span> '|e}}
+                                {{ form_widget(form.chiefs.vars.prototype.rawClass) | e }}
+                            {{ '</div>' | e }}">
+                   {% for chief in form.chiefs %}
+
+                       <li>
+                            <div class="input-prepend">
+                                <span class="add-on">Vorname</span>
+                                {{ form_widget(chief.name) }}
+                            </div>
+                            <div class="input-prepend">
+                                <span class="add-on">Nachname</span>
+                                <input id="appendedPrependedInput" type="text">
+                            </div>
+                            <div class="input-prepend">
+                                <span class="add-on">Klasse</span>
+                                {{ form_widget(chief.rawClass) }}
+                            </div>
+                        </li>     
+
+                   {% endfor %}
+                    </ul>
+               </div>
+        </div>
+
+        <legend>Sonstiges</legend>
+        
+        <div class="control-group">
+               {{ form_label(form.description, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+                    {{ form_widget(form.description, { 'attr': {'name': 'ckDescr'} }) }}
+               </div>
+        </div>
+        
+        <div class="control-group">
+               {{ form_label(form.needs, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+                    {{ form_widget(form.needs, { 'attr': {'name': 'ckNeeds'} }) }}
+               </div>
+        </div>
+
+        {{ form_rest(form) }}
+    
+         <div class="control-group">
+               <div class="controls">
+                   <button class="btn btn-primary btn-large" type="submit" name="submit" id="button">Betrieb hinzuf&uuml;gen</button>
+               </div>
+        </div>
+    </form>
+</div>
 
 {% endblock %}
 
@@ -34,7 +101,7 @@
             <script>
                 var collectionHolder = $('#chiefs');
 
-                var $addTagLink = $('<a href="#" class="add_tag_link">Weiteren Betriebsleiter hinzufügen</a>');
+                var $addTagLink = $('<p><a class="btn btn-success" href="#" class="add_tag_link">Weiteren Betriebsleiter hinzufügen</a></p>');
                 var $newLinkLi = $('<li></li>').append($addTagLink);
 
 
@@ -58,4 +125,27 @@
                     $newLinkLi.before($newFormLi);
                 }
                 </script>
+                
+                <script src="{{ app.request.baseUrl }}/assets/ckeditor/ckeditor.js"></script>
+                <script src="{{ app.request.baseUrl }}/assets/js/ckeditorOptions.js"></script>
+                
+                <script>
+                        CKEDITOR.replace('company[needs]', ckeditorOptionsSmall);  
+                        CKEDITOR.replace('company[description]', ckeditorOptionsSmall);
+                </script>
+{% endblock %}
+                
+{% block header %}
+                <style>
+                        ul#chiefs > li
+                        {
+                            margin-top: 10px !important;
+                        }
+                        
+                        #company_constraints_specialRules
+                        {
+                            width: 100%;
+                            height: 100px;
+                        }
+                </style>
 {% endblock %}

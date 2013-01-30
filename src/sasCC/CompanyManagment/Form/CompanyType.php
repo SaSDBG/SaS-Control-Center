@@ -23,6 +23,7 @@ class CompanyType extends AbstractType {
         //chiefs
         $builder->add('constraints', new ConstraintsType());
         $builder->add('chiefs', 'collection', array(
+            'label' => "Betriebsleiter",
             'type' => new PupilType(),
             'allow_add' => true,
             'by_reference' => false,
