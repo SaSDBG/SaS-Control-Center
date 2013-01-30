@@ -1,5 +1,5 @@
 {
-    "hash": "326cf5a3f5134224fb005f2fc26927a6",
+    "hash": "1ab5ba93b4889c1cfb6f7ebdf4c3f937",
     "packages": [
         {
             "name": "doctrine/common",
@@ -905,7 +905,7 @@
                     "Symfony\\Bridge\\Twig": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "notification-url": "http://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
