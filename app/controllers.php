@@ -56,7 +56,7 @@ $app->match('/companies/add', function(Request $r) use ($app) {
         if ($form->isValid()) {
             $app['em']->persist($company);
             $app['em']->flush();
-            return 'success';
+            $app->redirect('add_company');
         }
     }
     

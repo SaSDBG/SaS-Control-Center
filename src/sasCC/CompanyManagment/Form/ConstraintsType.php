@@ -17,23 +17,23 @@ class ConstraintsType extends AbstractType {
     {
         $builder->add('maximalNumberOfWorkplaces', null, array(
             'label' => 'Maximale Anzahl an Arbeitsplätze',
-            'required' => false,
+            'required' => true,
         ));
         $builder->add('minimalNumberOfWorkplaces', null, array(
             'label' => 'Minimale Anzahl an Arbeitsplätzen',
-            'required' => false,
+            'required' => true,
         ));
         $builder->add('minimalGrade', null, array(
             'label' => 'Mindestklassenstufe',
-            'required' => false,
+            'required' => true,
         ));
         $builder->add('maximalGrade', null, array(
             'label' => 'Höchstklassenstufe',
-            'required' => false,
+            'required' => true,
         ));
         $builder->add('specialRules', 'textarea', array(
             'label' => 'Spezielle Zuteilungsregelungen',
-            'required' => false,
+            'required' => true,
         ));
     }
 
