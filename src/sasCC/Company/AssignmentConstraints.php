@@ -1,6 +1,8 @@
 <?php
 
 namespace sasCC\Company;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * Description of Constraints
@@ -9,7 +11,7 @@ namespace sasCC\Company;
  * @Entity
  */
 class AssignmentConstraints {
-    
+        
     /**
      * @Column(type="integer")
      */
@@ -35,6 +37,24 @@ class AssignmentConstraints {
      */
     protected $specialRules = '';
     
+    static public function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $gradeRegexOps = array(
+            'pattern' => '/k1|k2|10|[5-9]/i'
+        );
+        
+        $metadata->addPropertyConstraint('maxWorkplaces', new Assert\Type('numeric'));
+        $metadata->addPropertyConstraint('maxWorkplaces', new Assert\NotNull);
+        $metadata->addPropertyConstraint('maxWorkplaces', new Assert\Min(1));
+        
+        $metadata->addPropertyConstraint('minWorkplaces', new Assert\Type('numeric'));
+        $metadata->addPropertyConstraint('minWorkplaces', new Assert\Min(0));
+        
+        $metadata->addPropertyConstraint('minClass', new Assert\Regex($gradeRegexOps));
+        $metadata->addPropertyConstraint('maxClass', new Assert\Regex($gradeRegexOps));
+        
+    }
+    
     /**
      * @Id @Column(type="integer") @GeneratedValue 
      */
@@ -53,7 +73,7 @@ class AssignmentConstraints {
     }
 
     public function setMaximalNumberOfWorkplaces($workplaces) {
-        $this->maxWorkplaces = $workplaces;
+        $this->maxWorkplaces = (int) $workplaces;
     }
     
     public function getMinimalNumberOfWorkplaces() {
@@ -61,7 +81,7 @@ class AssignmentConstraints {
     }
 
     public function setMinimalNumberOfWorkplaces($minWorkplaces) {
-        $this->minWorkplaces = $minWorkplaces;
+        $this->minWorkplaces = (int) $minWorkplaces;
     }
 
     public function getMinimalGrade() {

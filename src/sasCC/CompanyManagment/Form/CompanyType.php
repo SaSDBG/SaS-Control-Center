@@ -4,6 +4,7 @@ namespace sasCC\CompanyManagment\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 
@@ -19,22 +20,45 @@ class CompanyType extends AbstractType {
         $builder->add('name', null, array(
             'label' => "Name des Betriebs",
             'required' => true,
+            'constraints' => array(
+                new Assert\NotBlank(array(
+                    'message' => 'Es muss ein Name eingetragen werden'
+                )),
+            )
         ));
         //chiefs
-        $builder->add('constraints', new ConstraintsType());
+        $builder->add('constraints', new ConstraintsType(), array(
+            'constraints' => array(
+                new Assert\NotNull(),
+             ),
+        ));
+        
         $builder->add('chiefs', 'collection', array(
             'type' => new PupilType(),
             'allow_add' => true,
             'by_reference' => false,
             'required' => true,
+            'constraints' => array(
+                new Assert\Count(array(
+                    'min' => 1,
+                    'minMessage' => 'Es muss mindestens 1 Betriebsleiter eingetragen werden'
+                ))
+            )
         ));
+        
         $builder->add('needs', 'textarea', array(
             'label' => "Benötigte Waren u.A.",
             'required' => false,
         ));
+        
         $builder->add('description', 'textarea', array(
             'label' => "Beschreibung",
             'required' => true,
+            'constraints' => array(
+                new Assert\NotBlank(array(
+                    'message' => 'Es muss eine Beschreibung eingetragen werden'
+                ))
+            )
         ));
     }
 

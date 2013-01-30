@@ -4,6 +4,7 @@ namespace sasCC\CompanyManagment\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Description of PupilType
@@ -17,10 +18,19 @@ class PupilType extends AbstractType {
         $builder->add('name', null, array(
             'label' => 'Name (Vorname Nachname)',
             'required' => true,
+            'constraints' => array(
+               new Assert\NotBlank()
+            )
         ));
         $builder->add('rawClass', null, array(
             'label' => 'Klasse',
             'required' => true,
+            'constraints' => array(
+                new Assert\Regex(array(
+                    'pattern' => '/K1|K2|10[a-z]|[5-9][a-z]/i',
+                    'message' => 'Bitte gültige Klasse eintragen (z.B. K1 oder 6c)'
+                ))
+            )
         ));
     }
 

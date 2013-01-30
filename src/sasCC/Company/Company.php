@@ -52,7 +52,7 @@ class Company {
      * @Id @Column(type="integer") @GeneratedValue
      */
     protected $id;
-    
+       
     public function __construct() {
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chiefs = new \Doctrine\Common\Collections\ArrayCollection();
