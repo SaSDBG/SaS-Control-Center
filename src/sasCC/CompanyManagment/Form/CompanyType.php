@@ -54,7 +54,7 @@ class CompanyType extends AbstractType {
         
         $builder->add('description', 'textarea', array(
             'label' => "Beschreibung",
-            'required' => true,
+            'required' => false,
             'constraints' => array(
                 new Assert\NotBlank(array(
                     'message' => 'Es muss eine Beschreibung eingetragen werden'

@@ -29,7 +29,7 @@ $app->register(new \Silex\Provider\SwiftmailerServiceProvider());
 
 
 $app['db.params'] = array(
-    'driver' => 'pdo_mysql',
+    'driver' => 'pdo_mysql', 
     'user' => 'root',
     'password' => 'foobar',
     'dbname' => 'Symfony',

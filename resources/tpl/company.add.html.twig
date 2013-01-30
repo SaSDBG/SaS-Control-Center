@@ -1,5 +1,21 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form _self %}
+
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+            <div class="alert alert-block">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Achtung!</h4>
+                {{ error.messageTemplate }}
+            </div>                
+        {% endfor %}
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
 {% block content %}
 
 <div class="row">
@@ -9,8 +25,14 @@
 
 <div class="row">
     <form method="post" class="form-horizontal">
-        {{ form_errors(form) }}
 
+        {{ form_errors (form) }}
+        {{ form_errors (form.name) }}
+        {{ form_errors (form.constraints) }}
+        {{ form_errors (form.chiefs) }}
+        {{ form_errors (form.description) }}
+        {{ form_errors (form.needs) }}
+        
         <legend>Allgemeines</legend>
 
         <div class="control-group">
