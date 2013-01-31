@@ -26,6 +26,14 @@
 <div class="row">
     <form method="post" class="form-horizontal">
 
+        {% if r.get("success") %}
+        <div class="alert alert-block alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Success!</h4>
+            Betrieb wurde erfolgreich hinzugef&uuml;gt.
+        </div>
+        {% endif %}
+        
         {{ form_errors (form) }}
         {{ form_errors (form.name) }}
         {{ form_errors (form.constraints) }}
