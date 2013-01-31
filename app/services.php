@@ -62,6 +62,6 @@ $app['em'] = $app->share(function($app) {
 
 
 
-function canRequire($file) {
+function canInclude($file) {
     return is_file($file) && is_readable($file);
 }
