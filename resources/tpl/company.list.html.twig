@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="row">
+    <h1>Betriebsliste</h1>
+</div>
+
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Operationen</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+
+                <tr>
+                    <td>{{ company.getId()|e }}</td>
+                    <td>{{ company.getName()|e }}t</td>
+                    <td><button title="Details anzeigen" class="btn btn-primary"><i class="icon-reorder"></i></button> <button title="Betrieb editieren" class="btn btn-success"><i class="icon-pencil"></i></button> <button title="Betrieb l&ouml;schen" class="btn btn-danger"><i class="icon-trash"></i></button></td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <script>
+        $(document).ready(function(){
+            $("button").tooltip( { "placement" : "bottom" });
+        });
+        </script>
+{% endblock %}
