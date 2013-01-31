@@ -23,6 +23,7 @@ $app->match('/companies/add', function(Request $r) use ($app) {
 })->bind('add_company');
 
 $app->match('/cc/companies/list', function(Request $r, App $app) {
+    return $app->redirect($app->path('home'));
     $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll();
     return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies));
@@ -30,6 +31,7 @@ $app->match('/cc/companies/list', function(Request $r, App $app) {
 })->bind('list_companies');
 
 $app->match('/cc/companies/edit/{id}', function(Request $r, App $app,  $id) {
+    return $app->redirect($app->path('home'));
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Company not Found';
     return handleCompanyEdit(
