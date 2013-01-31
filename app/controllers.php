@@ -52,4 +52,27 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
     return $app['twig']->render('company.add.html.twig', array('form' => $form->createView(), "title" => $title));
 }
 
+$app->match('companies/delete/{id}', function(Request $r, App $app, $id) {
+    $company = $app['em']->find("sasCC\Company\Company", (int) $id);
+    if($company === null) return 'Invalid company';
+
+    
+    $form = $app['form.factory']->createBuilder('form',['sure' => false])
+                ->add('sure', 'checkbox', array(
+                   'label' => 'Ich bin mir sicher.',
+                   'required' => false,
+                ))->getForm();
+ 
+    if($app['request']->getMethod() == 'POST') {
+        $form->bindRequest($app['request']);
+        if ($form->isValid() && $form->getData()['sure'] === true) {
+            $app['em']->remove($company);
+            $app['em']->flush();
+            return $app->redirect($app->path('home', array('deleted_company' => 'true')));
+        }
+    }
+    
+    return $app['twig']->render('company.delete.html.twig', array('form' => $form->createView(), "title" => 'Betrieb löschen'));
+})->bind('delete_company');
+
 ?>
