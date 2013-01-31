@@ -4,6 +4,16 @@
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
+
+/**
+ * Depends on db config in config.php
+ */
+if(canInclude('config.php')) {
+    require 'config.php';
+} else {
+    require 'config.dist.php';
+}
+
 $app['debug'] = true;
 
 $app->register(new \Silex\Provider\FormServiceProvider());
@@ -28,13 +38,7 @@ $app->register(new \Silex\Provider\ValidatorServiceProvider());
 $app->register(new \Silex\Provider\SwiftmailerServiceProvider());
 
 
-$app['db.params'] = array(
-    'driver' => 'pdo_mysql', 
-    'user' => 'root',
-    'password' => 'foobar',
-    'dbname' => 'Symfony',
-    'host' => 'localhost'
-);
+
 
 
 $app['db.connection'] = $app->share(function($c) {
@@ -56,3 +60,8 @@ $app['em'] = $app->share(function($app) {
     return EntityManager::create($app['db.params'], $app['em.config']);
 });
 
+
+
+function canRequire($file) {
+    return is_file($file) && is_readable($file);
+}
