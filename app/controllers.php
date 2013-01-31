@@ -12,7 +12,7 @@ $app->get('/cc', function(Request $r) use ($app) {
     return $app->render('home.html.twig', array("title" => "SaS CP"));
 })->bind('home');
 
-$app->match('/companies/add', function(Request $r) use ($app) {   
+$app->match('/cc/companies/add', function(Request $r) use ($app) {   
     return handleCompanyEdit(
             "Betrieb hinzufügen",
             new Company(),
