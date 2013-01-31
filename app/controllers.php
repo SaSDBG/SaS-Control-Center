@@ -5,6 +5,10 @@ use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
 $app->get('/', function(Request $r) use ($app) {
+    return $app->redirect($app->path('home'));
+});
+
+$app->get('/cc', function(Request $r) use ($app) {
     return $app->render('home.html.twig', array("title" => "SaS CP"));
 })->bind('home');
 
@@ -18,14 +22,14 @@ $app->match('/companies/add', function(Request $r) use ($app) {
 
 })->bind('add_company');
 
-$app->match('/companies/list', function(Request $r, App $app) {
+$app->match('/cc/companies/list', function(Request $r, App $app) {
     $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll();
     return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies));
     
 })->bind('list_companies');
 
-$app->match('/companies/edit/{id}', function(Request $r, App $app,  $id) {
+$app->match('/cc/companies/edit/{id}', function(Request $r, App $app,  $id) {
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Company not Found';
     return handleCompanyEdit(
@@ -52,7 +56,7 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
     return $app['twig']->render('company.add.html.twig', array('form' => $form->createView(), "title" => $title));
 }
 
-$app->match('companies/delete/{id}', function(Request $r, App $app, $id) {
+$app->match('/cc/companies/delete/{id}', function(Request $r, App $app, $id) {
     return $app->redirect($app->path('home'));
     
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
@@ -76,5 +80,13 @@ $app->match('companies/delete/{id}', function(Request $r, App $app, $id) {
     
     return $app['twig']->render('company.delete.html.twig', array('form' => $form->createView(), "title" => 'Betrieb löschen'));
 })->bind('delete_company');
+
+
+$app->get('/login', function(Request $request) use ($app) {
+    return $app['twig']->render('login.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+    ));
+})->bind('login');
 
 ?>

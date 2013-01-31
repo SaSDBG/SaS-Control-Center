@@ -7,4 +7,10 @@ $app['db.params'] = array(
     'dbname' => '',
     'host' => 'localhost'
 );
+
+$app['users'] = array(
+    'user' => array('ROLE', 'pass')
+)
+        
+
 ?>
