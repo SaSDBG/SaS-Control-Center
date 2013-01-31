@@ -19,18 +19,18 @@
 {% block content %}
 
 <div class="row">
-    <h1>Betrieb hinzuf&uuml;gen</h1>
+    <h1>{{ title|e }}</h1>
 </div>
 
 
 <div class="row">
     <form method="post" class="form-horizontal">
 
-        {% if r.get("success") %}
+        {% if app.request.get("success") %}
         <div class="alert alert-block alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>Success!</h4>
-            Betrieb wurde erfolgreich hinzugef&uuml;gt.
+            {{ app.request.get("edited") ? "Betrieb erfolgreich bearbeitet"|e : "Betrieb erfolgreich hinzugefügt"|e }}
         </div>
         {% endif %}
         
