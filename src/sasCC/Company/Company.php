@@ -7,6 +7,7 @@ use sasCC\Pupil\Pupil;
  *
  * @author drak3
  * @Entity
+ * @Table(name="companies")
  */
 class Company {
     

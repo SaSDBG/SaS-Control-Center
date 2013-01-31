@@ -9,6 +9,7 @@ namespace sasCC\Pupil;
 /**
  * Description of Pupil
  * @Entity
+ * @Table(name="pupils")
  * @author drak3
  */
 class Pupil {
@@ -18,6 +19,9 @@ class Pupil {
      */
     protected $firstName;
     
+    /**
+     * @Column
+     */
     protected $lastName;
     
     /**

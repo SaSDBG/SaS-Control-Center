@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  *
  * @author drak3
  * @Entity
+ * @Table(name="constraints")
  */
 class AssignmentConstraints {
         
