@@ -45,16 +45,20 @@ $app->get('/test', function(Request $r) use ($app) {
     return 'success!!';
 });
 
-$app->match('/companies/add', function(Request $r) use ($app) {   
+$app->match('/companies/add', function(Request $r, $success = false) use ($app) {   
     $company = new Company();
     $form = $app['form.factory']->create(new CompanyType(), $company);
+    
+    var_dump($success);
+    
+    var_dump($r->get("success"));
     
     if($r->isMethod('POST')) {
         $form->bindRequest($r);
         if ($form->isValid()) {
             $app['em']->persist($company);
             $app['em']->flush();
-            $app->redirect('add_company');
+            $app->redirect($app->path('add_company', array("success" => true)));
         }
     }
     
