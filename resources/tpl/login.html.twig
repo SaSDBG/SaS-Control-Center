@@ -1,6 +1,29 @@
-<form action="{{ path('cc_login_check') }}" method="post">
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<h1><i class="icon-lock"></i> Login</h1>
+
+<form action="{{ path('cc_login_check') }}" method="post" class="form-horizontal">
     {{ error }}
-    <input type="text" name="_username" value="{{ last_username }}" />
-    <input type="password" name="_password" value="" />
-    <input type="submit" />
-</form>
+
+        <div class="control-group">
+            <label class="control-label" for="_username">Username</label>
+            <div class="controls">
+                <input type="text" id="_username" name="_username" placeholder="Username" value="{{ last_username }}">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="_password">Passwort</label>
+            <div class="controls">
+                <input type="password" id="_password" name="_password" value="">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" class="btn btn-success" value="Einloggen">
+            </div>
+        </div>
+        
+    </form>
+{% endblock %}
