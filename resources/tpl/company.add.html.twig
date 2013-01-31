@@ -59,12 +59,12 @@
                <div class="controls">
                     <ul class="unstyled tags" id="chiefs" data-prototype="{{'<div class="input-prepend">
                                 <span class="add-on">Vorname</span> '|e}}
-                                {{ form_widget(form.chiefs.vars.prototype.name) | e }}
+                                {{ form_widget(form.chiefs.vars.prototype.firstName) | e }}
                             {{ '</div>
                             <div class="input-prepend">
-                                <span class="add-on">Nachname</span>
-                                <input id="appendedPrependedInput" type="text">
-                            </div>
+                                <span class="add-on">Nachname</span>'|e }}
+                                {{ form_widget(form.chiefs.vars.prototype.lastName) | e }}
+                            {{ '</div>
                             <div class="input-prepend">
                                 <span class="add-on">Klasse</span> '|e}}
                                 {{ form_widget(form.chiefs.vars.prototype.rawClass) | e }}
@@ -74,11 +74,11 @@
                        <li>
                             <div class="input-prepend">
                                 <span class="add-on">Vorname</span>
-                                {{ form_widget(chief.name) }}
+                                {{ form_widget(chief.firstName) }}
                             </div>
                             <div class="input-prepend">
                                 <span class="add-on">Nachname</span>
-                                <input id="appendedPrependedInput" type="text">
+                                {{ form_widget(chief.lastName) }}
                             </div>
                             <div class="input-prepend">
                                 <span class="add-on">Klasse</span>
