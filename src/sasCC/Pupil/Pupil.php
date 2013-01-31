@@ -39,6 +39,8 @@ class Pupil {
      */
     protected $company;
     
+    protected $rawClass;
+    
     public function __construct() {
         $this->class = new SchoolClass();
     }
@@ -73,11 +75,12 @@ class Pupil {
     }
     
     public function setRawClass($class) {
+        $this->rawClass = $class;
         $this->setClass(SchoolClass::parse($class));
     }
     
     public function getRawClass() {
-        return $this->getClass()->getGrade().$this->class->getIdentifyer();
+        return $this->rawClass;
     }
     
     public function getCompany() {

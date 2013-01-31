@@ -38,7 +38,6 @@ class SchoolClass {
         $grade = '';
         $id = '';
         $classObj = new self;
-        if(strlen($class) < 2) throw Exception('invalid class given');
         if(substr($class, 0, 2) == 'k1') {
             $grade = 'k1';
             $id = 'k2';
