@@ -80,7 +80,7 @@ class Pupil {
     }
     
     public function getRawClass() {
-        return $this->rawClass;
+        return isset($this->rawClass)? $this->rawClass : $this->class->getGrade().$this->class->getIdentifyer();
     }
     
     public function getCompany() {
