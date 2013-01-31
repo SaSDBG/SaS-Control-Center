@@ -53,6 +53,8 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
 }
 
 $app->match('companies/delete/{id}', function(Request $r, App $app, $id) {
+    return $app->redirect($app->path('home'));
+    
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Invalid company';
 
