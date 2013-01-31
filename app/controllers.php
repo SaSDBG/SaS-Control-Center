@@ -48,7 +48,7 @@ $app->get('/test', function(Request $r) use ($app) {
 $app->match('/companies/add', function(Request $r) use ($app) {   
     $company = new Company();
     $form = $app['form.factory']->create(new CompanyType(), $company);
-
+ 
     if($r->isMethod('POST')) {
         $form->bindRequest($r);
         if ($form->isValid()) {
