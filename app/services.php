@@ -8,11 +8,7 @@ use Doctrine\ORM\EntityManager;
 /**
  * Depends on db config in config.php
  */
-if(canInclude('config.php')) {
-    require 'config.php';
-} else {
-    require 'config.dist.php';
-}
+require 'config.php';
 
 $app['debug'] = true;
 
@@ -59,9 +55,3 @@ $app['em.config'] = $app->share(function($app) {
 $app['em'] = $app->share(function($app) {
     return EntityManager::create($app['db.params'], $app['em.config']);
 });
-
-
-
-function canInclude($file) {
-    return is_file($file) && is_readable($file);
-}

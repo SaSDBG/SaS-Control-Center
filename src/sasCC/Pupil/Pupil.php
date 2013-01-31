@@ -16,7 +16,9 @@ class Pupil {
     /**
      * @Column
      */
-    protected $name;
+    protected $firstName;
+    
+    protected $lastName;
     
     /**
      * @ManyToOne(targetEntity="SchoolClass", inversedBy="pupils", cascade={"persist"})
@@ -41,14 +43,23 @@ class Pupil {
         return $this->id;
     }
     
-    public function getName() {
-        return $this->name;
+    public function getFirstName() {
+        return $this->firstName;
     }
 
-    public function setName($name) {
-        $this->name = $name;
+    public function setFirstName($firstName) {
+        $this->firstName = $firstName;
     }
 
+    public function getLastName() {
+        return $this->lastName;
+    }
+
+    public function setLastName($lastName) {
+        $this->lastName = $lastName;
+    }
+
+    
     public function getClass() {
         return $this->class;
     }
