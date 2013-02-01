@@ -4,26 +4,34 @@
 
 <h1><i class="icon-lock"></i> Login</h1>
 
-<form action="{{ path('check') }}" method="post" class="form-horizontal">
-    {{ error }}
-
-        <div class="control-group">
-            <label class="control-label" for="_username">Username</label>
-            <div class="controls">
-                <input type="text" id="_username" name="_username" placeholder="Username" value="{{ last_username }}">
+<div class="row">
+    <div class="span8 offset2">
+        {% if error %}
+            <div class="alert alert-block alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Error!</h4>
+                The credentials you provided were not correct.
             </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="_password">Passwort</label>
-            <div class="controls">
-                <input type="password" id="_password" name="_password" value="">
+        {% endif %}
+        <form action="{{ path('check') }}" method="post" class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label" for="_username">Username</label>
+                <div class="controls">
+                    <input type="text" id="_username" name="_username" placeholder="Username" value="{{ last_username }}">
+                </div>
             </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" class="btn btn-success" value="Einloggen">
+            <div class="control-group">
+                <label class="control-label" for="_password">Passwort</label>
+                <div class="controls">
+                    <input type="password" id="_password" name="_password" value="">
+                </div>
             </div>
-        </div>
-        
-    </form>
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success"><i class="icon-unlock"></i> Einloggen</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

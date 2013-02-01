@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block navbar %}
-    <li class="active"><a href="{{ url('logout') }}">Logout</a></li>
+{% block navbar_right %}
+<li><a href="{{ url('logout') }}"><i class="icon-off"></i> Logout</a></li>
 {% endblock %}
 
 {% block content %}

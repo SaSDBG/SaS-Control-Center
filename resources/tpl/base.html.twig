@@ -12,63 +12,67 @@
 
         <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap.min.css">
         <style>
-            body {
-                padding-top: 60px;
-                padding-bottom: 40px;
-            }
-        </style>
-        <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/main.css">
-        <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/font-awesome.min.css">
+                body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+                }
+            </style>
+            <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap-responsive.min.css">
+            <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/main.css">
+            <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/font-awesome.min.css">
 
-        <script src="{{ app.request.baseUrl }}/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        
+            <script src="{{ app.request.baseUrl }}/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
         {% block header %}
         {% endblock %}
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="{{ url('home') }}">SMV SaS Panel</a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <li class="active"><a href="{{ url('home') }}">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            {% block navbar %} 
+        </head>
+        <body>
+            <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="{{ url('home') }}">SMV SaS Panel</a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li><a href="{{ url('home') }}">Home</a></li>
+                                <li><a href="#about">About</a></li>
+                            {% block navbar_left %} 
                             {% endblock %}
-                        </ul>
-                    </div><!--/.nav-collapse -->
+                            </ul>
+                            <ul class="nav pull-right">
+                            {% block navbar_right %} 
+                            {% endblock %}   
+                                </ul>
+                            </div><!--/.nav-collapse -->
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="container">
-            
+                <div class="container">
+
             {% block content %}
             {% endblock %}
-            
-            <footer>
-                <hr>
-                <p>&copy; devMX 2013 <em>All rights reserved.</em></p>
-            </footer>
-        </div> <!-- /container -->
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{{ app.request.baseUrl }}/assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+                    <footer>
+                        <hr>
+                        <p>&copy; devMX 2013 <em>All rights reserved.</em></p>
+                    </footer>
+                </div> <!-- /container -->
 
-        <script src="{{ app.request.baseUrl }}/assets/js/vendor/bootstrap.min.js"></script>
-        <script src="{{ app.request.baseUrl }}/assets/js/main.js"></script>
-        
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+                <script>window.jQuery || document.write('<script src="{{ app.request.baseUrl }}/assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+
+                <script src="{{ app.request.baseUrl }}/assets/js/vendor/bootstrap.min.js"></script>
+                <script src="{{ app.request.baseUrl }}/assets/js/main.js"></script>
+
         {% block footer %}
         {% endblock %}
-    </body>
-</html>
+            </body>
+        </html>

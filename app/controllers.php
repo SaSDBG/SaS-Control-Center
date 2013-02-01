@@ -67,8 +67,8 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
     
     $form = $app['form.factory']->createBuilder('form',['sure' => false])
                 ->add('sure', 'checkbox', array(
-                   'label' => 'Ich bin mir sicher.',
-                   'required' => false,
+                   'label' => 'Ich bin mir sicher',
+                   'required' => true,
                 ))->getForm();
  
     if($app['request']->getMethod() == 'POST') {
@@ -76,7 +76,7 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
         if ($form->isValid() && $form->getData()['sure'] === true) {
             $app['em']->remove($company);
             $app['em']->flush();
-            return $app->redirect($app->path('home', array('deleted_company' => 'true')));
+            return $app->redirect($app->path('list_companies', array('deleted' => 'true')));
         }
     }
     
