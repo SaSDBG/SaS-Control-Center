@@ -63,12 +63,18 @@ $app['security.role_hierarchy'] = [
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 
+$app['route_class'] = '\sasCC\Route';
+
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => [
-        'user' => [
-            'pattern' => '^/cc',
-            'form' => array('login_path' => '/login', 'check_path' => '/cc/login_check'),
-            'logout' => array('logout_path' => '/cc/logout'),
+        'unsecured' => [
+          'pattern' => '^/login$',
+        ],
+        'secured' => [
+            'pattern' => '^/.*$',
+            'anonymous' => false,
+            'form' => array('login_path' => '/login', 'check_path' => '/check'),
+            'logout' => array('logout_path' => '/logout'),
             'users' => $app['users'],
         ]
     ]

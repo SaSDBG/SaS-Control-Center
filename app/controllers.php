@@ -5,14 +5,14 @@ use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
 $app->get('/', function(Request $r) use ($app) {
-    return $app->redirect($app->path('home'));
-});
-
-$app->get('/cc', function(Request $r) use ($app) {
+     var_dump($app->user());
+     var_dump($app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV'));
+     var_dump($app['security']->isGranted('ROLE_ADMIN'));
     return $app->render('home.html.twig', array("title" => "SaS CP"));
 })->bind('home');
 
-$app->match('/cc/companies/add', function(Request $r) use ($app) {   
+$app->match('/companies/add', function(Request $r) use ($app) {   
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_CREATE')) return $app->redirect ($app->path('home'));
     return handleCompanyEdit(
             "Betrieb hinzufügen",
             new Company(),
@@ -22,8 +22,9 @@ $app->match('/cc/companies/add', function(Request $r) use ($app) {
 
 })->bind('add_company');
 
-$app->match('/cc/companies/list', function(Request $r, App $app) {
-    return $app->redirect($app->path('home'));
+$app->match('/companies/list', function(Request $r, App $app) {
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app->redirect ($app->path('home'));
+    
     $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll();
     return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies));
@@ -31,7 +32,8 @@ $app->match('/cc/companies/list', function(Request $r, App $app) {
 })->bind('list_companies');
 
 $app->match('/cc/companies/edit/{id}', function(Request $r, App $app,  $id) {
-    return $app->redirect($app->path('home'));
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app->redirect ($app->path('home'));
+    
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Company not Found';
     return handleCompanyEdit(
@@ -58,7 +60,9 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
     return $app['twig']->render('company.add.html.twig', array('form' => $form->createView(), "title" => $title));
 }
 
-$app->match('/cc/companies/delete/{id}', function(Request $r, App $app, $id) {
+$app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_ADMIN')) return $app->redirect ($app->path('home'));
+    
     return $app->redirect($app->path('home'));
     
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
