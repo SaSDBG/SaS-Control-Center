@@ -49,6 +49,11 @@ class Company {
     protected $chiefs;
     
     /**
+     * @Column
+     */
+    protected $category;
+    
+    /**
      * @var int
      * @Id @Column(type="integer") @GeneratedValue
      */
@@ -63,6 +68,15 @@ class Company {
         );
     }
     
+    public function getCategory() {
+        return $this->category;
+    }
+
+    public function setCategory($category) {
+        $this->category = $category;
+    }
+
+        
     public function getDescription() {
         return $this->description;
     }

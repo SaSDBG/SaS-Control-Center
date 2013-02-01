@@ -26,6 +26,19 @@ class CompanyType extends AbstractType {
                 )),
             )
         ));
+        
+        $builder->add('category', 'choice', array(
+            'label' => 'Kategorie',
+            'required' => true,
+            'choices' => [
+                'Essen&Trinken' => 'Essen&Trinken',
+                'Kunst&Kultur' => 'Kunst&Kultur',
+                'Sport' => 'Sport',
+                'Staatlich' => 'Staatlich',
+                'Sonstiges' => 'Sonstiges',
+            ],
+        ));
+        
         //chiefs
         $builder->add('constraints', new ConstraintsType(), array(
             'constraints' => array(
