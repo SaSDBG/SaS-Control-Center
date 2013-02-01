@@ -56,10 +56,6 @@ $app['em'] = $app->share(function($app) {
     return EntityManager::create($app['db.params'], $app['em.config']);
 });
 
-$app['security.role_hierarchy'] = [
-    'ROLE_ADMIN' => ['ROLE_WIRTSCHAFT_ADMIN', 'ROLE_POLITIK_ADMIN', 'ROLE_SONSTIGES_ADMIN', 'ROLE_FINANZEN_ADMIN'],
-    'ROLE_WIRTSCHAFT_ADMIN' => ['ROLE_WIRTSCHAFT_CREATE', 'ROLE_WIRTSCHAFT_PRIV'],
-];
 
 $app->register(new Silex\Provider\SessionServiceProvider());
 
@@ -79,4 +75,14 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
         ]
     ]
 ));
+
+$app['security.role_hierarchy'] = [
+    'ROLE_ADMIN' => ['ROLE_WIRTSCHAFT_ADMIN', 'ROLE_POLITIK_ADMIN', 'ROLE_SONSTIGES_ADMIN', 'ROLE_FINANZEN_ADMIN'],
+    'ROLE_WIRTSCHAFT_ADMIN' => ['ROLE_WIRTSCHAFT_PRIV'],
+    'ROLE_WIRTSCHAFT_PRIV' => ['ROLE_WIRTSCHAFT_CREATE'],
+    'ROLE_WIRTSCHAFT_CREATE' => [],
+    'ROLE_POLITIK_ADMIN' => [],
+    'ROLE_SONSTIGES_ADMIN' => [],
+    'ROLE_FINANZEN_ADMIN' => [],
+];
 

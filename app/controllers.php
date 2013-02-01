@@ -5,9 +5,6 @@ use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
 $app->get('/', function(Request $r) use ($app) {
-     var_dump($app->user());
-     var_dump($app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV'));
-     var_dump($app['security']->isGranted('ROLE_ADMIN'));
     return $app->render('home.html.twig', array("title" => "SaS CP"));
 })->bind('home');
 
