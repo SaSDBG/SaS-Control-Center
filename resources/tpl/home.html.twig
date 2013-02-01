@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block navbar %}
+    <li class="active"><a href="{{ url('logout') }}">Logout</a></li>
+{% endblock %}
+
 {% block content %}
 
 <h1><i class="icon-cog"></i> SasCP &#150; &Uuml;bersicht</h1>
