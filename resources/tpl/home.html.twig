@@ -14,11 +14,13 @@
     <div class="span4">
         <h2><i class="icon-cogs"></i> Betriebe</h2>
         <ul class="nav nav-pills nav-stacked">
-            <li class="nav-header">Allgemeines</li>
+            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
             <li><a href="{{ url("list_companies") }}"><i class="icon-reorder"></i> Betriebe anzeigen</a></li>
-           
-            <li class="nav-header">Change and Add</li>
+            {% endif %}
+            
+            {% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
             <li><a href="{{ url("add_company") }}"><i class="icon-plus"></i>Betrieb hinzuf&uuml;gen</a></li>
+            {% endif %}
         </ul>
     </div>
         
@@ -26,11 +28,13 @@
     <div class="span4">
         <h2><i class="icon-group"></i> Parteien</h2>
          <ul class="nav nav-pills nav-stacked">
-            <li class="nav-header">Allgemeines</li>
+            {% if is_granted('ROLE_POLITIK_PRIV') %}
             <li><a href="#ni" data-toggle="modal"><i class="icon-reorder"></i> Parteien anzeigen</a></li>
+            {% endif %}
             
-            <li class="nav-header">Change and Add</li>
+            {% if is_granted('ROLE_POLITIK_CREATE') %}
             <li><a href="#ni" data-toggle="modal"><i class="icon-plus"></i>Partei hinzuf&uuml;gen</a></li>
+            {% endif %}
         </ul> 
     </div>
     <div class="span4">

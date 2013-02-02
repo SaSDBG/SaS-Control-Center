@@ -19,7 +19,7 @@
 {% block content %}
 
 <div class="row">
-    <h1>{{ title|e }}</h1>
+    <h1><i class="icon-plus-sign"></i> Betrieb hinzuf&uuml;gen</h1>
 </div>
 
 
@@ -30,7 +30,7 @@
         <div class="alert alert-block alert-success">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <h4>Success!</h4>
-            {{ app.request.get("edited") ? "Betrieb erfolgreich bearbeitet"|e : "Betrieb erfolgreich hinzugefügt"|e }}
+            {{ app.request.get("edited") ? "Änderungen gespeichert."|e : "Betrieb erfolgreich hinzugefügt."|e }}
         </div>
         {% endif %}
         
@@ -126,7 +126,7 @@
     
          <div class="control-group">
                <div class="controls">
-                   <button class="btn btn-primary btn-large" type="submit" name="submit" id="button">Betrieb hinzuf&uuml;gen</button>
+                   <button class="btn btn-primary btn-large" type="submit" name="submit" id="button">Speichern</button>
                </div>
         </div>
     </form>

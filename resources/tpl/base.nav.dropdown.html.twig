@@ -1,0 +1,34 @@
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        Aktionen
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        {% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
+        <li class="nav-header"><i class="icon-cogs"></i> Betriebe</li>
+        
+        {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+        <li><a href=""><i class="icon-reorder"></i> Betriebsliste</a></li>
+        {% endif %}
+        
+        {% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
+        <li><a href=""><i class="icon-plus"></i> Betrieb hinzuf&uuml;gen</a></li>
+        {% endif %}
+        
+        <li class="divider"></li>
+        {% endif %}
+        
+        {% if is_granted('ROLE_POLITIK_CREATE') %}
+        <li class="nav-header"><i class="icon-group"></i> Parteien</li>
+        
+        {% if is_granted('ROLE_POLITIK_PRIV') %}
+        <li><a href=""><i class="icon-reorder"></i> Parteiliste</a></li>
+        {% endif %}
+        
+        {% if is_granted('ROLE_POLITIK_CREATE') %}
+        <li><a href=""><i class="icon-plus"></i> Partei hinzuf&uuml;gen</a></li>
+        {% endif %}
+        
+        {% endif %}
+    </ul>
+</li>

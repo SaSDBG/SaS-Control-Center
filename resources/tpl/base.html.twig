@@ -41,38 +41,43 @@
                         <a class="brand" href="{{ url('home') }}">SMV SaS Panel</a>
                         <div class="nav-collapse collapse">
                             <ul class="nav">
-                                <li><a href="{{ url('home') }}">Home</a></li>
-                                <li><a href="#about">About</a></li>
-                            {% block navbar_left %} 
-                            {% endblock %}
+                                <li><a href="{{ url('home') }}">Home</a></li>                          
+                                {% block navbar_left %} 
+                                {% endblock %}
+
+                                {# Include dropdown if logged in #}
+                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                    {% include "base.nav.dropdown.html.twig" %}
+                                {% endif %}
                             </ul>
                             <ul class="nav pull-right">
-                            {% block navbar_right %} 
-                            {% endblock %}   
-                                </ul>
-                            </div><!--/.nav-collapse -->
-                        </div>
+                                <li><a href="#about">About</a></li>
+                                {% block navbar_right %} 
+                                {% endblock %}   
+                            </ul>
+                        </div><!--/.nav-collapse -->
                     </div>
                 </div>
+            </div>
 
-                <div class="container">
+            <div class="container">
 
             {% block content %}
             {% endblock %}
 
-                    <footer>
-                        <hr>
-                        <p>&copy; devMX 2013 <em>All rights reserved.</em></p>
-                    </footer>
-                </div> <!-- /container -->
+                <footer>
+                    <hr>
+                    <p>&copy; devMX 2013 <em>All rights reserved.</em></p>
+                </footer>
+            </div> <!-- /container -->
 
-                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-                <script>window.jQuery || document.write('<script src="{{ app.request.baseUrl }}/assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+            <script>window.jQuery || document.write('<script src="{{ app.request.baseUrl }}/assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
 
-                <script src="{{ app.request.baseUrl }}/assets/js/vendor/bootstrap.min.js"></script>
-                <script src="{{ app.request.baseUrl }}/assets/js/main.js"></script>
+            <script src="{{ app.request.baseUrl }}/assets/js/vendor/bootstrap.min.js"></script>
+            <script src="{{ app.request.baseUrl }}/assets/js/main.js"></script>
 
         {% block footer %}
         {% endblock %}
-            </body>
-        </html>
+        </body>
+    </html>
