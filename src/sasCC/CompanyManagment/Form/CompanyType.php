@@ -49,6 +49,9 @@ class CompanyType extends AbstractType {
         $builder->add('chiefs', 'collection', array(
             'label' => "Betriebsleiter",
             'type' => new PupilType(),
+            'options' => [
+                'error_bubbling' => true,
+            ],
             'allow_add' => true,
             'by_reference' => false,
             'required' => true,
@@ -57,7 +60,8 @@ class CompanyType extends AbstractType {
                     'min' => 1,
                     'minMessage' => 'Es muss mindestens 1 Betriebsleiter eingetragen werden'
                 ))
-            )
+            ),
+            'error_bubbling' => false,
         ));
         
         $builder->add('needs', 'textarea', array(

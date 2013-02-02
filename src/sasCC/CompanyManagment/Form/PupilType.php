@@ -20,14 +20,16 @@ class PupilType extends AbstractType {
             'required' => true,
             'constraints' => array(
                new Assert\NotBlank()
-            )
+            ),
+            'error_bubbling' => true,
         ));
         $builder->add('lastName', null, array(
             'label' => 'Nachname',
             'required' => true,
             'constraints' => array(
                new Assert\NotBlank()
-            )
+            ),
+            'error_bubbling' => true,
         ));
         $builder->add('rawClass', null, array(
             'label' => 'Klasse',
@@ -37,7 +39,8 @@ class PupilType extends AbstractType {
                     'pattern' => '/K1|K2|10[a-z]|[5-9][a-z]/i',
                     'message' => 'Bitte gültige Klasse eintragen (z.B. K1 oder 6c)'
                 ))
-            )
+            ),
+            'error_bubbling' => true,
         ));
     }
 
