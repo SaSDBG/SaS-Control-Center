@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+<div class="row">
+    {% if app.request.get('success') %}
+        User angelegt
+     {% endif %}
+    <p>User Anlegen</p>
+
+    <form action="" method="post">
+            {{ form_widget(form) }}
+            <p><button type="submit" name="submit" class="btn btn-primary"> User erstellen </button></p>
+    </form>
+    
+    </div>
+
+{% endblock %}

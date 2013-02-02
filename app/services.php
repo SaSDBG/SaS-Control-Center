@@ -46,7 +46,7 @@ $app['companies.schemaManager'] = $app->share(function($app){
 });
 
 
-$app['em.entity-paths'] = array(ROOT."/src/sasCC/Company", ROOT."/src/sasCC/Pupil");
+$app['em.entity-paths'] = array(ROOT."/src/sasCC/Company", ROOT."/src/sasCC/Pupil", ROOT.'/src/sasCC/User');
 
 $app['em.config'] = $app->share(function($app) {
     return Setup::createAnnotationMetadataConfiguration($app['em.entity-paths'], $app['debug']);
@@ -61,6 +61,10 @@ $app->register(new Silex\Provider\SessionServiceProvider());
 
 $app['route_class'] = '\sasCC\Route';
 
+$app['user_provider.orm'] = $app->share(function($app) {
+   return new \sasCC\User\EntityUserProvider($app['em']); 
+});
+
 $app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => [
         'unsecured' => [
@@ -71,7 +75,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
             'anonymous' => false,
             'form' => array('login_path' => '/login', 'check_path' => '/check'),
             'logout' => array('logout_path' => '/logout'),
-            'users' => $app['users'],
+            'users' => $app['user_provider.orm'],
         ]
     ]
 ));
