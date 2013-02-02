@@ -25,7 +25,7 @@ class UserType extends AbstractType{
             )
         ));
         
-        $builder->add('plainPass', null, array(
+        $builder->add('plainPass', 'password', array(
             'label' => 'Passwort',
             'required' => true,
             'constraints' => array(

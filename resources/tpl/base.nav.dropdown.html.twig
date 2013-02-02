@@ -1,6 +1,7 @@
+<!-- Actions menu -->
 <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        Aktionen
+        <i class="icon-cog"></i> Aktionen
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
@@ -8,11 +9,11 @@
         <li class="nav-header"><i class="icon-cogs"></i> Betriebe</li>
         
         {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-        <li><a href=""><i class="icon-reorder"></i> Betriebsliste</a></li>
+        <li><a href="{{ url('list_companies') }}"><i class="icon-reorder"></i> Betriebsliste</a></li>
         {% endif %}
         
         {% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
-        <li><a href=""><i class="icon-plus"></i> Betrieb hinzuf&uuml;gen</a></li>
+        <li><a href="{{ url('add_company') }}"><i class="icon-plus"></i> Betrieb hinzuf&uuml;gen</a></li>
         {% endif %}
         
         <li class="divider"></li>
@@ -32,3 +33,17 @@
         {% endif %}
     </ul>
 </li>
+
+<!-- Administrationsmenü -->
+{% if is_granted('ROLE_ADMIN') %}
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-wrench"></i> Administrator
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="nav-header"><i class="icon-group"></i> Benutzerverwaltung</li>
+        <li><a href="{{ url('create_user') }}"><i class="icon-plus"></i> Benutzer hinzuf&uuml;gen</a></li>
+    </ul>
+</li>
+{% endif %}

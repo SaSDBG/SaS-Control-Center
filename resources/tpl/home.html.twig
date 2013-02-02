@@ -6,13 +6,15 @@
 
 {% block content %}
 
-<h1><i class="icon-cog"></i> SasCP &#150; &Uuml;bersicht</h1>
+<h1>SasCP &#150; &Uuml;bersicht</h1>
+
+<h2><i class="icon-cog"></i>  Allgemeine Aufgaben</h2>
 
 <div class="row">
     
     <!-- Companies -->
     <div class="span4">
-        <h2><i class="icon-cogs"></i> Betriebe</h2>
+        <h3><i class="icon-cogs"></i> Betriebe</h3>
         <ul class="nav nav-pills nav-stacked">
             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
             <li><a href="{{ url("list_companies") }}"><i class="icon-reorder"></i> Betriebe anzeigen</a></li>
@@ -26,7 +28,7 @@
         
     <!-- Parties -->
     <div class="span4">
-        <h2><i class="icon-group"></i> Parteien</h2>
+        <h3><i class="icon-group"></i> Parteien</h3>
          <ul class="nav nav-pills nav-stacked">
             {% if is_granted('ROLE_POLITIK_PRIV') %}
             <li><a href="#ni" data-toggle="modal"><i class="icon-reorder"></i> Parteien anzeigen</a></li>
@@ -38,9 +40,21 @@
         </ul> 
     </div>
     <div class="span4">
-        <h2><i class="icon-user"></i> Pupils</h2>
+        <h3><i class="icon-user"></i> Pupils</h3>
     </div>
 </div>
+
+{% if is_granted('ROLE_ADMIN') %}
+<h2><i class="icon-wrench"></i> Administratoraufgaben</h2>
+<div class="row">
+    <div class="span4">
+        <h3><i class="icon-group"></i> Benutzerverwaltung</h3>
+        <ul class="nav nav-pills nav-stacked">          
+            <li><a href="{{ url('create_user') }}" data-toggle="modal"><i class="icon-plus"></i> Benutzer hinzuf&uuml;gen</a></li>
+        </ul> 
+    </div>
+</div>
+{% endif %}
 
 <!-- Modal -->
 <div id="ni" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
