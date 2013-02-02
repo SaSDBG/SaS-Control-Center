@@ -12,15 +12,15 @@ $app->get('/login', function(Request $request) use ($app) {
 })->bind('login');
 
 $app->match('/users/create', function(Request $r) use ($app) {
-     $data = new User();
-     $form = $app['form.factory']->create(new UserType(), $data);
+     $user = new User();
+     $form = $app['form.factory']->create(new UserType(), $user);
      
      if($app['request']->getMethod() == 'POST') {
          $form->bindRequest($app['request']);
          if ($form->isValid()) {
-             $data->setSalt(createSalt());
-             $data->setPassword($app->encodePassword($data, $data->getSalt()));
-             $app['em']->persist($data);
+             $user->setSalt(createSalt());
+             $user->setPassword($app->encodePassword($user, $user->getPlainPass()));
+             $app['em']->persist($user);
              $app['em']->flush();
              return $app->redirect($app->path('create_user', array('success' => true)));
          }
