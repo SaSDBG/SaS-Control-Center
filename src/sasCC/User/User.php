@@ -1,5 +1,6 @@
 <?php
 namespace sasCC\User;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * Description of User
@@ -46,6 +47,15 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface{
     protected $privileges;
     
     protected $plainPass;
+    protected $plainPassSave;
+    
+    public function getPlainPassSave() {
+        return $this->plainPassSave;
+    }
+
+    public function setPlainPassSave($plainPassSave) {
+        $this->plainPassSave = $plainPassSave;
+    }
     
     public function getPlainPass() {
         return $this->plainPass;

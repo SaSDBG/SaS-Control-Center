@@ -27,21 +27,9 @@ $app->match('/users/create', function(Request $r) use ($app) {
      }
     
      return $app['twig']->render('user.create.html.twig', array('form' => $form->createView(), "title" => 'User anlegen'));
-    /*
-     $user = new sasCC\User\User();
-     $user->setUserName('maxr');
-     $salt = base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM));
-     var_dump($salt);
-     $user->setSalt($salt);
-     $user->setPassword($app->encodePassword($user, 'foobar'));
-     $user->setArea('ALLE');
-     $user->setPrivileges('ADMIN');
-     
-     $app['em']->persist($user);
-     $app['em']->flush();
-    */
-})->bind('create_user');
-  //->secure('ROLE_ADMIN');
+})->bind('create_user')
+  ->secure('ROLE_ADMIN');
+
 
 function createSalt() {
     return base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM));
