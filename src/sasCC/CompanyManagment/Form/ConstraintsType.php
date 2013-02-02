@@ -53,7 +53,7 @@ class ConstraintsType extends AbstractType {
             'constraints' => array(
                 new Assert\NotBlank,
                 new Assert\Regex(array(
-                    'pattern' => '/K1|K2|10|[0-9]/i',
+                    'pattern' => '/^(K1|K2|10|[0-9])$/i',
                     'message' => 'Bitte Klassenstufe eintragen (z.B. 5 oder K1)'
                 ))
             )
@@ -64,7 +64,7 @@ class ConstraintsType extends AbstractType {
             'constraints' => array(
                 new Assert\NotBlank,
                 new Assert\Regex(array(
-                    'pattern' => '/K1|K2|10|[0-9]/i',
+                    'pattern' => '/^(K1|K2|10|[0-9])$/i',
                     'message' => 'Bitte Klassenstufe eintragen (z.B. 5 oder K1)',
                 ))
             )
