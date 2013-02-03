@@ -4,6 +4,18 @@ use sasCC\Company\Company;
 use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
+// Company list
+$app->match('/companies/list', function(Request $r, App $app) {
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app->redirect ($app->path('home'));
+    
+    $companies = $app['em']->getRepository('sasCC\Company\Company')
+                           ->findAll();
+    return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies));
+    
+})->bind('list_companies');
+
+
+// Add company
 $app->match('/companies/add', function(Request $r) use ($app) {   
     if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_CREATE')) return $app->redirect ($app->path('home'));
     return handleCompanyEdit(
@@ -15,16 +27,7 @@ $app->match('/companies/add', function(Request $r) use ($app) {
 
 })->bind('add_company');
 
-
-$app->match('/companies/list', function(Request $r, App $app) {
-    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app->redirect ($app->path('home'));
-    
-    $companies = $app['em']->getRepository('sasCC\Company\Company')
-                           ->findAll();
-    return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies));
-    
-})->bind('list_companies');
-
+// Edit company
 $app->match('/cc/companies/edit/{id}', function(Request $r, App $app,  $id) {
     if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app->redirect ($app->path('home'));
     
@@ -33,10 +36,11 @@ $app->match('/cc/companies/edit/{id}', function(Request $r, App $app,  $id) {
     return handleCompanyEdit(
             "Betrieb bearbeiten",
             $company,
-            array('edited' => true),
+            array('edited' => true, "success" => true),
             $app
      );
 })->bind('edit_company');
+
 
 function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
     $form = $app['form.factory']->create(new CompanyType(), $data);
@@ -47,13 +51,14 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
         if ($form->isValid()) {
             $app['em']->persist($data);
             $app['em']->flush();
-            return $app->redirect($app->path('add_company', $pathArgs));
+            return $app->redirect($app->path('list_companies', $pathArgs));
         }
     }
     
     return $app['twig']->render('company.add.html.twig', array('form' => $form->createView(), "title" => $title));
 }
 
+// Delete company
 $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
     if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_ADMIN')) return $app->redirect ($app->path('home'));
     
@@ -73,7 +78,7 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
         if ($form->isValid() && $form->getData()['sure'] === true) {
             $app['em']->remove($company);
             $app['em']->flush();
-            return $app->redirect($app->path('list_companies', array('deleted' => 'true')));
+            return $app->redirect($app->path('list_companies', array('deleted' => 'true', "success" => true)));
         }
     }
     

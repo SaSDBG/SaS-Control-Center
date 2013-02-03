@@ -7,11 +7,17 @@
 
 <div class="row">
 
-    {% if app.request.get("deleted") %}
+    {% if app.request.get("success") %}
     <div class="alert alert-block alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <h4>Success!</h4>
+        {% if app.request.get("deleted") %}
         Betrieb wurde erfolgreich gel&ouml;scht.
+        {% endif %}
+        
+        {% if app.request.get("edited") %}
+        Betrieb wurde erfolgreich editiert.
+        {% endif %}
     </div>
     {% endif %}
 
