@@ -41,7 +41,7 @@ $app->match('/user/changepass', function(Request $r) use ($app) {
     ];
     $form = $app->form($data)
         ->add('oldpass', 'password', [
-            'label' => 'Jetziges Passwort',
+            'label' => 'Aktuelles Passwort',
         ])
         ->addValidator(new CallbackValidator(function($form) use ($user, $app) {
             $pass = $form['oldpass']->getData();
@@ -54,7 +54,7 @@ $app->match('/user/changepass', function(Request $r) use ($app) {
             'label' => 'Neues Passwort'
         ])
         ->add('newpassConfirm', 'password', [
-            'label' => 'Passwort wiederholen'
+            'label' => 'Neues Passwort wiederholen'
         ])
         ->addValidator(new CallbackValidator(function($form) {
             if($form['newpass']->getData() !== $form['newpassConfirm']->getData()) {

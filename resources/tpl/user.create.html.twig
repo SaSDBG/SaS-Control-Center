@@ -2,60 +2,62 @@
 
 {% block content %}
 
-<div class="row">
-    <h1><i class="icon-plus-sign"></i> Benutzer anlegen</h1>
-</div>
+
+<h1><i class="icon-plus-sign"></i> Benutzer anlegen</h1>
+
 
 <div class="row">
-    {% if app.request.get('success') %}
-       <div class="alert alert-block alert-success">
-           <button type="button" class="close" data-dismiss="alert">&times;</button>
-           <h4>Success!</h4>
-           Der Benutzer wurde angelegt.
-       </div>
-    {% endif %}
-    <form method="post" class="form-horizontal">
-        <div class="control-group">
-           {{ form_label(form.userName, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.userName) }}
+    <div class="span12">
+        {% if app.request.get('success') %}
+           <div class="alert alert-block alert-success">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <h4>Success!</h4>
+               Der Benutzer wurde angelegt.
            </div>
-        </div>
-            
-        <div class="control-group">
-           {{ form_label(form.plainPass, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.plainPass) }}
-           </div>
-        </div>
-            
-        <div class="control-group">
-           {{ form_label(form.plainPassSave, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.plainPassSave) }}
-           </div>
-        </div>
-            
-        <div class="control-group">
-           {{ form_label(form.area, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.area) }}
-           </div>
-        </div>
-            
-        <div class="control-group">
-           {{ form_label(form.privileges, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.privileges) }}
-           </div>
-        </div>
-            
-        <div class="control-group">    
-            <div class="controls">
-                <button type="submit" name="submit" class="btn btn-primary">Benutzer erstellen</button>
-            </div>                
-        </div>
+        {% endif %}
+        <form method="post" class="form-horizontal">
+            <div class="control-group">
+               {{ form_label(form.userName, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.userName) }}
+               </div>
+            </div>
 
-    </form>
+            <div class="control-group">
+               {{ form_label(form.plainPass, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.plainPass) }}
+               </div>
+            </div>
+
+            <div class="control-group">
+               {{ form_label(form.plainPassSave, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.plainPassSave) }}
+               </div>
+            </div>
+
+            <div class="control-group">
+               {{ form_label(form.area, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.area) }}
+               </div>
+            </div>
+
+            <div class="control-group">
+               {{ form_label(form.privileges, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.privileges) }}
+               </div>
+            </div>
+            {{ form_rest(form) }} 
+            <div class="control-group">    
+                <div class="controls">
+                    <button type="submit" name="submit" class="btn btn-primary">Benutzer erstellen</button>
+                </div>                
+            </div>
+
+        </form>
+    </div>
 </div>
 {% endblock %}

@@ -1,52 +1,59 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<div class="row">
-    <h1><i class="icon-reorder"></i> Betriebsliste</h1>
-</div>
+
+<h1><i class="icon-reorder"></i> Betriebsliste</h1>
+
 
 <div class="row">
+    <div class="span12">
+        {% if app.request.get("success") %}
+        <div class="alert alert-block alert-success">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4>Success!</h4>
+            {% if app.request.get("deleted") %}
+            Betrieb wurde erfolgreich gel&ouml;scht.
+            {% endif %}
 
-    {% if app.request.get("deleted") %}
-    <div class="alert alert-block alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <h4>Success!</h4>
-        Betrieb wurde erfolgreich gel&ouml;scht.
-    </div>
-    {% endif %}
+            {% if app.request.get("edited") %}
+            Betrieb wurde erfolgreich editiert.
+            {% endif %}
+        </div>
+        {% endif %}
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Operationen</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for company in companies %}
-
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>{{ company.getId()|e }}</td>
-                    <td>{{ company.getName()|e }}</td>
-                    <td>
-                        {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-                        <a href="" title="Details anzeigen" class="btn btn-primary"><i class="icon-reorder"></i></a>
-                        {% endif %}
-                        
-                        {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-                        <a href="{{ url('edit_company',  { "id" : company.getId() } ) }}" title="Betrieb editieren" class="btn btn-success"><i class="icon-pencil"></i></a>
-                        {% endif %}
-                        
-                        {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-                        <a href="{{ url('delete_company',  { "id" : company.getId() } ) }}" title="Betrieb l&ouml;schen" class="btn btn-danger"><i class="icon-trash"></i></a>
-                        {% endif %}
-                    </td>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Operationen</th>
                 </tr>
-        {% endfor %}
-            </tbody>
+            </thead>
+            <tbody>
+            {% for company in companies %}
+
+                    <tr>
+                        <td>{{ company.getId()|e }}</td>
+                        <td>{{ company.getName()|e }}</td>
+                        <td>
+                            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+                            <a href="" title="Details anzeigen" class="btn btn-primary"><i class="icon-reorder"></i></a>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+                            <a href="{{ url('edit_company',  { "id" : company.getId() } ) }}" title="Betrieb editieren" class="btn btn-success"><i class="icon-pencil"></i></a>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+                            <a href="{{ url('delete_company',  { "id" : company.getId() } ) }}" title="Betrieb l&ouml;schen" class="btn btn-danger"><i class="icon-trash"></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+            {% endfor %}
+                </tbody>
         </table>
     </div>
+</div>
 {% endblock %}
 
 {% block footer %}

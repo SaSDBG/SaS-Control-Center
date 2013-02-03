@@ -1,0 +1,16 @@
+<li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-user"></i> Hallo, {{ app.user.userName | e }}
+        {% if is_granted('ROLE_PRIV') %}
+        <i id="intern-user-heart" class="icon-heart"></i>
+        {% endif %}
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-pencil"></i> Passwort &auml;ndern</a></li>
+        <li class="divider"></li>
+        <li>
+            <a href="{{ url('logout') }}"><i class="icon-off"></i> Logout</a>
+        </li>
+    </ul>
+</li>

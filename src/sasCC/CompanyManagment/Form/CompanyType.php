@@ -22,7 +22,7 @@ class CompanyType extends AbstractType {
             'required' => true,
             'constraints' => array(
                 new Assert\NotBlank(array(
-                    'message' => 'Es muss ein Name eingetragen werden'
+                    'message' => 'Es muss ein Name eingetragen werden.'
                 )),
             )
         ));
@@ -58,7 +58,7 @@ class CompanyType extends AbstractType {
             'constraints' => array(
                 new Assert\Count(array(
                     'min' => 1,
-                    'minMessage' => 'Es muss mindestens 1 Betriebsleiter eingetragen werden'
+                    'minMessage' => 'Es muss mindestens ein Betriebsleiter eingetragen werden.'
                 ))
             ),
             'error_bubbling' => false,
@@ -79,7 +79,7 @@ class CompanyType extends AbstractType {
             'required' => false,
             'constraints' => array(
                 new Assert\NotBlank(array(
-                    'message' => 'Es muss eine Beschreibung eingetragen werden'
+                    'message' => 'Es muss eine Beschreibung eingetragen werden.'
                 ))
             )
         ));
