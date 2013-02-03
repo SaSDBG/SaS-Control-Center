@@ -23,46 +23,47 @@
 
 {% block content %}
 
-<div class="row">
-    <h1><i class="icon-plus-sign"></i> Benutzer anlegen</h1>
-</div>
+
+<h1><i class="icon-plus-sign"></i> Passwort &auml;ndern</h1>
 
 <div class="row">
-    {% if app.request.get('success') %}
-       <div class="alert alert-block alert-success">
-           <button type="button" class="close" data-dismiss="alert">&times;</button>
-           <h4>Success!</h4>
-           Das Passwort wurde geändert.
-       </div>
-    {% endif %}
-    <form method="post" class="form-horizontal">
-        <div class="control-group {{ macro.hasError(form.oldpass) }}">
-           {{ form_label(form.oldpass, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.oldpass) }}
+    <div class="span12">
+        {% if app.request.get('success') %}
+           <div class="alert alert-block alert-success">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <h4>Success!</h4>
+               Das Passwort wurde geändert.
            </div>
-        </div>
-            
-        <div class="control-group {{ macro.hasError(form.oldpass) }}">
-           {{ form_label(form.newpass, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.newpass) }}
-           </div>
-        </div>
-            
-        <div class="control-group {{ macro.hasError(form.oldpass) }}">
-           {{ form_label(form.newpassConfirm, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-           <div class="controls">
-           {{ form_widget(form.newpassConfirm) }}
-           </div>
-        </div>
-        {{ form_rest(form) }}
-        <div class="control-group">    
-            <div class="controls">
-                <button type="submit" name="submit" class="btn btn-primary">Benutzer erstellen</button>
-            </div>                
-        </div>
+        {% endif %}
+        <form method="post" class="form-horizontal">
+            <div class="control-group {{ macro.hasError(form.oldpass) }}">
+               {{ form_label(form.oldpass, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.oldpass) }}
+               </div>
+            </div>
 
-    </form>
+            <div class="control-group {{ macro.hasError(form.oldpass) }}">
+               {{ form_label(form.newpass, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.newpass) }}
+               </div>
+            </div>
+
+            <div class="control-group {{ macro.hasError(form.oldpass) }}">
+               {{ form_label(form.newpassConfirm, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(form.newpassConfirm) }}
+               </div>
+            </div>
+            {{ form_rest(form) }}
+            <div class="control-group">    
+                <div class="controls">
+                    <button type="submit" name="submit" class="btn btn-primary">Passwort &auml;ndern</button>
+                </div>                
+            </div>
+
+        </form>
+    </div>
 </div>
 {% endblock %}
