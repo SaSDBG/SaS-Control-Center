@@ -1,4 +1,4 @@
-vendor/
+/vendor/
 nbproject/
 /composer.lock
 app/config.php
