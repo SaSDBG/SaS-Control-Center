@@ -26,7 +26,7 @@ class ConstraintsType extends AbstractType {
                 )),
                 new Assert\Min(array(
                     'limit' => 1,
-                    'message' => 'Es muss mindestens 1 Mitarbeiter beschäftigt werden können',
+                    'message' => 'Es muss mindestens ein Mitarbeiter beschäftigt werden können.',
                 ))
             )
         ));
@@ -38,11 +38,11 @@ class ConstraintsType extends AbstractType {
                 new Assert\NotBlank,
                 new Assert\Type(array(
                     'type' => 'numeric',
-                    'message' => 'Bitte Zahlenwert eintragen'
+                    'message' => 'Bitte Zahlenwert eintragen.'
                 )),
                 new Assert\Min(array(
                     'limit' => 1,
-                    'message' => 'Es muss mindestens 1 Mitarbeiter beschäftigt werden können'
+                    'message' => 'Es muss mindestens ein Mitarbeiter beschäftigt werden können.'
                 ))
             )
         ));
@@ -54,7 +54,7 @@ class ConstraintsType extends AbstractType {
                 new Assert\NotBlank,
                 new Assert\Regex(array(
                     'pattern' => '/^(K1|K2|10|[0-9])$/i',
-                    'message' => 'Bitte Klassenstufe eintragen (z.B. 5 oder K1)'
+                    'message' => 'Bitte Klassenstufe eintragen (z.B. 5 oder K1).'
                 ))
             )
         ));
@@ -65,7 +65,7 @@ class ConstraintsType extends AbstractType {
                 new Assert\NotBlank,
                 new Assert\Regex(array(
                     'pattern' => '/^(K1|K2|10|[0-9])$/i',
-                    'message' => 'Bitte Klassenstufe eintragen (z.B. 5 oder K1)',
+                    'message' => 'Bitte Klassenstufe eintragen (z.B. 5 oder K1).',
                 ))
             )
         ));
