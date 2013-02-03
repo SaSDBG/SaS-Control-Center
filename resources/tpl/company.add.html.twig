@@ -61,19 +61,7 @@
                     {{ form_widget(form.category) }}
                </div>
         </div>
-
-
-        {% for cont in form.constraints %}
-        <div class="control-group {{ macro.hasError(cont) }}">
-               {{ form_label(cont, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-               <div class="controls">
-               {{ form_widget(cont) }}
-               {{ form_errors(cont) }}  
-               </div>
-        </div>
-        {% endfor %}
-
-        <legend>Betriebsleiter</legend>
+        
 
         <div class="control-group {{ macro.hasError(form.chiefs) }}">
             <p>{{ form_errors(form.chiefs) }}</p>
@@ -112,8 +100,6 @@
                     </ul>
                </div>
         </div>
-
-        <legend>Sonstiges</legend>
         
         <div class="control-group {{ macro.hasError(form.description) }}">
                {{ form_label(form.description, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
@@ -121,6 +107,31 @@
                     {{ form_widget(form.description, { 'attr': {'name': 'ckDescr'} }) }}
                </div>
         </div>
+        
+        <legend>Zuteilungsinformationen</legend>
+        
+
+        {% for cont in form.constraints %}
+        <div class="control-group {{ macro.hasError(cont) }}">
+               {{ form_label(cont, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+               {{ form_widget(cont) }}
+               {{ form_errors(cont) }}  
+               </div>
+        </div>
+        {% endfor %}
+
+        <legend>Sonstiges</legend>
+        
+        <div class="control-group {{ macro.hasError(form.desiredRoom) }}">
+               {{ form_label(form.desiredRoom, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+               <div class="controls">
+                    {{ form_widget(form.desiredRoom) }}
+               </div>
+        </div>
+        
+        
+        
         
         <div class="control-group {{ macro.hasError(form.needs) }}">
                {{ form_label(form.needs, "", { 'label_attr': { 'class' : 'control-label' } }) }} 

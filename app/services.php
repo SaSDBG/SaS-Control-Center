@@ -33,6 +33,12 @@ $app->register(new \Silex\Provider\ValidatorServiceProvider());
 
 $app->register(new \Silex\Provider\SwiftmailerServiceProvider());
 
+$app->register(new Silex\Provider\MonologServiceProvider(), array(
+    'monolog.logfile' => ROOT.'/log/app.log',
+    'monolog.name' => 'sas-cc'
+));
+
+
 
 
 

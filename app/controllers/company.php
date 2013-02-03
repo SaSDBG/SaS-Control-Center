@@ -10,7 +10,8 @@ $app->match('/companies/add', function(Request $r) use ($app) {
             "Betrieb hinzufügen",
             new Company(),
             array(),
-            $app
+            $app,
+            sprintf('Betrieb mit ID %%d wurde von %s angelegt', $app->user()->getUserName())
      );
 
 })->bind('add_company');
@@ -34,11 +35,12 @@ $app->match('/cc/companies/edit/{id}', function(Request $r, App $app,  $id) {
             "Betrieb bearbeiten",
             $company,
             array('edited' => true),
-            $app
+            $app,
+            sprintf('Betrieb mit ID %%d wurde von %s bearbeitet', $app->user()->getUserName())
      );
 })->bind('edit_company');
 
-function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
+function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg) {
     $form = $app['form.factory']->create(new CompanyType(), $data);
     $pathArgs = array_merge(array("success" => true), $pathArgs);
  
@@ -47,6 +49,7 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
         if ($form->isValid()) {
             $app['em']->persist($data);
             $app['em']->flush();
+            $app['monolog']->addInfo(sprintf($logMsg, $data->getId()));
             return $app->redirect($app->path('add_company', $pathArgs));
         }
     }
@@ -73,6 +76,7 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
         if ($form->isValid() && $form->getData()['sure'] === true) {
             $app['em']->remove($company);
             $app['em']->flush();
+            $app['monolog']->addInfo(sprintf('Betrieb mit ID %d wurde von %s (%d) gelöscht.', $company->getId(), $app->user()->getUserName(), $app->user()->getId()));
             return $app->redirect($app->path('list_companies', array('deleted' => 'true')));
         }
     }

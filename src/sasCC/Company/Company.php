@@ -54,6 +54,11 @@ class Company {
     protected $category;
     
     /**
+     * @Column(type="text", nullable=true)
+     */
+    protected $desiredRoom;
+    
+    /**
      * @var int
      * @Id @Column(type="integer") @GeneratedValue
      */
@@ -68,6 +73,15 @@ class Company {
         );
     }
     
+    public function getDesiredRoom() {
+        return $this->desiredRoom;
+    }
+
+    public function setDesiredRoom($desiredRoom) {
+        $this->desiredRoom = $desiredRoom;
+    }
+
+        
     public function getCategory() {
         return $this->category;
     }
