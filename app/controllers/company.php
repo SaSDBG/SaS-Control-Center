@@ -6,7 +6,7 @@ use sasCC\App;
 
 // Company list
 $app->match('/companies/list', function(Request $r, App $app) {
-    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app->redirect ($app->path('home'));
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app['twig']->render("403.html.twig");
     
     $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll();
@@ -17,7 +17,7 @@ $app->match('/companies/list', function(Request $r, App $app) {
 
 // Add company
 $app->match('/companies/add', function(Request $r) use ($app) {   
-    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_CREATE')) return $app->redirect ($app->path('home'));
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_CREATE')) return $app['twig']->render("403.html.twig");
     return handleCompanyEdit(
             "Betrieb hinzufügen",
             new Company(),
@@ -28,8 +28,8 @@ $app->match('/companies/add', function(Request $r) use ($app) {
 })->bind('add_company');
 
 // Edit company
-$app->match('/cc/companies/edit/{id}', function(Request $r, App $app,  $id) {
-    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app->redirect ($app->path('home'));
+$app->match('/companies/edit/{id}', function(Request $r, App $app,  $id) {
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app['twig']->render("403.html.twig");
     
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Company not Found';
@@ -60,7 +60,7 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
 
 // Delete company
 $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
-    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_ADMIN')) return $app->redirect ($app->path('home'));
+    if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_ADMIN')) return $app['twig']->render("403.html.twig");
     
     
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
