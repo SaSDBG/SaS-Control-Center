@@ -23,7 +23,8 @@ $app->match('/companies/add', function(Request $r) use ($app) {
             new Company(),
             array(),
             $app,
-            sprintf('Betrieb mit ID %%d wurde von %s angelegt', $app->user()->getUserName())
+            sprintf('Betrieb mit ID %%d wurde von %s angelegt', $app->user()->getUserName()),
+            'add_company'
      );
 
 })->bind('add_company');
@@ -39,11 +40,12 @@ $app->match('/companies/edit/{id}', function(Request $r, App $app,  $id) {
             $company,
             array('edited' => true, 'success' => true),
             $app,
-            sprintf('Betrieb mit ID %%d wurde von %s bearbeitet', $app->user()->getUserName())
+            sprintf('Betrieb mit ID %%d wurde von %s bearbeitet', $app->user()->getUserName()),
+            'list_companies'
      );
 })->bind('edit_company');
 
-function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg) {
+function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg, $redirectRoute) {
     $form = $app['form.factory']->create(new CompanyType(), $data);
     $pathArgs = array_merge(array("success" => true), $pathArgs);
  
@@ -53,7 +55,7 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg) 
             $app['em']->persist($data);
             $app['em']->flush();
             $app['monolog']->addInfo(sprintf($logMsg, $data->getId()));
-            return $app->redirect($app->path('list_companies', $pathArgs));
+            return $app->redirect($app->path($redirectRoute, $pathArgs));
         }
     }
     
