@@ -2,3 +2,4 @@
 nbproject/
 /composer.lock
 app/config.php
+log/app.log

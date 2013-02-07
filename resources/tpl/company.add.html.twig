@@ -15,7 +15,7 @@
     {% if errors|length > 0 %}
         <span class="help-inline">
         {% for error in errors %}
-            {{ error.messageTemplate }}          
+            {{ error.messageTemplate }}
         {% endfor %}
         </span>
     {% endif %}
@@ -50,48 +50,35 @@
             <legend>Allgemeines</legend>
 
             <div class="control-group {{ macro.hasError(form.name) }}">
-                   {{ form_label(form.name, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+                   {{ form_label(form.name, "", { 'label_attr': { 'class' : 'control-label' } }) }}
                    <div class="controls">
                         {{ form_widget(form.name) }}
                    </div>
             </div>
 
             <div class="control-group {{ macro.hasError(form.category) }}">
-                   {{ form_label(form.category, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+                   {{ form_label(form.category, "", { 'label_attr': { 'class' : 'control-label' } }) }}
                    <div class="controls">
                         {{ form_widget(form.category) }}
                    </div>
             </div>
-
-
-            {% for cont in form.constraints %}
-            <div class="control-group {{ macro.hasError(cont) }}">
-                   {{ form_label(cont, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
-                   <div class="controls">
-                   {{ form_widget(cont) }}
-                   {{ form_errors(cont) }}  
-                   </div>
-            </div>
-            {% endfor %}
-
-            <legend>Betriebsleiter</legend>
 
             <div class="control-group {{ macro.hasError(form.chiefs) }}">
                 <p>{{ form_errors(form.chiefs) }}</p>
                    {{ form_label(form.chiefs, "", { 'label_attr': { 'class' : 'control-label' } }) }}
                    <div class="controls">
                         <ul class="unstyled tags" id="chiefs" data-prototype="{{'<div class="input-prepend">
-                                    <span class="add-on">Vorname</span> '|e}}
-                                    {{ form_widget(form.chiefs.vars.prototype.firstName) | e }}
-                                {{ '</div>
-                                <div class="input-prepend">
-                                    <span class="add-on">Nachname</span>'|e }}
-                                    {{ form_widget(form.chiefs.vars.prototype.lastName) | e }}
-                                {{ '</div>
-                                <div class="input-prepend">
-                                    <span class="add-on">Klasse</span> '|e}}
-                                    {{ form_widget(form.chiefs.vars.prototype.rawClass) | e }}
-                                {{ '</div>' | e }}">
+<span class="add-on">Vorname</span> '|e}}
+{{ form_widget(form.chiefs.vars.prototype.firstName) | e }}
+{{ '</div>
+<div class="input-prepend">
+<span class="add-on">Nachname</span>'|e }}
+{{ form_widget(form.chiefs.vars.prototype.lastName) | e }}
+{{ '</div>
+<div class="input-prepend">
+<span class="add-on">Klasse</span> '|e}}
+{{ form_widget(form.chiefs.vars.prototype.rawClass) | e }}
+{{ '</div>' | e }}">
                        {% for chief in form.chiefs %}
                            {{ form_errors(chief) }}
                            <li>
@@ -107,24 +94,46 @@
                                     <span class="add-on">Klasse</span>
                                     {{ form_widget(chief.rawClass) }}
                                 </div>
-                            </li>     
+                            </li>
 
                        {% endfor %}
                         </ul>
                    </div>
             </div>
-
-            <legend>Sonstiges</legend>
-
+            
             <div class="control-group {{ macro.hasError(form.description) }}">
-                   {{ form_label(form.description, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+                   {{ form_label(form.description, "", { 'label_attr': { 'class' : 'control-label' } }) }}
                    <div class="controls">
                         {{ form_widget(form.description, { 'attr': {'name': 'ckDescr'} }) }}
                    </div>
             </div>
 
+            <legend>Zuteilungsinformationen</legend>
+            
+            {% for cont in form.constraints %}
+            <div class="control-group {{ macro.hasError(cont) }}">
+                   {{ form_label(cont, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                   {{ form_widget(cont) }}
+                   {{ form_errors(cont) }}
+                   </div>
+            </div>
+            {% endfor %}
+            
+            
+            <legend>Sonstiges</legend>
+            
+            <div class="control-group {{ macro.hasError(form.desiredRoom) }}">
+                   {{ form_label(form.desiredRoom, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.desiredRoom) }}
+                   </div>
+            </div>
+
+            
+
             <div class="control-group {{ macro.hasError(form.needs) }}">
-                   {{ form_label(form.needs, "", { 'label_attr': { 'class' : 'control-label' } }) }} 
+                   {{ form_label(form.needs, "", { 'label_attr': { 'class' : 'control-label' } }) }}
                    <div class="controls">
                         {{ form_widget(form.needs, { 'attr': {'name': 'ckNeeds'} }) }}
                    </div>
@@ -161,7 +170,7 @@
                     });
                 });
 
-                function addTagForm(collectionHolder, $newLinkLi) 
+                function addTagForm(collectionHolder, $newLinkLi)
                 {
                     var prototype = collectionHolder.data('prototype');
                     var index = collectionHolder.data('index');
@@ -176,7 +185,7 @@
                 <script src="{{ app.request.baseUrl }}/assets/js/ckeditorOptions.js"></script>
                 
                 <script>
-                        CKEDITOR.replace('company[needs]', ckeditorOptionsSmall);  
+                        CKEDITOR.replace('company[needs]', ckeditorOptionsSmall);
                         CKEDITOR.replace('company[description]', ckeditorOptionsSmall);
                 </script>
 {% endblock %}

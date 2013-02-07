@@ -22,7 +22,9 @@ $app->match('/companies/add', function(Request $r) use ($app) {
             "Betrieb hinzufügen",
             new Company(),
             array(),
-            $app
+            $app,
+            sprintf('Betrieb mit ID %%d wurde von %s angelegt', $app->user()->getUserName()),
+            'add_company'
      );
 
 })->bind('add_company');
@@ -36,13 +38,14 @@ $app->match('/companies/edit/{id}', function(Request $r, App $app,  $id) {
     return handleCompanyEdit(
             "Betrieb bearbeiten",
             $company,
-            array('edited' => true, "success" => true),
-            $app
+            array('edited' => true, 'success' => true),
+            $app,
+            sprintf('Betrieb mit ID %%d wurde von %s bearbeitet', $app->user()->getUserName()),
+            'list_companies'
      );
 })->bind('edit_company');
 
-
-function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
+function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg, $redirectRoute) {
     $form = $app['form.factory']->create(new CompanyType(), $data);
     $pathArgs = array_merge(array("success" => true), $pathArgs);
  
@@ -51,7 +54,8 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app) {
         if ($form->isValid()) {
             $app['em']->persist($data);
             $app['em']->flush();
-            return $app->redirect($app->path('list_companies', $pathArgs));
+            $app['monolog']->addInfo(sprintf($logMsg, $data->getId()));
+            return $app->redirect($app->path($redirectRoute, $pathArgs));
         }
     }
     
@@ -78,7 +82,8 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
         if ($form->isValid() && $form->getData()['sure'] === true) {
             $app['em']->remove($company);
             $app['em']->flush();
-            return $app->redirect($app->path('list_companies', array('deleted' => 'true', "success" => true)));
+            $app['monolog']->addInfo(sprintf('Betrieb mit ID %d wurde von %s (%d) gelöscht.', $company->getId(), $app->user()->getUserName(), $app->user()->getId()));
+            return $app->redirect($app->path('list_companies', array('deleted' => 'true', 'success' => 'true')));
         }
     }
     

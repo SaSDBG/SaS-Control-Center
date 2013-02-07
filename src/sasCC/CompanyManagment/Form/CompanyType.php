@@ -69,6 +69,11 @@ class CompanyType extends AbstractType {
             'required' => false,
         ));
         
+        $builder->add('desiredRoom', null, array(
+            'label' => 'Raumwunsch',
+            'required' => false,
+        ));
+        
         $builder->add('description', 'textarea', array(
             'label' => "Beschreibung",
             'required' => false,
