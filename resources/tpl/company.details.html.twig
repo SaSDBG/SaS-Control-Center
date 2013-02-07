@@ -1,0 +1,63 @@
+<div class="modal fade" id="details{{ company.getId() | e }}" aria-labelledby="detailLabel{{ company.getId() | e }}" aria-hidden="true" >  
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="detailLabel{{ company.getId() | e }}">{{ company.getName() | e }}</h3>
+    </div>
+    <div class="modal-body">
+        <legend>Allgemeines</legend>
+        <dl class="dl-horizontal">
+            <dt>Name</dt>
+            <dd>{{ company.getName() | e }}</dd>
+            
+            <dt>Kategorie</dt>
+            <dd>{{ company.getCategory() | e }}</dd>
+            
+            <dt>Betriebsleiter</dt>
+            <dd>
+                <ul>
+                    {% for chief in company.chiefs %}
+                        <li>{{ chief.lastName }}, {{ chief.firstName }} ({{ chief.class.getFullClass() }})</li>
+                    {% endfor %}
+                </ul>
+            </dd>
+            
+            <dt>Beschreibung</dt>
+            <dd>{{ company.description | raw }}</dd>
+        </dl>
+        <legend>Zuteilungsinformationen</legend>
+        <dl class="dl-horizontal">
+            <dt>Min. Arbeitspl&auml;tze</dt>
+            <dd>{{ company.constraints.minimalNumberOfWorkplaces }}</dd>
+            
+            <dt>Max. Arbeitspl&auml;tze</dt>
+            <dd>{{ company.constraints.maximalNumberOfWorkplaces }}</dd>
+            
+            <dt>Min. Klasse</dt>
+            <dd>{{ company.constraints.minimalGrade }}</dd>
+            
+            <dt>Max. Klasse</dt>
+            <dd>{{ company.constraints.maximalGrade }}</dd>
+            
+            {% if company.constraints.specialRules %}
+            <dt>Zuteilungsregeln</dt>
+            <dd>{{ company.constraints.specialRules | raw }}</dd>
+            {% endif %}
+        </dl>
+        {% if company.desiredRoom or company.needs %}
+        <legend>Sonstiges</legend>
+        
+            {% if company.desiredRoom %}
+            <dt>Raumwunsch</dt>
+            <dd>{{ company.desiredRoom }}</dd>
+            {% endif %}
+            
+            {% if company.needs %}
+            <dt>Ben&ouml;tigte Waren</dt>
+            <dd>{{ company.needs | raw }}</dd>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Schließen</button>
+    </div>
+</div>
