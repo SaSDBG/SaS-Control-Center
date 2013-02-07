@@ -54,7 +54,7 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg, 
         if ($form->isValid()) {
             $app['em']->persist($data);
             $app['em']->flush();
-            $app['monolog']->addInfo(sprintf($logMsg, $data->getId()));
+            $app['logger.actions']->addInfo(sprintf($logMsg, $data->getId()));
             return $app->redirect($app->path($redirectRoute, $pathArgs));
         }
     }
@@ -82,7 +82,7 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
         if ($form->isValid() && $form->getData()['sure'] === true) {
             $app['em']->remove($company);
             $app['em']->flush();
-            $app['monolog']->addInfo(sprintf('Betrieb mit ID %d wurde von %s (%d) gelöscht.', $company->getId(), $app->user()->getUserName(), $app->user()->getId()));
+            $app['logger.actions']->addInfo(sprintf('Betrieb mit ID %d wurde von %s (%d) gelöscht.', $company->getId(), $app->user()->getUserName(), $app->user()->getId()));
             return $app->redirect($app->path('list_companies', array('deleted' => 'true', 'success' => 'true')));
         }
     }
