@@ -21,7 +21,7 @@
         </div>
         {% endif %}
 
-        <table class="table table-hover">
+        <table class="table table-hover" id="company-list">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -56,10 +56,30 @@
 </div>
 {% endblock %}
 
+
+{% block header %}
+<link href="{{ app.request.baseUrl }}/assets/dataTables/css/jquery.dataTables.css" type="text/css">
+<link href="{{ app.request.baseUrl }}/assets/dataTables/css/dt.bootstrap.css" type="text/css">
+{% endblock %}
+
+
 {% block footer %}
+    <script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
+    <script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
+    
     <script>
         $(document).ready(function(){
-            $("button").tooltip( { "placement" : "bottom" });
+            $("a").tooltip( { "placement" : "bottom" });
+           
+            $("#company-list").dataTable ({
+                sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+                "sPaginationType": "bootstrap"
+            }); 
+            
+            $.extend( $.fn.dataTableExt.oStdClasses, {
+                "sWrapper": "dataTables_wrapper form-inline"
+            });
         });
-        </script>
+        
+    </script>
 {% endblock %}
