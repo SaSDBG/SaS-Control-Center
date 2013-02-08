@@ -46,9 +46,27 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface{
      */
     protected $privileges;
     
+    /**
+     * @Column(type="boolean")
+     */
+    protected $firstPass = true;
+    
     protected $plainPass;
     protected $plainPassSave;
     
+    public function getFirstPass() {
+        return $this->firstPass;
+    }
+    
+    public function isFirstPass() {
+        return $this->getFirstPass();
+    }
+
+    public function setFirstPass($firstPass) {
+        $this->firstPass = $firstPass;
+    }
+
+        
     public function getPlainPassSave() {
         return $this->plainPassSave;
     }
