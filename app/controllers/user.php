@@ -13,6 +13,13 @@ $app->get('/login', function(Request $request) use ($app) {
     ));
 })->bind('login');
 
+$app->before(function (Request $request) use ($app) {
+    if($app->user() instanceof User && $app->user()->isFirstPass() && $request->getBasePath().$request->getPathInfo() !== $app->path('change_pass')) {
+        return $app->redirect($app->path('change_pass', array('forced' => true)));
+    }
+});
+
+
 $app->match('/users/create', function(Request $r) use ($app) {
      $user = new User();
      $form = $app['form.factory']->create(new UserType(), $user);
@@ -68,9 +75,10 @@ $app->match('/user/changepass', function(Request $r) use ($app) {
             if ($form->isValid()) {
                 $user->setSalt(createSalt());
                 $user->setPassword($app->encodePassword($user, $form->getData()['newpass']));
+                $user->setFirstPass(false);
                 $app['em']->persist($user);
                 $app['em']->flush();
-                return $app->redirect($app->path('change_pass', array('success' => true)));
+                return $app->redirect($app->path('home', array('changed_pass' => true)));
             }
         }
         

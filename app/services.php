@@ -4,6 +4,9 @@
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+
 
 /**
  * Depends on db config in config.php
@@ -35,10 +38,15 @@ $app->register(new \Silex\Provider\SwiftmailerServiceProvider());
 
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => ROOT.'/log/app.log',
-    'monolog.name' => 'sas-cc'
+    'monolog.name' => 'sas-cc.app'
 ));
 
 
+$app['logger.actions'] = $app->share(function($c) {  
+    $logger = new Logger('sas-cc.actions');
+    $logger->pushHandler(new StreamHandler(ROOT.'/log/actions.log', Logger::DEBUG));
+    return $logger;
+});
 
 
 
