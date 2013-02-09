@@ -35,6 +35,15 @@
                Das Passwort wurde geändert.
            </div>
         {% endif %}
+        
+        {% if app.request.get('forced') %}
+            <div class="alert alert-block alert-warning">
+               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <h4>Achtung!</h4>
+               Bitte vor dem fortfahren Passwort ändern.
+           </div>
+        {% endif %}
+            
         <form method="post" class="form-horizontal">
             <div class="control-group {{ macro.hasError(form.oldpass) }}">
                {{ form_label(form.oldpass, "", { 'label_attr': { 'class' : 'control-label' } }) }} 

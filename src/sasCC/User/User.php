@@ -47,7 +47,7 @@ class User implements \Symfony\Component\Security\Core\User\UserInterface{
     protected $privileges;
     
     /**
-     * @Column(type="boolean")
+     * @Column(type="boolean", nullable=false)
      */
     protected $firstPass = true;
     
