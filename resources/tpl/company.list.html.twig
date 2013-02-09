@@ -37,7 +37,7 @@
                         <td>{{ company.getName()|e }}</td>
                         <td>
                             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-                            <a href="" title="Details anzeigen" class="btn btn-primary"><i class="icon-reorder"></i></a>
+                            <button title="Details anzeigen" data-company="{{ company.getId() | e }}" class="btn btn-primary companyDetails"><i class="icon-reorder"></i></button>
                             {% endif %}
 
                             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
@@ -54,6 +54,10 @@
         </table>
     </div>
 </div>
+<div id="companyInfo">
+
+</div>
+
 {% endblock %}
 
 
@@ -69,7 +73,7 @@
     
     <script>
         $(document).ready(function(){
-            $("a").tooltip( { "placement" : "bottom" });
+            $("a, button").tooltip( { "placement" : "bottom" });
            
             $("#company-list").dataTable ({
                 sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
@@ -79,7 +83,31 @@
             $.extend( $.fn.dataTableExt.oStdClasses, {
                 "sWrapper": "dataTables_wrapper form-inline"
             });
+            
+            $(".companyDetails").click(function(){
+                var id = $(this).data("company");
+                
+                if($("#details" + id).length == 0)
+                {
+                    $.ajax({
+                        url: "details/" + id,
+                        type: "GET",
+                        success: function(data) { 
+                            $("#companyInfo").append(data);
+                            showModal(id);
+                            return;
+                        }
+                    });     
+                }
+                
+                showModal(id);
+            });
         });
+        
+        function showModal(id)
+        {
+            $("#details" + id).modal({show: true })
+        }
         
     </script>
 {% endblock %}

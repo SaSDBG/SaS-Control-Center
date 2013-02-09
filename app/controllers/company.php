@@ -4,7 +4,7 @@ use sasCC\Company\Company;
 use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
-// Company list
+// List companies
 $app->match('/companies/list', function(Request $r, App $app) {
     if(!$app['security']->isGranted('ROLE_WIRTSCHAFT_PRIV')) return $app['twig']->render("403.html.twig");
     
@@ -14,6 +14,15 @@ $app->match('/companies/list', function(Request $r, App $app) {
     
 })->bind('list_companies');
 
+// Get company details
+$app->match('/companies/details/{id}', function(Request $r, App $app, $id){
+    $company = $app['em']->find("sasCC\Company\Company", (int)$id);
+    if($company === null) return 'Company not Found';
+    
+    return $app['twig']->render('company.details.html.twig', array("title" => "Betriebsdetails", "company" => $company));
+})
+->bind('company_detail')
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Add company
 $app->match('/companies/add', function(Request $r) use ($app) {   

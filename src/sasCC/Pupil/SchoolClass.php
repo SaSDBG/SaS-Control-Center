@@ -84,6 +84,9 @@ class SchoolClass {
         $this->identifyer = $identifyer;
     }
 
+    public function getFullClass() {
+        return $this->grade . $this->identifyer;
+    }
 
 }
 ?>
