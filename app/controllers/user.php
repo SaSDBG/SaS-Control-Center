@@ -5,6 +5,7 @@ use sasCC\User\User;
 use Symfony\Component\Form\CallbackValidator;
 use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
 
+// Login form
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
         'error'         => $app['security.last_error']($request),
@@ -19,7 +20,7 @@ $app->before(function (Request $request) use ($app) {
     }
 });
 
-
+// User creation
 $app->match('/users/create', function(Request $r) use ($app) {
      $user = new User();
      $form = $app['form.factory']->create(new UserType(), $user);
@@ -39,7 +40,8 @@ $app->match('/users/create', function(Request $r) use ($app) {
 })->bind('create_user')
   ->secure('ROLE_ADMIN');
 
-$app->match('/user/changepass', function(Request $r) use ($app) {
+// Change password
+$app->match('/user/password/change', function(Request $r) use ($app) {
     $user = $app->user();
     $data = [
       'oldpass' => '',
@@ -83,7 +85,8 @@ $app->match('/user/changepass', function(Request $r) use ($app) {
         }
         
         return $app['twig']->render('user.changepass.html.twig', array('form' => $form->createView(), "title" => 'Passwort ändern.'));
-})->bind('change_pass');
+})
+->bind('change_pass');
 
 
 function createSalt() {
