@@ -1,3 +1,5 @@
+{% import "macros.twig" as macros %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -24,7 +26,7 @@
             {% if is_granted('ROLE_PRIV') %}
             <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/intern.css">
             {% endif %}
-            
+
             <script src="{{ app.request.baseUrl }}/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 
         {% block header %}
@@ -45,7 +47,7 @@
                         <a class="brand" href="{{ url('home') }}">SMV SaS Panel</a>
                         <div class="nav-collapse collapse">
                             <ul class="nav">
-                                <li><a href="{{ url('home') }}">Home</a></li>                          
+                                <li {{ macros.activeNav('home') }}><a href="{{ url('home') }}">Home</a></li>                          
                                 {% block navbar_left %} 
                                 {% endblock %}
 

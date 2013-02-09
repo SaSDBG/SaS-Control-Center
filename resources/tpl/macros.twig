@@ -1,0 +1,5 @@
+{% macro activeNav(route) %}
+    {% if (app.request.basePath ~ app.request.pathInfo) == (path(route)) %}
+        {{ 'class="active"' | raw }}
+    {% endif %}
+{% endmacro %}
