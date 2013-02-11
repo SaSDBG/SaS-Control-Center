@@ -3,3 +3,15 @@
         {{ 'class="active"' | raw }}
     {% endif %}
 {% endmacro %}
+
+{% macro errorMsg(message) %}
+    
+{% endmacro %}
+
+{% macro successMsg(message) %}
+    <div class="alert alert-block alert-success fade">
+        <a href="#" type="button" class="close" data-dismiss="alert">&times;</a>
+        <h4>Success!</h4>
+        {{ message }}
+    </div>
+{% endmacro %}

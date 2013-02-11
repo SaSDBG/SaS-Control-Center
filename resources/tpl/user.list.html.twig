@@ -8,17 +8,13 @@
 <div class="row">
     <div class="span12">
         {% if app.request.get("success") %}
-            <div class="alert alert-block alert-success">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <h4>Success!</h4>
             {% if app.request.get("deleted") %}
-                Betrieb wurde erfolgreich gel&ouml;scht.
+                {{ macros.successMsg("Benutzer wurde erfolgreich gelöscht.") }}
             {% endif %}
 
             {% if app.request.get("edited") %}
-                Betrieb wurde erfolgreich editiert.
+                {{ macros.successMsg("Benutzer wurde erfolgreich editiert.") }}
             {% endif %}
-            </div>
         {% endif %}
 
             <table class="table table-hover" id="company-list">

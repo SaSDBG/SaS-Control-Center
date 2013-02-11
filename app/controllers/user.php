@@ -43,13 +43,13 @@ $app->match('/users/create', function(Request $r) use ($app) {
              $user->setPassword($app->encodePassword($user, $user->getPlainPass()));
              $app['em']->persist($user);
              $app['em']->flush();
-             return $app->redirect($app->path('create_user', array('success' => true)));
+             return $app->redirect($app->path('user_create', array('success' => true)));
          }
      }
     
      return $app['twig']->render('user.create.html.twig', array('form' => $form->createView(), "title" => 'User anlegen'));
 })
-->bind('create_user')
+->bind('user_create')
 ->secure('ROLE_ADMIN');
 
 // User edit
@@ -61,8 +61,27 @@ $app->match('/users/edit/{id}', function(Request $r, $id) use ($app) {
 
 // User deletion
 $app->match('/users/delete/{id}', function(Request $r, $id) use ($app) {
+    $user = $app['em']->find("sasCC\User\User", (int) $id);
+    if($user === Null) return "User not found.";
 
     
+    $form = $app['form.factory']->createBuilder('form',['sure' => false])
+                ->add('sure', 'checkbox', array(
+                   'label' => 'Ich bin mir sicher',
+                   'required' => true,
+                ))->getForm();
+ 
+    if($app['request']->getMethod() == 'POST') {
+        $form->bindRequest($app['request']);
+        if ($form->isValid() && $form->getData()['sure'] === true) {
+            $app['em']->remove($user);
+            $app['em']->flush();
+            $app['logger.actions']->addInfo(sprintf('Benutzer mit ID %d wurde von %s (%d) gelöscht.', $user->getId(), $app->user()->getUserName(), $app->user()->getId()));
+            return $app->redirect($app->path('user_list', array('deleted' => 'true', 'success' => 'true')));
+        }
+    }
+    
+    return $app['twig']->render('user.delete.html.twig', array('form' => $form->createView(), "title" => 'Benutzer löschen', "username" => $user->getUserName()));   
 })
 ->bind('user_delete')
 ->secure('ROLE_ADMIN');

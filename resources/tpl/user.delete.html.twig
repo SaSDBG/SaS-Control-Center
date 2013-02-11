@@ -1,0 +1,20 @@
+{% extends 'base.default.html.twig' %}
+
+{% block content %}
+<h1><i class="icon-warning-sign"></i> Sicherheitsabfrage</h1>
+
+<div class="row">
+    <div class="span12">
+        <p>Soll der Benutzer <em>{{ username}}</em> wirklich gel&ouml;scht werden?</p>
+
+        <form method="post">
+            <label class="checkbox">
+                {{ form_widget(form.sure) }} Ja, ich bin mir sicher
+            </label>
+            {{ form_rest(form) }}    
+            <p><button type="submit" name="submit" class="btn btn-danger"><i class="icon-trash"></i> Unwiderruflich löschen</button> <a href="{{ url('user_list') }}" class="btn btn-primary"><i class="icon-remove-sign"></i> Abbrechen</a></p>
+        </form>   
+    </div>
+</div>
+
+{% endblock %}
