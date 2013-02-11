@@ -22,13 +22,12 @@
             <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap-responsive.min.css">
             <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/main.css">
             <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/font-awesome.min.css">
-
-            {% if is_granted('ROLE_PRIV') %}
-            <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/intern.css">
-            {% endif %}
-
+        
+        {% block css %}
+        {% endblock %}
+            
             <script src="{{ app.request.baseUrl }}/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-
+        
         {% block header %}
         {% endblock %}
         </head>
@@ -51,20 +50,16 @@
                                 {% block navbar_left %} 
                                 {% endblock %}
 
-                                {# Include dropdown if logged in #}
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    {% include "base.nav.left.html.twig" %}
-                                {% endif %}
+                                {% block nav_main_dropdown %}
+                                {% endblock %}
                             </ul>
                             <ul class="nav pull-right">
                                 <li><a href="#about">About</a></li>
                                 {% block navbar_right %} 
-
-                                {# Include logout and user information if logged in #}
-                                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                                    {% include "base.nav.user.html.twig" %}
-                                {% endif %}
                                 {% endblock %}   
+                                
+                                {% block nav_user_dropdown %}
+                                {% endblock %}
                             </ul>
                         </div><!--/.nav-collapse -->
                     </div>

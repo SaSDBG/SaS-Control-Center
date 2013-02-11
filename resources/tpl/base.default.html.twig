@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block css %}
+    {% if is_granted('ROLE_PRIV') %}
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/intern.css">
+    {% endif %}
+{% endblock %}
+
+{% block nav_main_dropdown %}
+    {# Include dropdown if logged in #}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% include "base.nav.left.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+{% block nav_user_dropdown %}
+    {# Include logout and user information if logged in #}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% include "base.nav.user.html.twig" %}
+    {% endif %}
+{% endblock %}

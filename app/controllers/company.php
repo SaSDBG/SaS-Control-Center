@@ -53,7 +53,7 @@ $app->match('/companies/edit/{id}', function(Request $r, App $app,  $id) {
      );
 })
 ->bind('edit_company')
-->bind('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg, $redirectRoute) {
     $form = $app['form.factory']->create(new CompanyType(), $data);

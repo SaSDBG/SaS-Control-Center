@@ -13,7 +13,6 @@ use Monolog\Handler\StreamHandler;
  */
 require 'config.php';
 
-$app['debug'] = true;
 
 $app->register(new \Silex\Provider\FormServiceProvider());
 
