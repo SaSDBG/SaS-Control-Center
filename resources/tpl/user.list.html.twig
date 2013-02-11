@@ -1,0 +1,64 @@
+{% extends "base.default.html.twig" %}
+
+{% block content %}
+
+<h1><i class="icon-reorder"></i> Userliste</h1>
+
+
+<div class="row">
+    <div class="span12">
+        {% if app.request.get("success") %}
+            <div class="alert alert-block alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Success!</h4>
+            {% if app.request.get("deleted") %}
+                Betrieb wurde erfolgreich gel&ouml;scht.
+            {% endif %}
+
+            {% if app.request.get("edited") %}
+                Betrieb wurde erfolgreich editiert.
+            {% endif %}
+            </div>
+        {% endif %}
+
+            <table class="table table-hover" id="company-list">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Permissions</th>
+                        <th>Operationen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.getId | e }}</td>
+                        <td>{{ user.getUsername | e }}</td>
+                        <td>
+                            <ul class="unstyled">
+                            {% for role in user.getRoles %}
+                                <li>{{ role | e }}</li>
+                            {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <a href="{{ url('user_edit',  { "id" : user.getId() } ) }}" title="Benutzer editieren" class="btn btn-success"><i class="icon-pencil"></i></a>
+                            <a href="{{ url('user_delete',  { "id" : user.getId() } ) }}" title="Benutzer l&ouml;schen" class="btn btn-danger"><i class="icon-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+<script>
+    $(document).ready(function(){
+            $("a, button").tooltip( { "placement" : "bottom" });
+    });
+</script>
+{% endblock %}

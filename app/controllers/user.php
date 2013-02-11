@@ -20,6 +20,17 @@ $app->before(function (Request $request) use ($app) {
     }
 });
 
+// User list
+$app->match('users/list', function(Request $r) use ($app) {
+    
+    $users = $app['em']->getRepository('sasCC\User\User')
+                       ->findAll();
+    
+    return $app['twig']->render('user.list.html.twig', array("users" => $users, "title" => "Userliste"));
+})
+->bind('user_list')
+->secure('ROLE_ADMIN');
+
 // User creation
 $app->match('/users/create', function(Request $r) use ($app) {
      $user = new User();
@@ -37,8 +48,24 @@ $app->match('/users/create', function(Request $r) use ($app) {
      }
     
      return $app['twig']->render('user.create.html.twig', array('form' => $form->createView(), "title" => 'User anlegen'));
-})->bind('create_user')
-  ->secure('ROLE_ADMIN');
+})
+->bind('create_user')
+->secure('ROLE_ADMIN');
+
+// User edit
+$app->match('/users/edit/{id}', function(Request $r, $id) use ($app) {
+    
+})
+->bind('user_edit')
+->secure('ROLE_ADMIN');
+
+// User deletion
+$app->match('/users/delete/{id}', function(Request $r, $id) use ($app) {
+
+    
+})
+->bind('user_delete')
+->secure('ROLE_ADMIN');
 
 // Change password
 $app->match('/user/password/change', function(Request $r) use ($app) {
