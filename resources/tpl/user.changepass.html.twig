@@ -28,20 +28,12 @@
 
 <div class="row">
     <div class="span12">
-        {% if app.request.get('success') %}
-           <div class="alert alert-block alert-success">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <h4>Success!</h4>
-               Das Passwort wurde geändert.
-           </div>
+        {% if app.request.get('success') %}       
+               {{ macros.successMsg('Das Passwort wurde geändert.') }}
         {% endif %}
         
         {% if app.request.get('forced') %}
-            <div class="alert alert-block alert-warning">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <h4>Achtung!</h4>
-               Bitte aus Sicherheitsgr&uuml; das Passwort ändern.
-           </div>
+               {{ macros.warnMsg('Bitte aus Sicherheitsgr&uuml; das Passwort ändern.') }}
         {% endif %}
             
         <form method="post" class="form-horizontal">

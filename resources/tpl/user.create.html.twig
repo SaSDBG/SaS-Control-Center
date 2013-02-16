@@ -9,11 +9,7 @@
 <div class="row">
     <div class="span12">
         {% if app.request.get('success') %}
-           <div class="alert alert-block alert-success">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
-               <h4>Success!</h4>
-               Der Benutzer wurde angelegt.
-           </div>
+               {{ macros.successMsg('Der Benutzer wurde angelegt.') }}
         {% endif %}
         <form method="post" class="form-horizontal">
             <div class="control-group">

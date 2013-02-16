@@ -12,6 +12,22 @@
     <div class="alert alert-block alert-success fade">
         <a href="#" type="button" class="close" data-dismiss="alert">&times;</a>
         <h4>Success!</h4>
-        {{ message }}
+        {{ message | e }}
+    </div>
+{% endmacro %}
+
+{% macro alertMsg(message) %}
+    <div class="alert alert-block alert-error fade">
+        <a href="#" type="button" class="close" data-dismiss="alert">&times;</a>
+        <h4>Error!</h4>
+        {{ message | e }}
+    </div>
+{% endmacro %}
+
+{% macro warnMsg(message) %}
+    <div class="alert alert-block alert-warning fade">
+        <a href="#" type="button" class="close" data-dismiss="alert">&times;</a>
+        <h4>Achtung!</h4>
+        {{ message | e }}
     </div>
 {% endmacro %}
