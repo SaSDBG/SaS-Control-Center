@@ -13,18 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author drak3
  */
-class UserType extends AbstractType{
+class UserType extends UserTypeNoPassword{
     
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('userName', null, array(
-            'label' => 'Username',
-            'required' => true,
-            'constraints' => array(
-               new Assert\NotBlank()
-            )
-        ));
-        
         $builder->add('plainPass', 'password', array(
             'label' => 'Passwort',
             'required' => true,
@@ -53,28 +45,7 @@ class UserType extends AbstractType{
             }
         }));
         
-        
-        $builder->add('area', 'choice', array(
-            'label' => 'Bereich',
-            'required' => true,
-            'choices' => [
-              'POLITIK' => 'Politik',
-              'SONSTIGES' => 'Sonstiges',
-              'WIRTSCHAFT' => 'Wirtschaft',
-              'FINANZEN' => 'Finanzen',
-              'ALLE' => 'Alle Bereiche'
-            ],
-        ));
-        
-        $builder->add('privileges', 'choice', array(
-           'label' => 'Privilegien',
-            'required' => true,
-            'choices' => [
-                'ADMIN' => 'Administrator',
-                'PRIV' => 'Auflisten und Editieren',
-                'CREATE' => 'Anlegen',
-            ]
-        ));
+        parent::buildForm($builder, $options);
     }
     
     public static function passwordsAreIdentical() {
@@ -82,18 +53,6 @@ class UserType extends AbstractType{
         if(! $user->getPlainPass() === $user->getPlainPassSave()) {
             $context->addViolationAtSubPath('plainPass', 'Die beiden Passwörter müssen übereinstimmen', array(), null);
         }
-    }
-
-    public function getName()
-    {
-        return 'user';
-    }
-    
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'sasCC\User\User',
-        ));
     }
 }
 

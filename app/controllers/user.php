@@ -1,6 +1,7 @@
 <?php
 use Symfony\Component\HttpFoundation\Request;
 use sasCC\User\UserType;
+use sasCC\User\UserTypeNoPassword;
 use sasCC\User\User;
 use Symfony\Component\Form\CallbackValidator;
 use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
@@ -47,14 +48,31 @@ $app->match('/users/create', function(Request $r) use ($app) {
          }
      }
     
-     return $app['twig']->render('user.create.html.twig', array('form' => $form->createView(), "title" => 'User anlegen'));
+     return $app['twig']->render('user.create.html.twig', array('form' => $form->createView(), "title" => 'Benutzer anlegen'));
 })
 ->bind('user_create')
 ->secure('ROLE_ADMIN');
 
 // User edit
 $app->match('/users/edit/{id}', function(Request $r, $id) use ($app) {
+    $user = $app['em']->find('sasCC\User\User', (int)$id);
     
+    if($user === null) return 'User not found';  
+    
+    $form = $app['form.factory']->create(new UserTypeNoPassword(), $user);
+     
+     if($app['request']->getMethod() == 'POST') {
+         $form->bindRequest($app['request']);
+         if ($form->isValid()) {
+             $user->setSalt(createSalt());
+             $user->setPassword($app->encodePassword($user, $user->getPlainPass()));
+             $app['em']->persist($user);
+             $app['em']->flush();
+             return $app->redirect($app->path('user_list', array('success' => true, 'edited' => true)));
+         }
+     }
+    
+     return $app['twig']->render('user.edit.html.twig', array('form' => $form->createView(), "title" => 'Benutzer editieren'));
 })
 ->bind('user_edit')
 ->secure('ROLE_ADMIN');
