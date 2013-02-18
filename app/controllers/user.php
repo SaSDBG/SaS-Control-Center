@@ -64,8 +64,6 @@ $app->match('/users/edit/{id}', function(Request $r, $id) use ($app) {
      if($app['request']->getMethod() == 'POST') {
          $form->bindRequest($app['request']);
          if ($form->isValid()) {
-             $user->setSalt(createSalt());
-             $user->setPassword($app->encodePassword($user, $user->getPlainPass()));
              $app['em']->persist($user);
              $app['em']->flush();
              return $app->redirect($app->path('user_list', array('success' => true, 'edited' => true)));
