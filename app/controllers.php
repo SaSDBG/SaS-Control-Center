@@ -6,6 +6,7 @@ $app->get('/', function(Request $r) use ($app) {
             return $app->render('home.html.twig', array("title" => "SaS CP"));
         })->bind('home');
 
+// Login form
 $app->get('/login', function(Request $request) use ($app) {
     return $app['twig']->render('login.html.twig', array(
         'error'         => $app['security.last_error']($request),
