@@ -8,12 +8,15 @@ use Symfony\Component\Security\Core\Validator\Constraint as SecurityAssert;
 
 // Login form
 $app->get('/login', function(Request $request) use ($app) {
+    
+   // var_dump('<pre>' . $request .'</pre>');
     return $app['twig']->render('login.html.twig', array(
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
         'title' => "Einloggen"
     ));
-})->bind('login');
+})
+->bind('login');
 
 $app->before(function (Request $request) use ($app) {
     if($app->user() instanceof User && $app->user()->isFirstPass() && $request->getBasePath().$request->getPathInfo() !== $app->path('change_pass')) {

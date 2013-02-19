@@ -7,6 +7,7 @@ $app->get('/', function(Request $r) use ($app) {
         })->bind('home');
 
 require_once 'controllers/company.php';
+require_once 'controllers/company.print.php';
 require_once 'controllers/user.php';
 
 
@@ -17,7 +18,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
             }
 
             $page = "000";
-
+          
             switch ($code)
             {
                 case 404:

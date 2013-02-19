@@ -16,7 +16,24 @@
                 {{ macros.successMsg('Betrieb wurde erfolgreich editiert.') }}
             {% endif %}
         {% endif %}
-
+        
+        {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+        <div class="row">
+            <div class="span12">
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-large dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="icon-cog"></i>
+                          <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('company_list_print') }}"><i class="icon-print"></i> Betriebsliste drucken</a></li>
+                        </ul>
+                    </div> 
+            </div>
+        </div>
+        {% endif %}
+   
+        
         <table class="table table-hover" id="company-list">
             <thead>
                 <tr>
