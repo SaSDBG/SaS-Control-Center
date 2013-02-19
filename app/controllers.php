@@ -6,6 +6,15 @@ $app->get('/', function(Request $r) use ($app) {
             return $app->render('home.html.twig', array("title" => "SaS CP"));
         })->bind('home');
 
+$app->get('/login', function(Request $request) use ($app) {
+    return $app['twig']->render('login.html.twig', array(
+        'error'         => $app['security.last_error']($request),
+        'last_username' => $app['session']->get('_security.last_username'),
+        'title' => "Einloggen"
+    ));
+})
+->bind('login');
+        
 require_once 'controllers/company.php';
 require_once 'controllers/company.print.php';
 require_once 'controllers/user.php';
