@@ -1,0 +1,71 @@
+{% import "macros.twig" as macros %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>SMV SaS CP &#150; {{ title|e }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="icon" href="favicon.png" type="image/png">
+
+        <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap.min.css" media="all">
+        <style>
+                body {
+                    padding-top: 60px;
+                    padding-bottom: 40px;
+                }
+            </style>
+            <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/print.css" media="all">
+            <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/font-awesome.min.css" media="all">
+
+        {% block css %}
+        {% endblock %}
+
+        {% block header %}
+        {% endblock %}
+        </head>
+        <body>
+            <!--[if lt IE 7]>
+                <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+            <![endif]-->
+
+            <div class="container">
+                <header>
+                    <div class="row">
+                        <div class="span12">
+                            <p class="center">
+                                <span class="pull-left">SMV</span>
+                                <span>{{ title | e }}</span>
+                                <span class="pull-right">Schule als Staat 2013</span>
+                            </p>
+                            <h1 class="center">{{ title | e }}</h1>
+                        </div>
+                    </div>
+                </header>
+                    <div class="row">
+                        <div class="span12">
+                            <p><strong>Stand:</strong> {{ "now"|date('d.m.Y H:i', timezone="Europe/Berlin") }}<br>
+                            <strong>Bei Fragen:</strong> {{ 'sas@devmx.de' | e }} oder SaS-Orga-Team<br>
+                            SaS CP &#150; &copy; devMX 2013
+                            </p>
+                        </div>
+                    </div>
+                {% block content %}
+                {% endblock %}
+                <footer>
+                    <hr>
+                    <p>
+
+                        SaS CP &#150; &copy; devMX 2013
+                        <span class="pull-right">Stand: {{ "now"|date('d.m.Y H:i', timezone="Europe/Berlin") }}</span>
+                    </p>
+                </footer>
+            </div> <!-- /container -->
+        </body>
+    </html>

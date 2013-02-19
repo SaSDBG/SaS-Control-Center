@@ -98,14 +98,4 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
 })
 ->bind('delete_company')
 ->secure('ROLE_WIRTSCHAFT_ADMIN');
-
-
-$app->get('/login', function(Request $request) use ($app) {
-    return $app['twig']->render('login.html.twig', array(
-        'error'         => $app['security.last_error']($request),
-        'last_username' => $app['session']->get('_security.last_username'),
-        'title' => "Einloggen"
-    ));
-})
-->bind('login')
 ?>
