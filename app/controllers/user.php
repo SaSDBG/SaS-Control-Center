@@ -17,7 +17,7 @@ $app->match('users/list', function(Request $r) use ($app) {
     
     $users = $app['em']->getRepository('sasCC\User\User')
                        ->findAll();
-    
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /users/list', $app->user()->getUserName(), $app->user()->getId()));
     return $app['twig']->render('user.list.html.twig', array("users" => $users, "title" => "Userliste"));
 })
 ->bind('user_list')
@@ -35,6 +35,7 @@ $app->match('/users/create', function(Request $r) use ($app) {
              $user->setPassword($app->encodePassword($user, $user->getPlainPass()));
              $app['em']->persist($user);
              $app['em']->flush();
+             $app['logger.actions']->addInfo(sprintf('User %s (%d) created user %s (%d)', $app->user()->getUserName(), $app->user()->getId(), $user->getUserName(), $user->getId()));
              return $app->redirect($app->path('user_create', array('success' => true)));
          }
      }
@@ -57,6 +58,7 @@ $app->match('/users/edit/{id}', function(Request $r, $id) use ($app) {
          if ($form->isValid()) {
              $app['em']->persist($user);
              $app['em']->flush();
+             $app['logger.actions']->addInfo(sprintf('User %s (%d) edited user %s (%d)', $app->user()->getUserName(), $app->user()->getId(), $user->getUserName(), $user->getId()));
              return $app->redirect($app->path('user_list', array('success' => true, 'edited' => true)));
          }
      }
@@ -133,6 +135,7 @@ $app->match('/user/password/change', function(Request $r) use ($app) {
                 $user->setFirstPass(false);
                 $app['em']->persist($user);
                 $app['em']->flush();
+                $app['logger.actions']->addInfo(sprintf('User %s (%d) changed his password', $app->user()->getUserName(), $app->user()->getId()));
                 return $app->redirect($app->path('home', array('changed_pass' => true)));
             }
         }

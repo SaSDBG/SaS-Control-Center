@@ -5,9 +5,10 @@ use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
 // List companies
-$app->match('/companies/list', function(Request $r, App $app) {  
+$app->match('/companies/list', function(Request $r, App $app) {
     $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll();
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/list', $app->user()->getUserName(), $app->user()->getId()));
     return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies));
     
 })
@@ -18,7 +19,7 @@ $app->match('/companies/list', function(Request $r, App $app) {
 $app->match('/companies/details/{id}', function(Request $r, App $app, $id){
     $company = $app['em']->find("sasCC\Company\Company", (int)$id);
     if($company === null) return 'Company not Found';
-    
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/details/%d', $app->user()->getUserName(), $app->user()->getId(), $id));
     return $app['twig']->render('company.details.html.twig', array("title" => "Betriebsdetails", "company" => $company));
 })
 ->bind('company_detail')
@@ -31,7 +32,7 @@ $app->match('/companies/add', function(Request $r) use ($app) {
             new Company(),
             array(),
             $app,
-            sprintf('Betrieb mit ID %%d wurde von %s angelegt', $app->user()->getUserName()),
+            sprintf('Betrieb mit ID %%d wurde von %s (%d) angelegt', $app->user()->getUserName(), $app->user()->getId()),
             'add_company'
      );
 
@@ -48,7 +49,7 @@ $app->match('/companies/edit/{id}', function(Request $r, App $app,  $id) {
             $company,
             array('edited' => true, 'success' => true),
             $app,
-            sprintf('Betrieb mit ID %%d wurde von %s bearbeitet', $app->user()->getUserName()),
+            sprintf('Betrieb mit ID %%d wurde von %s (%d) bearbeitet', $app->user()->getUserName(), $app->user()->getId()),
             'list_companies'
      );
 })
