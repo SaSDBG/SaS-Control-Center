@@ -1,5 +1,10 @@
 {% extends 'print/print.twig' %}
 
+{% block additional_meta %}
+<strong>Datens&auml;tze:</strong> {{ companies | length }}<br>
+{% endblock %}
+
+
 {% block content %}
 
 {% for company in companies %}

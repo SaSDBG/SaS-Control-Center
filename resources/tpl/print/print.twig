@@ -52,6 +52,8 @@
                         <div class="span12">
                             <p><strong>Stand:</strong> {{ "now"|date('d.m.Y H:i', timezone="Europe/Berlin") }}<br>
                             <strong>Bei Fragen:</strong> {{ 'sas@devmx.de' | e }} oder SaS-Orga-Team<br>
+                            {% block additional_meta %}
+                            {% endblock %}
                             SaS CP &#150; &copy; devMX 2013
                             </p>
                         </div>
