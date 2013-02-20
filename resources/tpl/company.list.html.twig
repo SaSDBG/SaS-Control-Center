@@ -58,7 +58,7 @@
                             {% endif %}
                            
                             {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-                            <a href="{{ url('company_detail_print', { "id" : company.getId() } ) }}" title="Betriebsdetails drucken" class="btn"><i class="icon-print"></i></a>
+                            <button data-href="{{ url('company_detail_print', { "id" : company.getId() } ) }}" title="Betriebsdetails drucken" class="btn companyPrintFilter"><i class="icon-print"></i></button>
                             {% endif %}
                             
                             {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
@@ -74,6 +74,36 @@
 <div id="companyInfo">
 
 </div>
+  
+<div id="companyPrintFilter" class="modal fade" aria-hidden="true" >  
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Druckinformationsauswahl</h3>
+    </div>
+    <div class="modal-body">
+        <p>Bitte ausw&auml;hlen, welche Informationen gedruckt werden sollen:</p>
+        <label class="checkbox">
+            <input type="checkbox" value="1" id="cpf-category" checked="checked" data-v="cat">
+            Betriebskategorie
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" value="1" id="cpf-chiefs" checked="checked" data-v="chf">
+            Betriebsleiter
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" value="1" id="cpf-classes" checked="checked" data-v="class">
+            Maximale und minimale Klasse
+        </label>
+        <label class="checkbox">
+            <input type="checkbox" value="1" id="cpf-capacity" data-v="cap">
+            Maximale und minimale Anzahl an Arbeitspl&auml;tzen
+        </label>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary companyPrintFilterPrint" aria-hidden="true"><i class="icon-print"></i> Drucken</button>
+    </div>
+</div>
+
 
 {% endblock %}
 
@@ -88,43 +118,5 @@
     <script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
     <script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
     
-    <script>
-        $(document).ready(function(){
-            $("a, button").tooltip( { "placement" : "bottom" });
-           
-            $("#company-list").dataTable ({
-                sDom: "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-                "sPaginationType": "bootstrap"
-            }); 
-            
-            $.extend( $.fn.dataTableExt.oStdClasses, {
-                "sWrapper": "dataTables_wrapper form-inline"
-            });
-            
-            $(".companyDetails").click(function(){
-                var id = $(this).data("company");
-                
-                if($("#details" + id).length == 0)
-                {
-                    $.ajax({
-                        url: "details/" + id,
-                        type: "GET",
-                        success: function(data) { 
-                            $("#companyInfo").append(data);
-                            showModal(id);
-                            return;
-                        }
-                    });     
-                }
-                
-                showModal(id);
-            });
-        });
-        
-        function showModal(id)
-        {
-            $("#details" + id).modal({show: true })
-        }
-        
-    </script>
+    <script src="{{ app.request.baseUrl }}/assets/js/company.js"></script>
 {% endblock %}
