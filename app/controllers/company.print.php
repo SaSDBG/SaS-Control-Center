@@ -19,6 +19,7 @@ $app->match('/companies/details/{id}/print', function (Request $r, App $app, $id
     $company = $app['em']->find("sasCC\Company\Company", (int)$id);
     if($company === null) return 'Company not Found';
     
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) printed details of company with id %d', $app->user()->getUserName(), $app->user()->getId(), $company->getId()));
     return $app['twig']->render('company/company.print.twig', array("title" => "Betriebsdetails", "company" => $company));
     
 })
