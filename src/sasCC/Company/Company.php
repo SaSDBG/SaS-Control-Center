@@ -9,7 +9,7 @@ use sasCC\Pupil\Pupil;
  * @Entity
  * @Table(name="companies")
  */
-class Company {
+class Company { 
     
     /**
      * @var String

@@ -101,13 +101,25 @@ $app->match('/companies/{id}/delete', function(Request $r, App $app, $id) {
 ->secure('ROLE_WIRTSCHAFT_ADMIN');
 
 // Mark company to delete
-$app->match('/companies/{id}/delete/mark/{val}', function(Request $r, App $app, $id, $val) {
-    $val = $val == 0 ? false : true;
+$app->match('/companies/{id}/delete/mark', function(Request $r, App $app, $id) {
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Invalid company';
-    $company->setIsMarkedToDelete($val);
+    
+    $val = 0;
+    
+    if($company->getIsMarkedToDelete())
+    {
+        $company->setIsMarkedToDelete(0);
+        $val = 0;
+    }
+    else 
+    {
+        $company->setIsMarkedToDelete(1);
+        $val = 1;
+    }
+    
     $app['em']->flush();
-    return '';
+    return $val;
 })
 ->bind('company_delete_mark')
 ->secure('ROLE_WIRTSCHAFT_PRIV');

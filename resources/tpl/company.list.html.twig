@@ -3,8 +3,6 @@
 {% block content %}
 
 <h1><i class="icon-reorder"></i> Betriebsliste</h1>
-
-
 <div class="row">
     <div class="span12">
         {% if app.request.get("success") %}
@@ -33,13 +31,14 @@
         </div>
         {% endif %}
    
-        
+<legend>Liste</legend>      
         <table class="table table-hover" id="company-list">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
                     <th>Operationen</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -61,14 +60,26 @@
                             <button data-href="{{ url('company_detail_print', { "id" : company.getId() } ) }}" title="Betriebsdetails drucken" class="btn companyPrintFilter"><i class="icon-print"></i></button>
                             {% endif %}
                             
+                            {% if is_granted ('ROLE_WIRTSCHAFT_PRIV') %}
+                            <button data-id="{{ company.getId()|raw}}" title="Zum Löschen (de)markieren" class="btn companyToggleDelete"><i class="icon-flag"></i></button>   
+                            {% endif %}
+                            
                             {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
                             <a href="{{ url('delete_company',  { "id" : company.getId() } ) }}" title="Betrieb l&ouml;schen" class="btn btn-danger"><i class="icon-trash"></i></a>
                             {% endif %}
+                        </td>
+                        <td>
+                            <span class="to-delete-badge{{ company.getId() | raw }} badge badge-warning" {% if company.isMarkedToDelete == 0 %} style="display:none"{% endif %}>z.L.vgm.</span>
                         </td>
                     </tr>
             {% endfor %}
                 </tbody>
         </table>
+            <legend>Legende</legend>
+            <dl class="dl-horizontal">
+                <dt><span class="badge badge-warning">z.L.vgm.</span></dt>
+                <dd>zum L&ouml;schen vorgemerkt.</dd>
+            </dl>
     </div>
 </div>
 <div id="companyInfo">
