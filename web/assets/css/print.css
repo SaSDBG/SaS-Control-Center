@@ -1,3 +1,13 @@
+
+@media print
+{
+    .noprint
+    {
+        display:none;
+    }
+
+}
+
 .container
 {
     margin-left: 10px !important;
