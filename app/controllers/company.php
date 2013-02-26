@@ -99,4 +99,13 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
 })
 ->bind('delete_company')
 ->secure('ROLE_WIRTSCHAFT_ADMIN');
+
+$app->match('/companies/markdelete/{id}/{val}', function(Request $r, App $app, $id, $val) {
+    $val = $val == 0 ? false : true;
+    $company = $app['em']->find("sasCC\Company\Company", (int) $id);
+    if($company === null) return 'Invalid company';
+    $company->setIsMarkedToDelete($val);
+    $app['em']->flush();
+    return '';
+});
 ?>

@@ -59,6 +59,11 @@ class Company {
     protected $desiredRoom;
     
     /**
+     * @Column(type="boolean")
+     */
+    protected $isMarkedToDelete = false;
+    
+    /**
      * @var int
      * @Id @Column(type="integer") @GeneratedValue
      */
@@ -73,6 +78,18 @@ class Company {
         );
     }
     
+    public function getIsMarkedToDelete() {
+        return $this->isMarkedToDelete;
+    }
+
+    public function setIsMarkedToDelete($isMarkedToDelete) {
+        $this->isMarkedToDelete = $isMarkedToDelete;
+    }
+
+    public function isMarkedToDelete() {
+        return $this->getIsMarkedToDelete();
+    }
+        
     public function getDesiredRoom() {
         return $this->desiredRoom;
     }
