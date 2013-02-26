@@ -15,16 +15,6 @@ $app->match('/companies/list', function(Request $r, App $app) {
 ->bind('list_companies')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
 
-// Get company details
-$app->match('/companies/details/{id}', function(Request $r, App $app, $id){
-    $company = $app['em']->find("sasCC\Company\Company", (int)$id);
-    if($company === null) return 'Company not Found';
-    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/details/%d', $app->user()->getUserName(), $app->user()->getId(), $id));
-    return $app['twig']->render('company.details.html.twig', array("title" => "Betriebsdetails", "company" => $company));
-})
-->bind('company_detail')
-->secure('ROLE_WIRTSCHAFT_PRIV');
-
 // Add company
 $app->match('/companies/add', function(Request $r) use ($app) {   
     return handleCompanyEdit(
@@ -40,8 +30,18 @@ $app->match('/companies/add', function(Request $r) use ($app) {
 ->bind('add_company')
 ->secure('ROLE_WIRTSCHAFT_CREATE');
 
+// Get company details
+$app->match('/companies/{id}/details', function(Request $r, App $app, $id){
+    $company = $app['em']->find("sasCC\Company\Company", (int)$id);
+    if($company === null) return 'Company not Found';
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/details/%d', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('company.details.html.twig', array("title" => "Betriebsdetails", "company" => $company));
+})
+->bind('company_detail')
+->secure('ROLE_WIRTSCHAFT_PRIV');
+
 // Edit company
-$app->match('/companies/edit/{id}', function(Request $r, App $app,  $id) {   
+$app->match('/companies/{id}/edit', function(Request $r, App $app,  $id) {   
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Company not Found';
     return handleCompanyEdit(
@@ -74,7 +74,7 @@ function handleCompanyEdit($title, Company $data, $pathArgs, App $app, $logMsg, 
 }
 
 // Delete company
-$app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {  
+$app->match('/companies/{id}/delete', function(Request $r, App $app, $id) {  
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Invalid company';
 
@@ -100,12 +100,15 @@ $app->match('/companies/delete/{id}', function(Request $r, App $app, $id) {
 ->bind('delete_company')
 ->secure('ROLE_WIRTSCHAFT_ADMIN');
 
-$app->match('/companies/markdelete/{id}/{val}', function(Request $r, App $app, $id, $val) {
+// Mark company to delete
+$app->match('/companies/{id}/delete/mark/{val}', function(Request $r, App $app, $id, $val) {
     $val = $val == 0 ? false : true;
     $company = $app['em']->find("sasCC\Company\Company", (int) $id);
     if($company === null) return 'Invalid company';
     $company->setIsMarkedToDelete($val);
     $app['em']->flush();
     return '';
-});
+})
+->bind('company_delete_mark')
+->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>
