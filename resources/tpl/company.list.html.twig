@@ -37,6 +37,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Kategorie</th>
                     <th>Operationen</th>
                     <th></th>
                 </tr>
@@ -47,6 +48,7 @@
                     <tr>
                         <td>{{ company.getId()|e }}</td>
                         <td>{{ company.getName()|e }}</td>
+                        <td>{{ company.getCategory() |e }}</td>
                         <td>
                             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
                             <button title="Details anzeigen" data-company="{{ company.getId() | e }}" class="btn btn-primary companyDetails"><i class="icon-reorder"></i></button>
