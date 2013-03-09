@@ -108,4 +108,21 @@ $app->match('/companies/markdelete/{id}/{val}', function(Request $r, App $app, $
     $app['em']->flush();
     return '';
 });
+
+$app->get('/companies/export/csv', function(Request $r, App $app) {
+    $companies = $app['em']->getRepository('sasCC\Company\Company')
+                           ->findAll();
+    $escape = function ($string) {
+        if(strstr($string, ';') === false) {
+            return $string;
+        } else {
+            return '"'.html_entity_decode(str_replace('"', '""', $string)).'"';
+        }
+    };
+    $csvFilter = new Twig_SimpleFilter('ecsv', $escape);
+    $app['twig']->addFilter($csvFilter);
+    $content = $app['twig']->render('company/company.export.csv.twig', array('companies' => $companies));
+    return new \Symfony\Component\HttpFoundation\Response($content, 200, ['Content-type' => 'text/comma-separated-values', 'Content-Disposition' => 'inline; filename="betriebe.csv"']);
+})->bind('csvexport_company')
+  ->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>

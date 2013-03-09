@@ -1,0 +1,6 @@
+{% autoescape false %}
+Name;Kategorie;Beschreibung;Min. Arbeitspläte;Max. Arbeitsplätze;Min. Klasse; Max. Klasse;Raumwunsch;Benötigte Waren
+{% for company in companies %}
+{{company.name|ecsv}};{{company.category|ecsv}};{{company.description|striptags|ecsv}};{{company.constraints.minimalNumberOfWorkplaces|ecsv}};{{company.constraints.maximalNumberOfWorkplaces|ecsv}};{{company.constraints.minimalGrade|ecsv}};{{company.constraints.maximalGrade|ecsv}};{{company.desiredRoom|striptags|ecsv}};{{company.needs|striptags|ecsv}}
+{% endfor %}
+{% endautoescape %}
