@@ -6,8 +6,7 @@
     <div class="span12">
         <div class="company">
             <!-- ID and title -->
-            <div class="span12">
-                 <div class="row">
+                 <div class="row-fluid">
                     <div class="span1">
                         <p class="company-id">{{ company.getId | e }}</p>
                     </div>
@@ -17,7 +16,7 @@
                 </div>
 
                 <!-- Meta and description -->
-                <div class="row">
+                <div class="row-fluid">
                     <div class="span7">
                         <div class="company-description">
                         {{ company.getDescription | raw }}
@@ -47,7 +46,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
