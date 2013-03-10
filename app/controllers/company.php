@@ -124,7 +124,8 @@ $app->match('/companies/{id}/delete/mark', function(Request $r, App $app, $id) {
 ->bind('company_delete_mark')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
 
-$app->get('/companies/export/csv', function(Request $r, App $app) {
+// CSV export
+$app->get('/companies/list/export/csv', function(Request $r, App $app) {
     $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll();
     $escape = function ($string) {
@@ -136,8 +137,11 @@ $app->get('/companies/export/csv', function(Request $r, App $app) {
     };
     $csvFilter = new Twig_SimpleFilter('ecsv', $escape);
     $app['twig']->addFilter($csvFilter);
-    $content = $app['twig']->render('company/company.export.csv.twig', array('companies' => $companies));
-    return new \Symfony\Component\HttpFoundation\Response($content, 200, ['Content-type' => 'text/comma-separated-values', 'Content-Disposition' => 'inline; filename="betriebe.csv"']);
-})->bind('csvexport_company')
+    
+    $content = "\xEF\xBB\xBF";
+    $content .= $app['twig']->render('company/company.export.csv.twig', array('companies' => $companies));
+    
+    return new \Symfony\Component\HttpFoundation\Response($content, 200, ['Content-type' => 'text/csv; charset:UTF-8', 'Content-Disposition' => 'attachment; filename="betriebe.csv"', 'Content-Encoding' => 'UTF-8']);
+})->bind('company_export_csv')
   ->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>
