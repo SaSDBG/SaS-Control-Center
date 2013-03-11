@@ -110,4 +110,3 @@ function showModal(id)
         show: true
     })
 }
-

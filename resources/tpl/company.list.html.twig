@@ -33,7 +33,7 @@
         {% endif %}
    
 <legend>Liste</legend>      
-        <table class="table table-hover" id="company-list">
+    <table class="table table-hover" id="company-list">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -129,8 +129,7 @@
 
 
 {% block footer %}
-    <script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
+<script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
     <script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
-    
     <script src="{{ app.request.baseUrl }}/assets/js/company.js"></script>
 {% endblock %}
