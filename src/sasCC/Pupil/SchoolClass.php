@@ -46,7 +46,7 @@ class SchoolClass {
         $classObj = new self;
         if(substr($class, 0, 2) == 'k1') {
             $grade = 'k';
-            $id = '2';
+            $id = '1';
         }
         else if(substr($class, 0, 2) == 'k2') {
             $grade = 'k';
