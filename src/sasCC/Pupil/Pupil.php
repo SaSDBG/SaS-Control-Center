@@ -23,7 +23,7 @@ class Pupil {
      * @Column
      */
     protected $lastName;
-    
+        
     /**
      * @ManyToOne(targetEntity="SchoolClass", inversedBy="pupils", cascade={"persist"})
      */
@@ -44,6 +44,11 @@ class Pupil {
     public function __construct() {
         $this->class = new SchoolClass();
     }
+    
+
+    public function isTeacher() {
+        return $this->getClass()->isTeacher();
+    }    
     
     public function getId() {
         return $this->id;

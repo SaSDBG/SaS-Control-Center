@@ -14,12 +14,12 @@ namespace sasCC\Pupil;
 class SchoolClass {
     
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable="true")
      */
     protected $grade;
     
     /**
-     * @Column(type="string")
+     * @Column(type="string", nullable="true")
      */
     protected $identifyer;
     
@@ -27,6 +27,12 @@ class SchoolClass {
      * @OneToMany(targetEntity="Pupil", mappedBy="class", cascade={"persist"})
      */
     protected $pupils;
+    
+    /**
+     *
+     * @Column(type="boolean", default=false)
+     */
+    protected $isTeacher;
     
     /**
      * @Id @Column(type="integer") @GeneratedValue
@@ -60,6 +66,18 @@ class SchoolClass {
         return $classObj;
     }
     
+    public function getIsTeacher() {
+        return $this->isTeacher;
+    }
+
+    public function setIsTeacher($isTeacher) {
+        $this->isTeacher = $isTeacher;
+    }
+    
+    public function isTeacher() {
+        return $this->getIsTeacher();
+    }
+        
     public function __construct() {
         $this->pupils = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -85,7 +103,14 @@ class SchoolClass {
     }
 
     public function getFullClass() {
+        if($this->isTeacher()) {
+            return 'Lehrer';
+        }
         return $this->grade . $this->identifyer;
+    }
+    
+    public function __toString() {
+        return $this->getFullClass();
     }
 
 }
