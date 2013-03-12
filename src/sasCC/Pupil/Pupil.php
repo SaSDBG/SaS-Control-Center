@@ -95,6 +95,11 @@ class Pupil {
     public function setCompany($company) {
         $this->company = $company;
     }
+    
+    public function getFullName()
+    {
+        return "{$this->lastName} {$this->firstName} ({$this->getRawClass()})";
+    }
 
  }
 

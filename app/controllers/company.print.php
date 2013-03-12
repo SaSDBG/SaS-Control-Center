@@ -12,7 +12,7 @@ $app->match('/companies/list/print', function (Request $r, App $app){
     return $app['twig']->render('company/company.list.print.twig', array("title" => "Betriebsliste", "companies" => $companies));
 })
 ->bind('company_list_print')
-->secure('ROLE_WIRTSCHAFT_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Print company details
 $app->match('/companies/details/{id}/print', function (Request $r, App $app, $id){
@@ -24,5 +24,5 @@ $app->match('/companies/details/{id}/print', function (Request $r, App $app, $id
     
 })
 ->bind('company_detail_print')
-->secure('ROLE_WIRTSCHAFT_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>

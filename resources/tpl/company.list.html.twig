@@ -33,12 +33,13 @@
         {% endif %}
    
 <legend>Liste</legend>      
-        <table class="table table-hover" id="company-list">
+    <table class="table table-hover" id="company-list">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
                     <th>Kategorie</th>
+                    <th>Betriebsleiter</th>
                     <th>Operationen</th>
                     <th></th>
                 </tr>
@@ -50,6 +51,13 @@
                         <td>{{ company.getId()|e }}</td>
                         <td>{{ company.getName()|e }}</td>
                         <td>{{ company.getCategory() |e }}</td>
+                        <td>
+                            <ul>
+                            {% for chief in company.getChiefs() %}
+                                <li>{{ chief.getFullName() | e }}</li>                                
+                            {% endfor %}
+                            </ul>
+                        </td>
                         <td>
                             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
                             <button title="Details anzeigen" data-company="{{ company.getId() | e }}" class="btn btn-primary companyDetails"><i class="icon-reorder"></i></button>
@@ -129,8 +137,7 @@
 
 
 {% block footer %}
-    <script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
+<script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
     <script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
-    
     <script src="{{ app.request.baseUrl }}/assets/js/company.js"></script>
 {% endblock %}
