@@ -85,7 +85,7 @@ class Pupil {
     }
     
     public function getRawClass() {
-        return isset($this->rawClass)? $this->rawClass : $this->class->getGrade().$this->class->getIdentifyer();
+        return isset($this->rawClass)? $this->rawClass : $this->class->getFullClass();
     }
     
     public function getCompany() {

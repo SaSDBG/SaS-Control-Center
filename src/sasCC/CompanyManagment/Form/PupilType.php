@@ -36,8 +36,8 @@ class PupilType extends AbstractType {
             'required' => true,
             'constraints' => array(
                 new Assert\Regex(array(
-                    'pattern' => '/K1|K2|10[a-z]|[5-9][a-z]/i',
-                    'message' => 'Bitte gültige Klasse eintragen (z.B. K1 oder 6c).'
+                    'pattern' => '/K1|K2|10[a-z]|[5-9][a-z]|lehrer/i',
+                    'message' => 'Bitte gültige Klasse eintragen (z.B. 5c, K1 oder Lehrer).'
                 ))
             ),
             'error_bubbling' => true,

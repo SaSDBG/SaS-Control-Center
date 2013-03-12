@@ -14,12 +14,12 @@ namespace sasCC\Pupil;
 class SchoolClass {
     
     /**
-     * @Column(type="string", nullable="true")
+     * @Column(type="string")
      */
     protected $grade;
     
     /**
-     * @Column(type="string", nullable="true")
+     * @Column(type="string")
      */
     protected $identifyer;
     
@@ -30,7 +30,7 @@ class SchoolClass {
     
     /**
      *
-     * @Column(type="boolean", default=false)
+     * @Column(type="boolean")
      */
     protected $isTeacher;
     
@@ -44,6 +44,12 @@ class SchoolClass {
         $grade = '';
         $id = '';
         $classObj = new self;
+        if($class === 'lehrer') {
+            $classObj->setGrade('lehrer');
+            $classObj->setIdentifyer(0);
+            $classObj->setIsTeacher(true);
+            return $classObj;
+        }
         if(substr($class, 0, 2) == 'k1') {
             $grade = 'k';
             $id = '1';
