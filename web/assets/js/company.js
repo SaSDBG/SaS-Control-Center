@@ -39,7 +39,7 @@ $(document).ready(function() {
         if ($("#details" + id).length == 0)
         {
             $.ajax({
-                url: id + "/details",
+                url: id + "/details/modal",
                 type: "GET",
                 success: function(data) {
                     $("#companyInfo").append(data);

@@ -1,0 +1,9 @@
+{% extends 'base.default.html.twig' %}
+
+{% block content %}
+
+<h1><i class="icon-question-sign"></i> {{company.getName()|e}}</h1>
+
+{% include "company/company.details.raw.twig" %}
+
+{% endblock %}

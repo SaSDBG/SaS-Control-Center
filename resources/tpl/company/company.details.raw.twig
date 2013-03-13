@@ -1,13 +1,10 @@
-<div class="modal fade" id="details{{ company.getId() | e }}" aria-labelledby="detailLabel{{ company.getId() | e }}" aria-hidden="true" >  
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="detailLabel{{ company.getId() | e }}">{{ company.getName() | e }}</h3>
-    </div>
-    <div class="modal-body">
-        <legend>Allgemeines</legend>
+<legend>Allgemeines</legend>
         <dl class="dl-horizontal">
             <dt>Name</dt>
             <dd>{{ company.getName() | e }}</dd>
+            
+            <dt>Id</dt>
+            <dd>{{ company.getId() | e }}</dd>
             
             <dt>Kategorie</dt>
             <dd>{{ company.getCategory() | e }}</dd>
@@ -56,11 +53,3 @@
             <dd>{{ company.needs | raw }}</dd>
             {% endif %}
         {% endif %}
-    </div>
-    <div class="modal-footer">
-        {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-            <a href="{{ url('company_detail_print', { "id" : company.getId() } ) }}" title="Betriebsdetails drucken" class="btn"><i class="icon-print"></i></a>
-        {% endif %}
-        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Schließen</button>
-    </div>
-</div>
