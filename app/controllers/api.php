@@ -33,8 +33,8 @@ $app->match('/api/companies', function(Request $r) use ($app) {
         
         foreach($company->getChiefs() as $chief)
         {
-            $tokens[] = $chief->getFirstName();
-            $tokens[] = $chief->getLastName();
+           // $tokens[] = $chief->getFirstName();
+           // $tokens[] = $chief->getLastName();
         }
        
         $chiefHtml = $app['twig']->render('api/chiefs.twig', array("chiefs" => $company->getChiefs()));

@@ -4,7 +4,6 @@ $(document).ready(function() {
             name: 'betriebe',
             prefetch: 'api/companies',
             remote: 'api/companies?q=%QUERY',
-            limit: 10,
             template: [
                 '<div class="search-suggestion">',
                 '<p><span class="search-name">{{name}}</span> <span class="badge">{{id}}</span> <span class="badge badge-info">{{category}}</span></p>',
@@ -19,7 +18,6 @@ $(document).ready(function() {
             name: 'personen',
             prefetch: 'api/persons',
             remote: 'api/persons?q=%QUERY',
-            limit: 10,
             template: [
                 '<div class="search-suggestion">',
                 '<p><span class="search-name">{{name}}</span> <span class="badge">{{class}}</span></p>',
