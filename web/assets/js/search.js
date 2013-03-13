@@ -14,6 +14,19 @@ $(document).ready(function() {
                 '</div>'
             ].join(''),
             engine: Hogan
+        },
+        {
+            name: 'personen',
+            prefetch: 'api/persons',
+            remote: 'api/persons?q=%QUERY',
+            limit: 10,
+            template: [
+                '<div class="search-suggestion">',
+                '<p><span class="search-name">{{name}}</span> <span class="badge">{{class}}</span></p>',
+                '<p class="search-category">Person</p>',
+                '</div>'
+            ].join(''),
+            engine: Hogan
         }
     ]);
 });

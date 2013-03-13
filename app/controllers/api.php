@@ -59,9 +59,49 @@ $app->match('/api/companies', function(Request $r) use ($app) {
 ->secure('ROLE_ADMIN');
 
 // Returns all pupils as JSON
-$app->match('/api/pupils', function(Request $r) use ($app) {
+$app->match('/api/persons', function(Request $r) use ($app) {
+        $searchQuery = $r->get("q");
+         
+    // If no query is passed
+    if($searchQuery == NULL)
+    {
+        $pupils = $app['em']->getRepository('sasCC\Pupil\Pupil')
+                               ->findAll();
+    }
+    // If query is passed
+    else
+    {
+        $query = $app['em']->createQuery("SELECT u FROM sasCC\Pupil\Pupil u WHERE ( 
+            u.firstName LIKE :query OR
+            u.lastName LIKE :query
+            )");
+        $query->setParameter("query", "%$searchQuery%");
+        
+        $pupils = $query->getResult();
+    }
     
+    $data = array();
+    
+    foreach($pupils as $pupil)
+    {
+        $tokens = array();
+        $tokens[] = $pupil->getName();
+        $tokens[] = $pupil->getFirstName();
+        $tokens[] = $pupil->getLastName();
+   
+        $data[] = array(
+            "id" => $pupil->getId(),
+            "name" => $pupil->getName(),
+            "class" => $pupil->getClass()->getFullClass(),
+            
+            "value" => $pupil->getName(),
+            "tokens" => $tokens
+            
+        );
+    }
+    
+    return json_encode($data);
 })
-->bind('api_pupils')
+->bind('api_persons')
 ->secure('ROLE_ADMIN');
 ?>
