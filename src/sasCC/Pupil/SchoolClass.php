@@ -29,6 +29,12 @@ class SchoolClass {
     protected $pupils;
     
     /**
+     *
+     * @Column(type="boolean")
+     */
+    protected $isTeacher;
+    
+    /**
      * @Id @Column(type="integer") @GeneratedValue
      */
     protected $id;
@@ -38,9 +44,15 @@ class SchoolClass {
         $grade = '';
         $id = '';
         $classObj = new self;
+        if($class === 'lehrer') {
+            $classObj->setGrade('lehrer');
+            $classObj->setIdentifyer(0);
+            $classObj->setIsTeacher(true);
+            return $classObj;
+        }
         if(substr($class, 0, 2) == 'k1') {
             $grade = 'k';
-            $id = '2';
+            $id = '1';
         }
         else if(substr($class, 0, 2) == 'k2') {
             $grade = 'k';
@@ -60,6 +72,18 @@ class SchoolClass {
         return $classObj;
     }
     
+    public function getIsTeacher() {
+        return $this->isTeacher;
+    }
+
+    public function setIsTeacher($isTeacher) {
+        $this->isTeacher = $isTeacher;
+    }
+    
+    public function isTeacher() {
+        return $this->getIsTeacher();
+    }
+        
     public function __construct() {
         $this->pupils = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -85,7 +109,14 @@ class SchoolClass {
     }
 
     public function getFullClass() {
+        if($this->isTeacher()) {
+            return 'Lehrer';
+        }
         return $this->grade . $this->identifyer;
+    }
+    
+    public function __toString() {
+        return $this->getFullClass();
     }
 
 }
