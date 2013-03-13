@@ -44,11 +44,13 @@ class SchoolClass {
         $grade = '';
         $id = '';
         $classObj = new self;
-        if($class === 'lehrer') {
+        if($class === 'lehrer' || $class === 'l') {
             $classObj->setGrade('lehrer');
             $classObj->setIdentifyer(0);
             $classObj->setIsTeacher(true);
             return $classObj;
+        } else {
+            $classObj->setIsTeacher(false);
         }
         if(substr($class, 0, 2) == 'k1') {
             $grade = 'k';
@@ -110,7 +112,7 @@ class SchoolClass {
 
     public function getFullClass() {
         if($this->isTeacher()) {
-            return 'Lehrer';
+            return 'L';
         }
         return $this->grade . $this->identifyer;
     }
