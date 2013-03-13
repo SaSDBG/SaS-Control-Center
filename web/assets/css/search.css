@@ -1,0 +1,50 @@
+.search-suggestion
+{
+    width: 100%;
+    padding:2px;
+    display:inline-block;
+    line-height: 24px;
+}
+
+.tt-dropdown-menu
+{
+    width: 100%;
+}
+
+.tt-suggestion {
+    line-height: 24px;
+}
+
+.tt-suggestion + .tt-suggestion {
+    border-top: 1px solid #ccc;
+}
+
+.tt-suggestion p {
+    margin: 0;
+}
+
+.search-category
+{
+    float:right;
+    font-style: italic;
+}
+
+.search-name
+{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.search-description
+{
+    font-size: 12px;
+    line-height: 13px;
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-chiefs
+{
+    font-size: 12px;
+}

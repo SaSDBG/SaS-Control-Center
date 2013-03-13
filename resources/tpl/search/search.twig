@@ -1,0 +1,27 @@
+{% extends 'base.default.html.twig' %}
+
+{% block content %}
+<h1><i class="icon-search"></i> Magic search</h1>
+<div class="row">
+    <div class="span12">
+        <div class="span8 offset2">
+            <input placeholder="Tippen, um Suche zu starten..." type="text" name="search" class="input-xxlarge tt-query sf" id="sf">
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/search.css">
+<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/typeahead.js/typeahead.min.css">
+<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/search.css">
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/typeahead.js/typeahead.min.js"></script>
+<script type="text/javascript" src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/search.js"></script>
+{% endblock %}
