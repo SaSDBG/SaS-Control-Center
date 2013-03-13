@@ -114,7 +114,10 @@ class SchoolClass {
         if($this->isTeacher()) {
             return 'L';
         }
-        return $this->grade . $this->identifyer;
+        if($this->getGrade() === 'k')  {
+            return 'K'.$this->getIdentifyer();
+        }
+        return $this->getGrade() . $this->getIdentifyer();
     }
     
     public function __toString() {
