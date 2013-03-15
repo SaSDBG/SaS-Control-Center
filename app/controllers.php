@@ -21,6 +21,7 @@ require_once 'controllers/company.print.php';
 require_once 'controllers/user.php';
 require_once 'controllers/search.php';
 require_once 'controllers/api.php';
+require_once 'controllers/pupil.php';
 
 
 $app->error(function (\Exception $e, $code) use ($app) {

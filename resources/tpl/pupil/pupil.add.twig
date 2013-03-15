@@ -1,0 +1,106 @@
+{% extends 'base.default.html.twig' %}
+
+{%- macro hasError(form) -%}
+    {%- if (form.vars.errors|length) > 0 -%}
+        {{- 'error' -}}
+    {%- endif -%}
+{%- endmacro -%}
+
+{% import _self as macro %}
+
+{% form_theme form _self %}
+
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        <span class="help-inline">
+        {% for error in errors %}
+            {{ error.messageTemplate }}
+        {% endfor %}
+        </span>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
+
+{% block content %}
+
+
+<h1><i class="icon-plus-sign"></i> Sch&uuml;ler hinzuf&uuml;gen</h1>
+
+
+<div class="row">
+    <div class="span12">
+        <form method="post" class="form-horizontal">
+
+            {% if app.request.get("success") %}
+            <div class="alert alert-block alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Success!</h4>
+                {{ app.request.get("edited") ? "Änderungen gespeichert."|e : "Schüler erfolgreich hinzugefügt."|e }}
+            </div>
+            {% endif %}
+
+            {% if form.vars.errors|length > 0 and app.request.method == 'POST' %}
+                <div class="alert alert-block">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Achtung! Das Formular enthält Fehler.</h4>
+                </div>
+            {% endif %}
+
+            <legend>Allgemeines</legend>
+
+            <div class="control-group">
+                   {{ form_label(form.firstName, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.firstName) }}
+                   </div>
+            </div>
+
+            <div class="control-group">
+                   {{ form_label(form.lastName, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.lastName) }}
+                   </div>
+            </div>
+            
+            <div class="control-group">
+                   {{ form_label(form.rawClass, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.rawClass) }}
+                   </div>
+            </div>
+            
+            <legend>W&uuml;nsche</legend>
+            
+            <div class="control-group">
+                   {{ form_label(form.firstWish, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.firstWish) }}
+                   </div>
+            </div>
+
+            <div class="control-group">
+                   {{ form_label(form.secondWish, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.secondWish) }}
+                   </div>
+            </div>
+            
+            <div class="control-group">
+                   {{ form_label(form.thirdWish, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.thirdWish) }}
+                   </div>
+            </div>
+            {{ form_rest(form) }}
+
+             <div class="control-group">
+                   <div class="controls">
+                       <button class="btn btn-primary btn-large" type="submit" name="submit" id="button">Speichern</button>
+                   </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

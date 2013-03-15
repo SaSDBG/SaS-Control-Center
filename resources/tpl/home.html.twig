@@ -31,12 +31,19 @@
             {% endif %}
             
             {% if is_granted('ROLE_POLITIK_CREATE') %}
-            <li><a href="#ni" data-toggle="modal"><i class="icon-plus"></i>Partei hinzuf&uuml;gen</a></li>
+            <li><a href="#ni" data-toggle="modal"><i class="icon-plus"></i> Partei hinzuf&uuml;gen</a></li>
             {% endif %}
         </ul> 
     </div>
+    
+    <!-- Schüler -->
     <div class="span4">
         <h3><i class="icon-user"></i> Pupils</h3>
+        <ul class="nav nav-pills nav-stacked">
+            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+                <li><a href="{{ url('pupil_add') }}"><i class="icon-plus"></i> Sch&uuml;ler eintragen</a></li>
+            {% endif %}
+        </ul>
     </div>
 </div>
 
