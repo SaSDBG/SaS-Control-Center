@@ -30,7 +30,7 @@
 
 <div class="row">
     <div class="span12">
-        <form method="post" class="form-horizontal">
+        <form method="post" class="form-horizontal" id="pupil-add">
 
             {% if app.request.get("success") %}
             <div class="alert alert-block alert-success">
@@ -50,21 +50,21 @@
             <legend>Allgemeines</legend>
 
             <div class="control-group">
-                   {{ form_label(form.firstName, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="control-label">{{ form_label(form.firstName) }}</div>
                    <div class="controls">
                         {{ form_widget(form.firstName) }}
                    </div>
             </div>
 
             <div class="control-group">
-                   {{ form_label(form.lastName, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="control-label">{{ form_label(form.lastName) }}</div>
                    <div class="controls">
                         {{ form_widget(form.lastName) }}
                    </div>
             </div>
             
             <div class="control-group">
-                   {{ form_label(form.rawClass, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="control-label">{{ form_label(form.rawClass) }}</div>
                    <div class="controls">
                         {{ form_widget(form.rawClass) }}
                    </div>
@@ -73,34 +73,48 @@
             <legend>W&uuml;nsche</legend>
             
             <div class="control-group">
-                   {{ form_label(form.firstWish, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="control-label">{{ form_label(form.firstWish) }}</div>
                    <div class="controls">
                         {{ form_widget(form.firstWish) }}
                    </div>
             </div>
 
             <div class="control-group">
-                   {{ form_label(form.secondWish, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="control-label">{{ form_label(form.secondWish) }}</div>
                    <div class="controls">
                         {{ form_widget(form.secondWish) }}
                    </div>
             </div>
             
             <div class="control-group">
-                   {{ form_label(form.thirdWish, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="control-label">{{ form_label(form.thirdWish) }}</div>
                    <div class="controls">
                         {{ form_widget(form.thirdWish) }}
                    </div>
             </div>
             {{ form_rest(form) }}
 
-             <div class="control-group">
-                   <div class="controls">
-                       <button class="btn btn-primary btn-large" type="submit" name="submit" id="button">Speichern</button>
-                   </div>
+            <div class="controls">
+                <button class="btn btn-primary btn-large" type="submit" id="submit-button">Speichern</button>
             </div>
         </form>
     </div>
 </div>
+
+{% endblock %}
+
+
+{% block css %}
+
+<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/typeahead.js/typeahead.min.css">
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{app.request.baseUrl}}/assets/nod/nod.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/typeahead.js/typeahead.min.js"></script>
+<script type="text/javascript" src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
+<script type="text/javascript" src="{{app.request.baseUrl}}/assets/js/pupil.js"></script>
+
 
 {% endblock %}
