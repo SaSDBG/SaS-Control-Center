@@ -29,7 +29,16 @@
         {% if is_granted('ROLE_POLITIK_CREATE') %}
         <li><a href=""><i class="icon-plus"></i> Partei hinzuf&uuml;gen</a></li>
         {% endif %}
-        
+            
+        <li class="divider"></li>            
+        {% endif %}
+            
+        {% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
+        <li class="nav-header"><i class="icon-user"></i> Sch&uuml;ler</li>
+            
+        {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+        <li><a href="{{ url('pupil_add') }}"><i class="icon-plus"></i> Sch&uuml;ler eintragen</a></li>
+        {% endif %}
         {% endif %}
     </ul>
 </li>
