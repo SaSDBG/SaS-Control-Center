@@ -24,17 +24,19 @@ class PupilTypeFull extends PupilType {
        
         $builder->add('secondWish', null, array(
             'label' => 'Zweitwunsch',
-            'constraints' => array(
-               new Assert\NotBlank()
-            ),
+            'required' => false,
             'error_bubbling' => true,
         ));
         
         $builder->add('thirdWish', null, array(
             'label' => 'Drittwunsch',
-            'constraints' => array(
-               new Assert\NotBlank()
-            ),
+            'required' => false,
+            'error_bubbling' => true,
+        ));
+        
+        $builder->add('pupilLink', null, array(
+            'label' => 'Will in Projekt mit',
+            'required' => false,
             'error_bubbling' => true,
         ));
     }

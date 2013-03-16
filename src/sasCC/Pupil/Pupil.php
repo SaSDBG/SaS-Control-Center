@@ -57,7 +57,7 @@ class Pupil {
     protected $thirdWish;
 
     /**
-     * @OneToOne(targetEntity="sasCC\Pupil\Pupil", cascade={"persist"})
+     * @OneToOne(targetEntity="sasCC\Pupil\Pupil", inversedBy="pupils", cascade={"persist"})
      */
     protected $pupilLink;
 
@@ -142,6 +142,16 @@ class Pupil {
     public function setThirdWish($wish)
     {
         $this->thirdWish = $wish;
+    }
+    
+    public function getPupilLink()
+    {
+        return $this->pupilLink;
+    }
+    
+    public function setPupilLink($link)
+    {
+        $this->pupilLink = $link;
     }
     
     public function getFullName() {
