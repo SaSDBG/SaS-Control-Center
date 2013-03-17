@@ -37,6 +37,10 @@
         <li class="nav-header"><i class="icon-user"></i> Sch&uuml;ler</li>
             
         {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+        <li {{ macros.activeNav('pupil_list') }}><a href="{{ url('pupil_list') }}"><i class="icon-reorder"></i> Sch&uuml;lerliste</a></li>
+        {% endif %}
+            
+        {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
         <li {{ macros.activeNav('pupil_add') }}><a href="{{ url('pupil_add') }}"><i class="icon-plus"></i> Sch&uuml;ler eintragen</a></li>
         {% endif %}
         {% endif %}
