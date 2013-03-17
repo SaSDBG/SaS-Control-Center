@@ -84,6 +84,10 @@
 
             <script src="{{ app.request.baseUrl }}/assets/js/vendor/bootstrap.min.js"></script>
             <script src="{{ app.request.baseUrl }}/assets/js/main.js"></script>
+            
+            <script>
+                var baseUrl = "{{ app.request.baseUrl }}";
+            </script>
 
         {% block js %}
         {% endblock %}

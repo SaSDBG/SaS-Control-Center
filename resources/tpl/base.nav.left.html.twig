@@ -37,7 +37,7 @@
         <li class="nav-header"><i class="icon-user"></i> Sch&uuml;ler</li>
             
         {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-        <li><a href="{{ url('pupil_add') }}"><i class="icon-plus"></i> Sch&uuml;ler eintragen</a></li>
+        <li {{ macros.activeNav('pupil_add') }}><a href="{{ url('pupil_add') }}"><i class="icon-plus"></i> Sch&uuml;ler eintragen</a></li>
         {% endif %}
         {% endif %}
     </ul>
@@ -51,7 +51,7 @@
         <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
-        <li class="nav-header"><i class="icon-group"></i> Benutzerverwaltung</li>
+        <li class="nav-header"><i class="icon-group"></i> Userverwaltung</li>
         <li {{ macros.activeNav('user_list') }}><a href="{{ url('user_list') }}"><i class="icon-reorder"></i> Benutzerliste</a></li>
         <li {{ macros.activeNav('user_create') }}><a href="{{ url('user_create') }}"><i class="icon-plus"></i> Benutzer hinzuf&uuml;gen</a></li>
     </ul>

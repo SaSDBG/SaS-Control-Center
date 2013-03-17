@@ -1,0 +1,98 @@
+{% extends 'base.default.html.twig' %}
+
+{% block content %}
+
+<h1><i class="icon-reorder"></i> Sch&uuml;lerliste</h1>
+<div class="row">
+    <div class="span12">
+        {% if app.request.get("success") %}
+            {% if app.request.get("deleted") %}
+                {{ macros.successMsg('Schüler wurde erfolgreich gelöscht.') }}
+            {% endif %}
+
+            {% if app.request.get("edited") %}
+                {{ macros.successMsg('Schüler wurde erfolgreich editiert.') }}
+            {% endif %}
+        {% endif %}
+        
+        {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+        <div class="row">
+            <div class="span12">
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-large dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="icon-cog"></i>
+                          <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href=""><i class="icon-print"></i> Sch&uuml;lerliste drucken</a></li>
+                            <li><a href="" target="_blank"><i class="icon-download-alt"></i> Sch&uuml;lerliste als CSV exportieren</a></li>
+                        </ul>
+                    </div> 
+            </div>
+        </div>
+        {% endif %}
+   
+    <legend>Liste</legend>      
+    <table class="table table-hover" id="pupil-list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Vorname</th>
+                    <th>Klasse</th>
+                    <th>Betrieb</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for pupil in pupils %}
+
+                    <tr>
+                        <td>{{ pupil.getId() | e }}</td>
+                        <td>{{ pupil.getLastName() | e }}</td>
+                        <td>{{ pupil.getFirstName() | e }}</td>
+                        <td>{{ pupil.getRawClass() |e }}</td>
+                        <td>
+                            {% if pupil.company %}
+                            {{ pupil.company.name | e }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+                            <button title="Details anzeigen" data-company="{{ pupil.getId() | e }}" class="btn btn-primary pupilDetails"><i class="icon-reorder"></i></button>
+                            {% endif %}
+
+                            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+                            <a href="{{ url('pupil_edit',  { "id" : pupil.getId() } ) }}" title="Schüler editieren" class="btn"><i class="icon-pencil"></i></a>
+                            {% endif %}
+                           
+                            {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+                            <button data-href="{{ url('company_detail_print', { "id" : pupil.getId() } ) }}" title="Schülerdetails drucken" class="btn companyPrintFilter"><i class="icon-print"></i></button>
+                            {% endif %}
+                            
+                            {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+                            <a href="{{ url('delete_company',  { "id" : pupil.getId() } ) }}" title="Schüler löschen" class="btn btn-danger"><i class="icon-trash"></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+            {% endfor %}
+                </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block header %}
+<link href="{{ app.request.baseUrl }}/assets/dataTables/css/jquery.dataTables.css" type="text/css">
+<link href="{{ app.request.baseUrl }}/assets/dataTables/css/dt.bootstrap.css" type="text/css">
+{% endblock %}
+
+
+{% block footer %}
+<script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
+<script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
+<script type="text/javascript" src="{{app.request.baseUrl}}/assets/js/pupil.add.js"></script>
+{% endblock %}

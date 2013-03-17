@@ -13,7 +13,7 @@ class PupilTypeFull extends PupilType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         parent::buildForm($builder, $options);
         
-        $builder->add('firstWish', null, array(
+        $builder->add('firstWishRaw', null, array(
             'label' => 'Erstwunsch',
             'required' => true,
             'constraints' => array(
@@ -22,19 +22,19 @@ class PupilTypeFull extends PupilType {
             'error_bubbling' => true,
         ));
        
-        $builder->add('secondWish', null, array(
+        $builder->add('secondWishRaw', null, array(
             'label' => 'Zweitwunsch',
             'required' => false,
             'error_bubbling' => true,
         ));
         
-        $builder->add('thirdWish', null, array(
+        $builder->add('thirdWishRaw', null, array(
             'label' => 'Drittwunsch',
             'required' => false,
             'error_bubbling' => true,
         ));
         
-        $builder->add('pupilLink', null, array(
+        $builder->add('pupilLinkRaw', null, array(
             'label' => 'Will in Projekt mit',
             'required' => false,
             'error_bubbling' => true,

@@ -4,7 +4,35 @@ use sasCC\Pupil\Pupil;
 use sasCC\Pupil\PupilTypeFull;
 use sasCC\App;
 
-// Add Pupil
+
+// List pupils
+$app->match('/pupils/list', function(Request $r, App $app) {
+    $pupils = $app['em']->getRepository('sasCC\Pupil\Pupil')
+                           ->findAll();
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/list', $app->user()->getUserName(), $app->user()->getId()));
+    return $app['twig']->render('pupil/pupil.list.twig', array("title" => "Schülerliste", "pupils" => $pupils));
+    
+})
+->bind('pupil_list')
+->secure('ROLE_WIRTSCHAFT_PRIV');
+
+// Edit pupils
+$app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
+    return handlePupilEdit(
+            "Schüler bearbeiten",
+            $app['em']->getRepository('sasCC\Pupil\Pupil')->find((int)$id),
+            array("edited" => true, "success" => true),
+            $app,
+            sprintf('Schüler mit ID %%d wurde von %s (%d) editiert', $app->user()->getUserName(), $app->user()->getId()),
+            'pupil_list'
+     );
+
+    
+})
+->bind('pupil_edit')
+->secure('ROLE_WIRTSCHAFT_PRIV');
+
+// Add pupil
 $app->match('/pupils/add', function(Request $r) use ($app) {   
     return handlePupilEdit(
             "Schüler hinzufügen",
@@ -39,11 +67,15 @@ function handlePupilEdit($title, Pupil $data, $pathArgs, App $app, $logMsg, $red
             $id = $data->getId();
             $link = $data->getPupilLink();
             
-            $userToBacklink = $app['em']->find("sasCC\Pupil\Pupil", (int)$link->getId());
-            $userToBacklink->setPupilLink($app['em']->find("sasCC\Pupil\Pupil", (int)$id));
-            
-            $app['em']->persist($userToBacklink);
-            $app['em']->flush();
+            if(!is_null($link))
+            {
+                $userToBacklink = $app['em']->find("sasCC\Pupil\Pupil", (int)$link->getId());
+                $userToBacklink->setPupilLink($app['em']->find("sasCC\Pupil\Pupil", (int)$id));
+
+
+                $app['em']->persist($userToBacklink);
+                $app['em']->flush();
+            }
             
             $app['logger.actions']->addInfo(sprintf($logMsg, $data->getId()));
             return $app->redirect($app->path($redirectRoute, $pathArgs));
