@@ -14,7 +14,7 @@ $app->match('/pupils/list', function(Request $r, App $app) {
     
 })
 ->bind('pupil_list')
-->secure('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_ADMIN');
 
 // Edit pupils
 $app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
@@ -30,7 +30,7 @@ $app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
     
 })
 ->bind('pupil_edit')
-->secure('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_ADMIN');
 
 // Add pupil
 $app->match('/pupils/add', function(Request $r) use ($app) {   
@@ -45,7 +45,7 @@ $app->match('/pupils/add', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add')
-->secure('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_ADMIN');
 
 
 function handlePupilEdit($title, Pupil $data, $pathArgs, App $app, $logMsg, $redirectRoute) {
@@ -130,7 +130,7 @@ $app->match('/pupils/add/companysuggestions', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add_companysuggestions')
-->secure('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_ADMIN');
 
 // Return pupil suggestions
 $app->match('/pupils/add/pupilsuggestions', function(Request $r) use ($app) {   
@@ -178,5 +178,5 @@ $app->match('/pupils/add/pupilsuggestions', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add_pupilsuggestions')
-->secure('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_ADMIN');
 ?>
