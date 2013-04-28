@@ -1,0 +1,39 @@
+{% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
+<li class="nav-header"><i class="icon-cogs"></i> Betriebe</li>
+
+{% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+<li {{ macros.activeNav('list_companies') }}><a href="{{ url('list_companies') }}"><i class="icon-reorder"></i> Betriebsliste</a></li>
+{% endif %}
+
+{% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
+<li {{ macros.activeNav('add_company') }}><a href="{{ url('add_company') }}"><i class="icon-plus"></i> Betrieb hinzuf&uuml;gen</a></li>
+{% endif %}
+
+<li class="divider"></li>
+{% endif %}
+
+{% if is_granted('ROLE_POLITIK_CREATE') %}
+<li class="nav-header"><i class="icon-group"></i> Parteien</li>
+
+{% if is_granted('ROLE_POLITIK_PRIV') %}
+<li><a href=""><i class="icon-reorder"></i> Parteiliste</a></li>
+{% endif %}
+
+{% if is_granted('ROLE_POLITIK_CREATE') %}
+<li><a href=""><i class="icon-plus"></i> Partei hinzuf&uuml;gen</a></li>
+{% endif %}
+
+<li class="divider"></li>            
+{% endif %}
+
+{% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
+<li class="nav-header"><i class="icon-user"></i> Sch&uuml;ler</li>
+
+{% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+<li {{ macros.activeNav('pupil_list') }}><a href="{{ url('pupil_list') }}"><i class="icon-reorder"></i> Sch&uuml;lerliste</a></li>
+{% endif %}
+
+{% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+<li {{ macros.activeNav('pupil_add') }}><a href="{{ url('pupil_add') }}"><i class="icon-plus"></i> Sch&uuml;ler eintragen</a></li>
+{% endif %}
+{% endif %}

@@ -72,6 +72,27 @@ body {
     margin-top: 60px;
 }
 
+/* Sidebar style
+-------------------------------------------------- */
+#sidebar-nav
+{
+    position: fixed;
+    left: 0;
+    top: 100px;
+    max-width: 200px;
+    padding: 8px 0;
+    margin-left: -2px;
+    
+}
+
+@media (max-width: 1680px)
+{
+    #sidebar-nav
+    {
+        display: none;
+    }
+}
+
 
 
 
