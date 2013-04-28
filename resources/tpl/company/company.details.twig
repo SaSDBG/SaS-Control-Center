@@ -2,8 +2,9 @@
 
 {% block content %}
 
-<h1><i class="icon-question-sign"></i> {{company.getName()|e}}</h1>
-
+<div class="page-header">
+    <h1><i class="icon-question-sign"></i> {{company.getName()|e}}</h1>
+</div>
 {% include "company/company.details.raw.twig" %}
 
 {% endblock %}
