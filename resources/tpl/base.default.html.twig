@@ -21,5 +21,7 @@
 {% endblock %}
     
 {% block sidebar_nav %}
-    {% include "base.sidebarnav.html.twig" %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% include "base.sidebarnav.html.twig" %}
+    {% endif %}
 {% endblock %}
