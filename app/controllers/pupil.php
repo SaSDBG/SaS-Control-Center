@@ -55,27 +55,11 @@ function handlePupilEdit($title, Pupil $data, $pathArgs, App $app, $logMsg, $red
     if($app['request']->getMethod() == 'POST') {
         $form->bindRequest($app['request']);
         
-        $data->setFirstWish($app['em']->find("sasCC\Company\Company", (int)$data->getFirstWish()));
-        $data->setSecondWish($app['em']->find("sasCC\Company\Company", (int)$data->getSecondWish()));
-        $data->setThirdWish($app['em']->find("sasCC\Company\Company", (int)$data->getThirdWish()));
-        $data->setPupilLink($app['em']->find("sasCC\Pupil\Pupil", (int)$data->getPupilLink()));
+        $data->setCompany($app['em']->find("sasCC\Company\Company", (int)$data->getCompany()));
         
         if ($form->isValid()) {
             $app['em']->persist($data);
             $app['em']->flush();
-            
-            $id = $data->getId();
-            $link = $data->getPupilLink();
-            
-            if(!is_null($link))
-            {
-                $userToBacklink = $app['em']->find("sasCC\Pupil\Pupil", (int)$link->getId());
-                $userToBacklink->setPupilLink($app['em']->find("sasCC\Pupil\Pupil", (int)$id));
-
-
-                $app['em']->persist($userToBacklink);
-                $app['em']->flush();
-            }
             
             $app['logger.actions']->addInfo(sprintf($logMsg, $data->getId()));
             return $app->redirect($app->path($redirectRoute, $pathArgs));
@@ -114,13 +98,13 @@ $app->match('/pupils/add/companysuggestions', function(Request $r) use ($app) {
     {
         $tokens = array();
         $tokens[] = $company->getName();
-        $tokens[] = $company->getId();
+        $tokens[] = (string)$company->getId();
 
         $data[] = array(
-            "id" => $company->getId(),
+            "id" => (string)$company->getId(),
             "name" => $company->getName(),
             
-            "value" => $company->getId(),
+            "value" => (string)$company->getId(),
             "tokens" => $tokens
             
         );

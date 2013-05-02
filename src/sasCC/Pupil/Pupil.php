@@ -35,31 +35,9 @@ class Pupil
      * @ManyToOne(targetEntity="sasCC\Company\Company", inversedBy="members", cascade={"persist"})
      */
     protected $company;
+    protected $companyRaw;
+    
     protected $rawClass;
-
-    /**
-     * @ManyToOne(targetEntity="sasCC\Company\Company", cascade={"persist"})
-     */
-    protected $firstWish;
-    protected $firstWishRaw;
-
-    /**
-     * @ManyToOne(targetEntity="sasCC\Company\Company", cascade={"persist"})
-     */
-    protected $secondWish;
-    protected $secondWishRaw;
-
-    /**
-     * @ManyToOne(targetEntity="sasCC\Company\Company", cascade={"persist"})
-     */
-    protected $thirdWish;
-    protected $thirdWishRaw;
-
-    /**
-     * @OneToOne(targetEntity="sasCC\Pupil\Pupil", cascade={"persist"})
-     */
-    protected $pupilLink;
-    protected $pupilLinkRaw;
 
     public function __construct()
     {
@@ -115,6 +93,17 @@ class Pupil
     {
         $this->company = $company;
     }
+    
+    public function getCompanyRaw()
+    {
+        return isset($this->´company) ? $this->company : isset($this->company) ? $this->company->getId() : "";
+    }
+    
+    public function setCompanyRaw($companyRaw)
+    {
+        $this->companyRaw = $companyRaw;
+        $this->setCompany($companyRaw);
+    }
 
     public function getRawClass()
     {
@@ -125,90 +114,6 @@ class Pupil
     {
         $this->rawClass = $class;
         $this->setClass(SchoolClass::parse($class));
-    }
-
-    public function getFirstWish()
-    {
-        return $this->firstWish;
-    }
-
-    public function setFirstWish($wish)
-    {
-        $this->firstWish = $wish;
-    }
-
-    public function getFirstWishRaw()
-    {
-        return isset($this->firstWishRaw) ? $this->firstWishRaw : isset($this->firstWish) ? $this->firstWish->getId() : "";
-    }
-
-    public function setFirstWishRaw($firstWishRaw)
-    {
-        $this->firstWishRaw = $firstWishRaw;
-        $this->setFirstWish($firstWishRaw);
-    }
-
-    public function getSecondWish()
-    {
-        return $this->secondWish;
-    }
-
-    public function setSecondWish($wish)
-    {
-        $this->secondWish = $wish;
-    }
-
-    public function getSecondWishRaw()
-    {
-        return isset($this->secondWishRaw) ? $this->secondWishRaw : isset($this->secondWish) ? $this->secondWish->getId() : "";
-    }
-
-    public function setSecondWishRaw($secondWishRaw)
-    {
-        $this->secondWishRaw = $secondWishRaw;
-        $this->setSecondWish($secondWishRaw);
-    }
-
-    public function getThirdWish()
-    {
-        return $this->thirdWish;
-    }
-
-    public function setThirdWish($wish)
-    {
-        $this->thirdWish = $wish;
-    }
-
-    public function getThirdWishRaw()
-    {
-        return isset($this->thirdWishRaw) ? $this->thirdWishRaw : isset($this->thirdWish) ? $this->thirdWish->getId() : "";
-    }
-
-    public function setThirdWishRaw($thirdWishRaw)
-    {
-        $this->thirdWishRaw = $thirdWishRaw;
-        $this->setThirdWish($thirdWishRaw);
-    }
-
-    public function getPupilLink()
-    {
-        return $this->pupilLink;
-    }
-
-    public function setPupilLink($link)
-    {
-        $this->pupilLink = $link;
-    }
-
-    public function getPupilLinkRaw()
-    {
-        return isset($this->pupilLinkRaw) ? $this->pupilLinkRaw : isset($this->pupilLink) ? $this->pupilLink->getId() : "";
-    }
-
-    public function setPupilLinkRaw($pupilLinkRaw)
-    {
-        $this->pupilLinkRaw = $pupilLinkRaw;
-        $this->setPupilLink($pupilLinkRaw);
     }
 
     public function getFullName()
