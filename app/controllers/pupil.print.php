@@ -12,7 +12,7 @@ $app->match('/pupils/list/print', function (Request $r, App $app){
     return $app['twig']->render('pupil/pupil.list.print.twig', array("title" => "Schülerliste", "pupils" => $pupils));
 })
 ->bind('pupil_list_print')
-->secure('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_WIRTSCHAFT_ADMIN');
 
 // Print company details
 $app->match('/pupils/details/{id}/print', function (Request $r, App $app, $id){
@@ -24,5 +24,5 @@ $app->match('/pupils/details/{id}/print', function (Request $r, App $app, $id){
     
 })
 ->bind('pupil_detail_print')
-->secure('ROLE_WIRTSCHAFT_PRIV');
+->secure('ROLE_WIRTSCHAFT_ADMIN');
 ?>

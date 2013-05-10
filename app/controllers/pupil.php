@@ -72,7 +72,7 @@ $app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
     
 })
 ->bind('pupil_edit')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Add pupil
 $app->match('/pupils/add', function(Request $r) use ($app) {   
@@ -87,8 +87,33 @@ $app->match('/pupils/add', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
+// Delete company
+$app->match('/pupils/{id}/delete', function(Request $r, App $app, $id) {  
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int) $id);
+    if($pupil === null) return 'Invalid company';
+
+    $form = $app['form.factory']->createBuilder('form',['sure' => false])
+                ->add('sure', 'checkbox', array(
+                   'label' => 'Ich bin mir sicher',
+                   'required' => true,
+                ))->getForm();
+ 
+    if($app['request']->getMethod() == 'POST') {
+        $form->bindRequest($app['request']);
+        if ($form->isValid() && $form->getData()['sure'] === true) {
+            $app['em']->remove($pupil);
+            $app['em']->flush();
+            $app['logger.actions']->addInfo(sprintf('Schüler mit ID %d wurde von %s (%d) gelöscht.', $pupil->getId(), $app->user()->getUserName(), $app->user()->getId()));
+            return $app->redirect($app->path('pupil_list', array('deleted' => 'true', 'success' => 'true')));
+        }
+    }
+    
+    return $app['twig']->render('pupil/pupil.delete.twig', array('form' => $form->createView(), "title" => 'Schüler löschen', "pupilname" => $pupil->getFullName()));
+})
+->bind('pupil_delete')
+->secure('ROLE_WIRTSCHAFT_ADMIN');
 
 function handlePupilEdit($title, Pupil $data, $pathArgs, App $app, $logMsg, $redirectRoute) {
     $form = $app['form.factory']->create(new PupilTypeFull(), $data);
@@ -156,7 +181,7 @@ $app->match('/pupils/add/companysuggestions', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add_companysuggestions')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Return pupil suggestions
 $app->match('/pupils/add/pupilsuggestions', function(Request $r) use ($app) {   
@@ -204,5 +229,5 @@ $app->match('/pupils/add/pupilsuggestions', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add_pupilsuggestions')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>
