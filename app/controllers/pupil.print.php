@@ -5,17 +5,17 @@ use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
 // Print company list
-$app->match('/pupils/list/print', function (Request $r, App $app){  
-    $pupils = $app['em']->getRepository('sasCC\Pupil\Pupil')
+$app->match('/companies/list/print', function (Request $r, App $app){  
+    $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll(); 
-    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/list/print', $app->user()->getUserName(), $app->user()->getId()));
-    return $app['twig']->render('pupil/pupil.list.print.twig', array("title" => "Schülerliste", "pupils" => $pupils));
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/list/print', $app->user()->getUserName(), $app->user()->getId()));
+    return $app['twig']->render('company/company.list.print.twig', array("title" => "Betriebsliste", "companies" => $companies));
 })
-->bind('pupil_list_print')
+->bind('company_list_print')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Print company details
-$app->match('/pupils/details/{id}/print', function (Request $r, App $app, $id){
+$app->match('/companies/details/{id}/print', function (Request $r, App $app, $id){
     $company = $app['em']->find("sasCC\Company\Company", (int)$id);
     if($company === null) return 'Company not Found';
     

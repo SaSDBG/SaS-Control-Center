@@ -14,7 +14,28 @@ $app->match('/pupils/list', function(Request $r, App $app) {
     
 })
 ->bind('pupil_list')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV'); 
+
+// Export pupils to CSV
+$app->get('/pupils/list/export/csv', function(Request $r, App $app) {
+    $pupils = $app['em']->getRepository('sasCC\Pupil\Pupil')
+                           ->findAll();
+    $escape = function ($string) {
+        if(strstr($string, ';') === false) {
+            return $string;
+        } else {
+            return '"'.html_entity_decode(str_replace('"', '""', $string)).'"';
+        }
+    };
+    $csvFilter = new Twig_SimpleFilter('ecsv', $escape);
+    $app['twig']->addFilter($csvFilter);
+    
+    $content = "\xEF\xBB\xBF";
+    $content .= $app['twig']->render('pupil/pupil.export.csv.twig', array('pupils' => $pupils));
+    
+    return new \Symfony\Component\HttpFoundation\Response($content, 200, ['Content-type' => 'text/csv; charset:UTF-8', 'Content-Disposition' => 'attachment; filename="SaS - Schülerlisteliste.csv"', 'Content-Encoding' => 'UTF-8']);
+})->bind('pupil_export_csv')
+  ->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Edit pupils
 $app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
