@@ -5,24 +5,24 @@ use sasCC\CompanyManagment\Form\CompanyType;
 use sasCC\App;
 
 // Print company list
-$app->match('/companies/list/print', function (Request $r, App $app){  
-    $companies = $app['em']->getRepository('sasCC\Company\Company')
+$app->match('/pupils/list/print', function (Request $r, App $app){  
+    $pupils = $app['em']->getRepository('sasCC\Pupil\Pupil')
                            ->findAll(); 
-    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/list/print', $app->user()->getUserName(), $app->user()->getId()));
-    return $app['twig']->render('company/company.list.print.twig', array("title" => "Betriebsliste", "companies" => $companies));
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/list/print', $app->user()->getUserName(), $app->user()->getId()));
+    return $app['twig']->render('pupil/pupil.list.print.twig', array("title" => "Schülerliste", "pupils" => $pupils));
 })
-->bind('company_list_print')
+->bind('pupil_list_print')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Print company details
-$app->match('/companies/details/{id}/print', function (Request $r, App $app, $id){
-    $company = $app['em']->find("sasCC\Company\Company", (int)$id);
-    if($company === null) return 'Company not Found';
+$app->match('/pupils/details/{id}/print', function (Request $r, App $app, $id){
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int)$id);
+    if($pupil === null) return 'Company not Found';
     
-    $app['logger.actions']->addInfo(sprintf('User %s (%d) printed details of company with id %d', $app->user()->getUserName(), $app->user()->getId(), $company->getId()));
-    return $app['twig']->render('company/company.print.twig', array("title" => "Betriebsdetails", "company" => $company));
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) printed details of pupil with id %d', $app->user()->getUserName(), $app->user()->getId(), $pupil->getId()));
+    return $app['twig']->render('pupil/pupil.print.twig', array("title" => "Schülerdetails", "pupil" => $pupil));
     
 })
-->bind('company_detail_print')
+->bind('pupil_detail_print')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>

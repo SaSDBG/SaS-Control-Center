@@ -26,7 +26,7 @@
                           <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('company_list_print') }}"><i class="icon-print"></i> Betriebsliste drucken</a></li>
+                            <li><a href="{{ url('company_list_print') }}" target="_blank"><i class="icon-print"></i> Betriebsliste drucken</a></li>
                             <li><a href="{{ url('company_export_csv') }}" target="_blank"><i class="icon-download-alt"></i> Betriebsliste als CSV exportieren</a></li>
                         </ul>
                     </div> 
@@ -140,6 +140,6 @@
 
 {% block footer %}
 <script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
-    <script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
-    <script src="{{ app.request.baseUrl }}/assets/js/company.js"></script>
+<script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
+<script src="{{ app.request.baseUrl }}/assets/js/company.js"></script>
 {% endblock %}

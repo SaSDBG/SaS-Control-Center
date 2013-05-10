@@ -68,7 +68,7 @@
                             {% endif %}
                            
                             {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-                            <!--<button data-href="{{ url('company_detail_print', { "id" : pupil.getId() } ) }}" title="Schülerdetails drucken" class="btn companyPrintFilter"><i class="icon-print"></i></button>-->
+                            <a href="{{ url('pupil_detail_print', { "id" : pupil.getId() } ) }}" target="_blank" title="Schülerdetails drucken" class="btn" ><i class="icon-print"></i></a>
                             {% endif %}
                             
                             {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
@@ -80,6 +80,10 @@
                 </tbody>
         </table>
     </div>
+</div>
+
+<div id="pupilInfo">
+
 </div>
 
 

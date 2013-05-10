@@ -31,7 +31,7 @@ $(document).ready(function() {
     });
 
     $(".pupilDetails").click(function() {
-        var id = $(this).data("company");
+        var id = $(this).data("pupil");
 
         if ($("#details" + id).length === 0)
         {
@@ -39,7 +39,7 @@ $(document).ready(function() {
                 url: id + "/details/modal",
                 type: "GET",
                 success: function(data) {
-                    $("#companyInfo").append(data);
+                    $("#pupilInfo").append(data);
                     showModal(id);
                     return;
                 }
@@ -49,3 +49,10 @@ $(document).ready(function() {
         showModal(id);
     });
 });
+
+function showModal(id)
+{
+    $("#details" + id).modal({
+        show: true
+    })
+}

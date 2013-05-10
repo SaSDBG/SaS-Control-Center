@@ -37,6 +37,27 @@ $app->get('/pupils/list/export/csv', function(Request $r, App $app) {
 })->bind('pupil_export_csv')
   ->secure('ROLE_WIRTSCHAFT_PRIV');
 
+// Get pupil details
+$app->match('/pupils/{id}/details', function(Request $r, App $app, $id){
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int)$id);
+    if($pupil=== null) return 'Pupil not Found';
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/%d/details', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('pupil/pupil.details.twig', array("title" => "Schülerdetails", "pupil" => $pupil));
+})
+->bind('pupil_detail')
+->secure('ROLE_WIRTSCHAFT_PRIV');
+
+
+// Get pupil information for modal window
+$app->match('/pupils/{id}/details/modal', function(Request $r, App $app, $id){
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int)$id);
+    if($pupil === null) return 'Pupil not Found';
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/%d/details/modal', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('pupil/pupil.details.modal.twig', array("title" => "Schülerdetails", "pupil" => $pupil));
+})
+->bind('pupil_detail_modal')
+->secure('ROLE_WIRTSCHAFT_PRIV');
+
 // Edit pupils
 $app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
     return handlePupilEdit(

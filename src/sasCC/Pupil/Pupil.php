@@ -118,7 +118,7 @@ class Pupil
 
     public function getFullName()
     {
-        return "{$this->lastName} {$this->firstName} ({$this->getClass()->getFullClass()})";
+        return "{$this->lastName}, {$this->firstName} ({$this->getClass()->getFullClass()})";
     }
 
     public function getName()
