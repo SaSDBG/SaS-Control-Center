@@ -2,6 +2,25 @@ $(document).ready(function() {
     $("a, button").tooltip({
         "placement": "bottom"
     });
+    
+     $(".pupilDetails").click(function() {
+        var id = $(this).data("pupil");
+
+        if ($("#details" + id).length === 0)
+        {
+            $.ajax({
+                url: id + "/details/modal",
+                type: "GET",
+                success: function(data) {
+                    $("#pupilInfo").append(data);
+                    showModal(id);
+                    return;
+                }
+            });
+        }
+
+        showModal(id);
+    });
 
     $("#pupil-list").dataTable({
         "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
@@ -28,25 +47,6 @@ $(document).ready(function() {
 
     $.extend($.fn.dataTableExt.oStdClasses, {
         "sWrapper": "dataTables_wrapper form-inline"
-    });
-
-    $(".pupilDetails").click(function() {
-        var id = $(this).data("pupil");
-
-        if ($("#details" + id).length === 0)
-        {
-            $.ajax({
-                url: id + "/details/modal",
-                type: "GET",
-                success: function(data) {
-                    $("#pupilInfo").append(data);
-                    showModal(id);
-                    return;
-                }
-            });
-        }
-
-        showModal(id);
     });
 });
 

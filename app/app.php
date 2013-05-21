@@ -10,6 +10,8 @@ $app = new sasCC\App;
 require_once 'services.php';
 require_once 'controllers.php';
 $app->boot();
+
+header('Content-Type: text/html; charset=utf-8');
 return $app;
 
 ?>

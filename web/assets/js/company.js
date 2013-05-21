@@ -6,6 +6,25 @@ $(document).ready(function() {
         "placement": "bottom"
     });
 
+    $(".companyDetails").click(function() {
+        var id = $(this).data("company");
+
+        if ($("#details" + id).length == 0)
+        {
+            $.ajax({
+                url: id + "/details/modal",
+                type: "GET",
+                success: function(data) {
+                    $("#companyInfo").append(data);
+                    showModal(id);
+                    return;
+                }
+            });
+        }
+
+        showModal(id);
+    });
+
     $("#company-list").dataTable({
         "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
         "sPaginationType": "bootstrap",
@@ -31,25 +50,6 @@ $(document).ready(function() {
 
     $.extend($.fn.dataTableExt.oStdClasses, {
         "sWrapper": "dataTables_wrapper form-inline"
-    });
-
-    $(".companyDetails").click(function() {
-        var id = $(this).data("company");
-
-        if ($("#details" + id).length == 0)
-        {
-            $.ajax({
-                url: id + "/details/modal",
-                type: "GET",
-                success: function(data) {
-                    $("#companyInfo").append(data);
-                    showModal(id);
-                    return;
-                }
-            });
-        }
-
-        showModal(id);
     });
 
     $(".companyPrintFilter").click(function() {
