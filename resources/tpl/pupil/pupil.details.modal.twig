@@ -1,0 +1,20 @@
+<div class="modal fade" id="details{{ pupil.getId() | e }}" aria-labelledby="detailLabel{{ pupil.getId() | e }}" aria-hidden="true" >  
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="detailLabel{{ pupil.getId() | e }}">{{ pupil.lastName| e }}, {{ pupil.firstName |e }}</h3>
+    </div>
+    <div class="modal-body">
+        {% include "pupil/pupil.details.raw.twig" %}
+    </div>
+    <div class="modal-footer">
+        {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+            <a target="_blank" href="{{ url('pupil_detail', { "id" : pupil.getId() }) }}" title="Schülerdetails in neuem Fenster öffnen" class="btn"><i class="icon-reply"></i></a>
+        {% endif %}
+        
+        {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+            <a target="_blank" href="{{ url('pupil_detail_print', { "id" : pupil.getId() } ) }}" title="Schülerdetails drucken" class="btn"><i class="icon-print"></i></a>
+        {% endif %}
+        <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Schließen</button>
+    </div>
+</div>{# empty Twig template #}
+{# empty Twig template #}

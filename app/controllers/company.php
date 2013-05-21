@@ -151,7 +151,7 @@ $app->get('/companies/list/export/csv', function(Request $r, App $app) {
     $content = "\xEF\xBB\xBF";
     $content .= $app['twig']->render('company/company.export.csv.twig', array('companies' => $companies));
     
-    return new \Symfony\Component\HttpFoundation\Response($content, 200, ['Content-type' => 'text/csv; charset:UTF-8', 'Content-Disposition' => 'attachment; filename="betriebe.csv"', 'Content-Encoding' => 'UTF-8']);
+    return new \Symfony\Component\HttpFoundation\Response($content, 200, ['Content-type' => 'text/csv; charset:UTF-8', 'Content-Disposition' => 'attachment; filename="SaS - Betriebsliste.csv"', 'Content-Encoding' => 'UTF-8']);
 })->bind('company_export_csv')
   ->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>

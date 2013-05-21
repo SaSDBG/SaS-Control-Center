@@ -24,9 +24,9 @@
 
 {% block content %}
 
-
-<h1><i class="icon-plus-sign"></i> Sch&uuml;ler hinzuf&uuml;gen</h1>
-
+<div class="page-header">
+    <h1><i class="icon-plus-sign"></i> {{title | e}}</h1>
+</div>
 
 <div class="row">
     <div class="span12">
@@ -70,6 +70,17 @@
                    </div>
             </div>
             
+<<<<<<< HEAD
+=======
+            <legend>Sonstiges</legend>
+            
+            <div class="control-group">
+                   <div class="control-label">{{ form_label(form.companyRaw) }}</div>
+                   <div class="controls">
+                        {{ form_widget(form.companyRaw) }}
+                   </div>
+            </div>
+>>>>>>> 87bcf7c0c77ac27bec5ebf026d16be69829e5f91
             {{ form_rest(form) }}
 
             <div class="controls">
@@ -84,15 +95,15 @@
 
 {% block css %}
 
-<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/typeahead.js/typeahead.min.css">
+<link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/pupil.add.css">
 
 {% endblock %}
 
 {% block js %}
-<script type="text/javascript" src="{{app.request.baseUrl}}/assets/nod/nod.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl}}/assets/nod/nod.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl }}/assets/hogan/hogan-2.0.0.min.js"></script>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/typeahead.js/typeahead.min.js"></script>
-<script type="text/javascript" src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
-<script type="text/javascript" src="{{app.request.baseUrl}}/assets/js/pupil.js"></script>
+<script type="text/javascript" src="{{ app.request.baseUrl}}/assets/js/pupil.js"></script>
 
 
 {% endblock %}

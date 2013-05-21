@@ -14,7 +14,49 @@ $app->match('/pupils/list', function(Request $r, App $app) {
     
 })
 ->bind('pupil_list')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV'); 
+
+// Export pupils to CSV
+$app->get('/pupils/list/export/csv', function(Request $r, App $app) {
+    $pupils = $app['em']->getRepository('sasCC\Pupil\Pupil')
+                           ->findAll();
+    $escape = function ($string) {
+        if(strstr($string, ';') === false) {
+            return $string;
+        } else {
+            return '"'.html_entity_decode(str_replace('"', '""', $string)).'"';
+        }
+    };
+    $csvFilter = new Twig_SimpleFilter('ecsv', $escape);
+    $app['twig']->addFilter($csvFilter);
+    
+    $content = "\xEF\xBB\xBF";
+    $content .= $app['twig']->render('pupil/pupil.export.csv.twig', array('pupils' => $pupils));
+    
+    return new \Symfony\Component\HttpFoundation\Response($content, 200, ['Content-type' => 'text/csv; charset:UTF-8', 'Content-Disposition' => 'attachment; filename="SaS - Schülerlisteliste.csv"', 'Content-Encoding' => 'UTF-8']);
+})->bind('pupil_export_csv')
+  ->secure('ROLE_WIRTSCHAFT_PRIV');
+
+// Get pupil details
+$app->match('/pupils/{id}/details', function(Request $r, App $app, $id){
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int)$id);
+    if($pupil=== null) return 'Pupil not Found';
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/%d/details', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('pupil/pupil.details.twig', array("title" => "Schülerdetails", "pupil" => $pupil));
+})
+->bind('pupil_detail')
+->secure('ROLE_WIRTSCHAFT_PRIV');
+
+
+// Get pupil information for modal window
+$app->match('/pupils/{id}/details/modal', function(Request $r, App $app, $id){
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int)$id);
+    if($pupil === null) return 'Pupil not Found';
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/%d/details/modal', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('pupil/pupil.details.modal.twig', array("title" => "Schülerdetails", "pupil" => $pupil));
+})
+->bind('pupil_detail_modal')
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Edit pupils
 $app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
@@ -30,7 +72,7 @@ $app->match('/pupils/{id}/edit', function(Request $r, App $app, $id) {
     
 })
 ->bind('pupil_edit')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Add pupil
 $app->match('/pupils/add', function(Request $r) use ($app) {   
@@ -45,8 +87,33 @@ $app->match('/pupils/add', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
+// Delete company
+$app->match('/pupils/{id}/delete', function(Request $r, App $app, $id) {  
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int) $id);
+    if($pupil === null) return 'Invalid company';
+
+    $form = $app['form.factory']->createBuilder('form',['sure' => false])
+                ->add('sure', 'checkbox', array(
+                   'label' => 'Ich bin mir sicher',
+                   'required' => true,
+                ))->getForm();
+ 
+    if($app['request']->getMethod() == 'POST') {
+        $form->bindRequest($app['request']);
+        if ($form->isValid() && $form->getData()['sure'] === true) {
+            $app['em']->remove($pupil);
+            $app['em']->flush();
+            $app['logger.actions']->addInfo(sprintf('Schüler mit ID %d wurde von %s (%d) gelöscht.', $pupil->getId(), $app->user()->getUserName(), $app->user()->getId()));
+            return $app->redirect($app->path('pupil_list', array('deleted' => 'true', 'success' => 'true')));
+        }
+    }
+    
+    return $app['twig']->render('pupil/pupil.delete.twig', array('form' => $form->createView(), "title" => 'Schüler löschen', "pupilname" => $pupil->getFullName()));
+})
+->bind('pupil_delete')
+->secure('ROLE_WIRTSCHAFT_ADMIN');
 
 function handlePupilEdit($title, Pupil $data, $pathArgs, App $app, $logMsg, $redirectRoute) {
     $form = $app['form.factory']->create(new PupilTypeFull(), $data);
@@ -55,27 +122,11 @@ function handlePupilEdit($title, Pupil $data, $pathArgs, App $app, $logMsg, $red
     if($app['request']->getMethod() == 'POST') {
         $form->bindRequest($app['request']);
         
-        $data->setFirstWish($app['em']->find("sasCC\Company\Company", (int)$data->getFirstWish()));
-        $data->setSecondWish($app['em']->find("sasCC\Company\Company", (int)$data->getSecondWish()));
-        $data->setThirdWish($app['em']->find("sasCC\Company\Company", (int)$data->getThirdWish()));
-        $data->setPupilLink($app['em']->find("sasCC\Pupil\Pupil", (int)$data->getPupilLink()));
+        $data->setCompany($app['em']->find("sasCC\Company\Company", (int)$data->getCompany()));
         
         if ($form->isValid()) {
             $app['em']->persist($data);
             $app['em']->flush();
-            
-            $id = $data->getId();
-            $link = $data->getPupilLink();
-            
-            if(!is_null($link))
-            {
-                $userToBacklink = $app['em']->find("sasCC\Pupil\Pupil", (int)$link->getId());
-                $userToBacklink->setPupilLink($app['em']->find("sasCC\Pupil\Pupil", (int)$id));
-
-
-                $app['em']->persist($userToBacklink);
-                $app['em']->flush();
-            }
             
             $app['logger.actions']->addInfo(sprintf($logMsg, $data->getId()));
             return $app->redirect($app->path($redirectRoute, $pathArgs));
@@ -114,13 +165,13 @@ $app->match('/pupils/add/companysuggestions', function(Request $r) use ($app) {
     {
         $tokens = array();
         $tokens[] = $company->getName();
-        $tokens[] = $company->getId();
+        $tokens[] = (string)$company->getId();
 
         $data[] = array(
-            "id" => $company->getId(),
+            "id" => (string)$company->getId(),
             "name" => $company->getName(),
             
-            "value" => $company->getId(),
+            "value" => (string)$company->getId(),
             "tokens" => $tokens
             
         );
@@ -130,7 +181,7 @@ $app->match('/pupils/add/companysuggestions', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add_companysuggestions')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Return pupil suggestions
 $app->match('/pupils/add/pupilsuggestions', function(Request $r) use ($app) {   
@@ -178,5 +229,5 @@ $app->match('/pupils/add/pupilsuggestions', function(Request $r) use ($app) {
 
 })
 ->bind('pupil_add_pupilsuggestions')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>

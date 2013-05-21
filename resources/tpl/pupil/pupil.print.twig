@@ -1,0 +1,34 @@
+{% extends 'print/print.twig' %}
+
+{% block content %}
+
+<div class="row">   
+    <div class="span12">
+       <table class="table table-hover" id="pupil-list">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Vorname</th>
+                    <th>Klasse</th>
+                    <th>Betrieb</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                        <td>{{ pupil.getId() | e }}</td>
+                        <td>{{ pupil.getLastName() | e }}</td>
+                        <td>{{ pupil.getFirstName() | e }}</td>
+                        <td>{{ pupil.getRawClass() |e }}</td>
+                        <td>
+                            {% if pupil.company %}
+                            {{ pupil.company.name | e }}
+                            {% endif %}
+                        </td>
+                    </tr
+                </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}{# empty Twig template #}

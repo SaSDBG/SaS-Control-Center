@@ -6,14 +6,14 @@
 </div>
 <div class="row">
     <div class="span12">
-        <p>Soll der Benutzer <em>{{ username}}</em> wirklich gel&ouml;scht werden?</p>
+        <p>Soll der Schüler <em>{{ pupilname }}</em> wirklich gel&ouml;scht werden?</p>
 
         <form method="post">
             <label class="checkbox">
                 {{ form_widget(form.sure) }} Ja, ich bin mir sicher
             </label>
             {{ form_rest(form) }}    
-            <p><button type="submit" name="submit" class="btn btn-danger"><i class="icon-trash"></i> Unwiderruflich löschen</button> <a href="{{ url('user_list') }}" class="btn btn-primary"><i class="icon-remove-sign"></i> Abbrechen</a></p>
+            <p><button type="submit" name="submit" class="btn btn-danger"><i class="icon-trash"></i> Unwiderruflich löschen</button> <a href="{{ url('pupil_list') }}" class="btn btn-primary"><i class="icon-remove-sign"></i> Abbrechen</a></p>
         </form>   
     </div>
 </div>

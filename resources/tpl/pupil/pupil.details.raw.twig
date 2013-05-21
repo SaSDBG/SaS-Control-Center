@@ -1,0 +1,20 @@
+<legend>Allgemeines</legend>
+        <dl class="dl-horizontal">
+            <dt>Nachname</dt>
+            <dd>{{ pupil.lastName | e }}</dd>
+            
+            <dt>Vorname</dt>
+            <dd>{{ pupil.firstName | e }}</dd>
+            
+            <dt>Id</dt>
+            <dd>{{ pupil.Id | e }}</dd>
+            
+            <dt>Klasse</dt>
+            <dd>{{ pupil.getRawClass() | e }}</dd>
+
+            {% if pupil.company %}
+            
+            <dt>Betrieb</dt>
+            <dd>{{ pupil.company.name | e }}</dd>
+
+            {% endif %}

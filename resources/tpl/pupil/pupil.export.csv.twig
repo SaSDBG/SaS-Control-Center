@@ -1,0 +1,6 @@
+{% autoescape false %}
+Id;Nachname;Vorname;Klasse;Betrieb
+{% for pupil in pupils %}
+{{pupil.Id|ecsv}};{{pupil.lastName|ecsv}};{{pupil.firstName|ecsv}};{{pupil.getRawClass()|ecsv}};{% if pupil.company %} {{pupil.company.getName()|ecsv}} {% endif %};
+{% endfor %}
+{% endautoescape %}

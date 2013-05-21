@@ -1,8 +1,9 @@
 {% extends 'base.default.html.twig' %}
 
 {% block content %}
-
-<h1><i class="icon-reorder"></i> Sch&uuml;lerliste</h1>
+<div class="page-header">
+    <h1><i class="icon-reorder"></i> Sch&uuml;lerliste</h1>
+</div>    
 <div class="row">
     <div class="span12">
         {% if app.request.get("success") %}
@@ -24,8 +25,8 @@
                           <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href=""><i class="icon-print"></i> Sch&uuml;lerliste drucken</a></li>
-                            <li><a href="" target="_blank"><i class="icon-download-alt"></i> Sch&uuml;lerliste als CSV exportieren</a></li>
+                            <li><a href="{{ url('pupil_list_print') }}" target="_blank"><i class="icon-print"></i> Sch&uuml;lerliste drucken</a></li>
+                            <li><a href="{{ url('pupil_export_csv') }}" target="_blank"><i class="icon-download-alt"></i> Sch&uuml;lerliste als CSV exportieren</a></li>
                         </ul>
                     </div> 
             </div>
@@ -67,11 +68,11 @@
                             {% endif %}
                            
                             {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-                            <!--<button data-href="{{ url('pupil_detail_print', { "id" : pupil.getId() } ) }}" title="Schülerdetails drucken" class="btn companyPrintFilter"><i class="icon-print"></i></button>-->
+                            <a href="{{ url('pupil_detail_print', { "id" : pupil.getId() } ) }}" target="_blank" title="Schülerdetails drucken" class="btn" ><i class="icon-print"></i></a>
                             {% endif %}
                             
                             {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-                            <!--<a href="{{ url('delete_pupil',  { "id" : pupil.getId() } ) }}" title="Schüler löschen" class="btn btn-danger"><i class="icon-trash"></i></a>-->
+                            <a href="{{ url('pupil_delete',  { "id" : pupil.getId() } ) }}" title="Schüler löschen" class="btn btn-danger"><i class="icon-trash"></i></a>
                             {% endif %}
                         </td>
                     </tr>
@@ -79,6 +80,10 @@
                 </tbody>
         </table>
     </div>
+</div>
+
+<div id="pupilInfo">
+
 </div>
 
 
@@ -94,5 +99,5 @@
 {% block footer %}
 <script src="{{ app.request.baseUrl }}/assets/dataTables/js/jquery.dataTables.min.js"></script>
 <script src="{{ app.request.baseUrl }}/assets/dataTables/js/dt.bootstrap.js"></script>
-<script type="text/javascript" src="{{app.request.baseUrl}}/assets/js/pupil.add.js"></script>
+<script type="text/javascript" src="{{app.request.baseUrl}}/assets/js/pupil.list.js"></script>
 {% endblock %}

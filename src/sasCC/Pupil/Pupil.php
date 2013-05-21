@@ -35,6 +35,8 @@ class Pupil
      * @ManyToOne(targetEntity="sasCC\Company\Company", inversedBy="members", cascade={"persist"})
      */
     protected $company;
+    protected $companyRaw;
+    
     protected $rawClass;
 
     public function __construct()
@@ -91,6 +93,17 @@ class Pupil
     {
         $this->company = $company;
     }
+    
+    public function getCompanyRaw()
+    {
+        return isset($this->´company) ? $this->company : isset($this->company) ? $this->company->getId() : "";
+    }
+    
+    public function setCompanyRaw($companyRaw)
+    {
+        $this->companyRaw = $companyRaw;
+        $this->setCompany($companyRaw);
+    }
 
     public function getRawClass()
     {
@@ -105,7 +118,7 @@ class Pupil
 
     public function getFullName()
     {
-        return "{$this->lastName} {$this->firstName} ({$this->getClass()->getFullClass()})";
+        return "{$this->lastName}, {$this->firstName} ({$this->getClass()->getFullClass()})";
     }
 
     public function getName()
