@@ -14,7 +14,7 @@ $(document).ready(function() {
 
     $("#pupilFull_companyRaw").typeahead([
         {
-            name: 'betriebe',
+            name: 'betriebeEdit',
             prefetch: baseUrl + '/pupils/add/companysuggestions',
             remote: baseUrl + '/pupils/add/companysuggestions?q=%QUERY',
             template: [

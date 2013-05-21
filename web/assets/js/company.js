@@ -62,7 +62,7 @@ $(document).ready(function() {
     });
 
     $(".companyPrintFilterPrint").click(function() {
-        var ids = ["#cpf-category", "#cpf-chiefs", "#cpf-classes", "#cpf-capacity"];
+        var ids = ["#cpf-category", "#cpf-chiefs", "#cpf-members"];
         var hrefAppend = "?values="
         var values = "";
 

@@ -21,12 +21,38 @@
             <dt>Beschreibung</dt>
             <dd>{{ company.description | raw }}</dd>
         </dl>
-        {% if company.desiredRoom or company.needs %}
+
+        {% if company.members %}
+        <legend>Angestellte</legend>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Nachname</th>
+                    <th>Vorname</th>
+                    <th>Klasse</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for member in company.members %}
+                <tr>
+                    <td>{{ member.lastName | e }}</td>
+                    <td>{{ member.firstName | e }}</td>
+                    <td>{{ member.class.getFullClass() | e }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <ul>
+
+        </ul>
+        {% endif %}
+
+        {% if company.room or company.needs %}
         <legend>Sonstiges</legend>
         
-            {% if company.desiredRoom %}
+            {% if company.room %}
             <dt>Raumwunsch</dt>
-            <dd>{{ company.desiredRoom }}</dd>
+            <dd>{{ company.room }}</dd>
             {% endif %}
             
             {% if company.needs %}
