@@ -23,13 +23,10 @@ class CSVPupilImporter {
     public function import($csvFile) {
         $parser = new CSVParser();
         $pupils = $parser->parse($csvFile);
-        $pupilNo = 0;
         foreach($pupils as $pupil) {
-            $pupilNo++;
-            echo "inserting pupil no. $pupilNo\n";
             $this->insert($pupil);
         }
-        //$this->em->flush();
+        $this->em->flush();
     }
     
     protected function insert(Pupil $p) {

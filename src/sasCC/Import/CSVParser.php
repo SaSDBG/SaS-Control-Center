@@ -11,10 +11,7 @@ class CSVParser {
     
     public function parse($file) {
         $pupils = [];
-        $dataPoint = 0;
         if (($handle = fopen($file, "r")) !== false) {
-            $dataPoint++;
-            echo "parsing pupil no $dataPoint\n";
             while (($data = fgetcsv($handle, 0, ";")) !== false) {
                 $pupils[] = $this->parseRow($data);
             }
