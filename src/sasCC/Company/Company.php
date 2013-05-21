@@ -67,7 +67,6 @@ class Company {
     public function __construct() {
         $this->members = new \Doctrine\Common\Collections\ArrayCollection();
         $this->chiefs = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->constraints = new AssignmentConstraints();
         $this->chiefs = array(
           new Pupil,  
         );
