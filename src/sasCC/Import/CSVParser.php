@@ -11,8 +11,10 @@ class CSVParser {
     
     public function parse($file) {
         $pupils = [];
-        
+        $dataPoint = 0;
         if (($handle = fopen($file, "r")) !== false) {
+            $dataPoint++;
+            echo "parsing pupil no $dataPoint\n";
             while (($data = fgetcsv($handle, 0, ";")) !== false) {
                 $pupils[] = $this->parseRow($data);
             }
@@ -31,7 +33,7 @@ class CSVParser {
         
         $p = new Pupil;
         $p->companyID = (int) $id;
-        $p->rawClass = $class;
+        $p->rawClass = \trim($class);
         $this->parseName($name, $p);
         var_dump($p);
         return $p;
@@ -44,6 +46,8 @@ class CSVParser {
         $p->lastName = $split[1];
         if(count($split) > 2) {
             $p->isChief = true;
+        } else {
+            $p->isChief = false;
         }
     }
 }
