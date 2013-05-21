@@ -126,6 +126,10 @@ class Company {
     public function setChiefs($chiefs) {
         $this->chiefs = $chiefs;
     }
+    
+    public function addChief(Pupil $chief) {
+        $this->chiefs[] = $chief;
+    }
 
     
     public function getId() {
@@ -140,17 +144,6 @@ class Company {
         $this->name = $name;
     }
 
-    /**
-     * 
-     * @return AssignmentConstraints
-     */
-    public function getConstraints() {
-        return $this->constraints;
-    }
-
-    public function setConstraints($constraints) {
-        $this->constraints = $constraints;
-    }
     
     public function getNeeds() {
         return $this->needs;

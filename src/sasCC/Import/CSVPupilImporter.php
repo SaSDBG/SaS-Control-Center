@@ -37,7 +37,14 @@ class CSVPupilImporter {
         
         $company = $this->em->getRepository('sasCC\Company\Company')->find($p->companyID);
         $realPupil->setCompany($company);
+        
+        if($p->isChief) {
+            $company->addChief($realPupil);
+        }
+        
+        $this->em->persist($company);
         $this->em->persist($realPupil);
+        
     }
 }
 

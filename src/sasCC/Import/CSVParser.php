@@ -32,7 +32,6 @@ class CSVParser {
         $p->companyID = (int) $id;
         $p->rawClass = \trim($class);
         $this->parseName($name, $p);
-        var_dump($p);
         return $p;
     }
     
