@@ -16,11 +16,6 @@ class Company {
      * @Column
      */
     protected $name;
-        
-    /**
-     * @OneToOne(targetEntity="AssignmentConstraints", cascade={"persist"})
-     */
-    protected $constraints;
     
     /**
      * @Column(type="text", nullable=true)
@@ -56,7 +51,7 @@ class Company {
     /**
      * @Column(type="text", nullable=true)
      */
-    protected $desiredRoom;
+    protected $room;
     
     /**
      * @Column(type="boolean")
@@ -90,12 +85,12 @@ class Company {
         return $this->getIsMarkedToDelete();
     }
         
-    public function getDesiredRoom() {
-        return $this->desiredRoom;
+    public function getRoom() {
+        return $this->room;
     }
 
-    public function setDesiredRoom($desiredRoom) {
-        $this->desiredRoom = $desiredRoom;
+    public function setRoom($room) {
+        $this->room = $room;
     }
 
         

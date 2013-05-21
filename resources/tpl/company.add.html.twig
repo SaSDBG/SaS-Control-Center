@@ -107,26 +107,13 @@
                         {{ form_widget(form.description, { 'attr': {'name': 'ckDescr'} }) }}
                    </div>
             </div>
-
-            <legend>Zuteilungsinformationen</legend>
-            
-            {% for cont in form.constraints %}
-            <div class="control-group {{ macro.hasError(cont) }}">
-                   {{ form_label(cont, "", { 'label_attr': { 'class' : 'control-label' } }) }}
-                   <div class="controls">
-                   {{ form_widget(cont) }}
-                   {{ form_errors(cont) }}
-                   </div>
-            </div>
-            {% endfor %}
-            
-            
+           
             <legend>Sonstiges</legend>
             
-            <div class="control-group {{ macro.hasError(form.desiredRoom) }}">
-                   {{ form_label(form.desiredRoom, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+            <div class="control-group {{ macro.hasError(form.room) }}">
+                   {{ form_label(form.room, "", { 'label_attr': { 'class' : 'control-label' } }) }}
                    <div class="controls">
-                        {{ form_widget(form.desiredRoom) }}
+                        {{ form_widget(form.room) }}
                    </div>
             </div>
 

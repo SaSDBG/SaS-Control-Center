@@ -39,13 +39,6 @@ class CompanyType extends AbstractType {
             ],
         ));
         
-        //chiefs
-        $builder->add('constraints', new ConstraintsType(), array(
-            'constraints' => array(
-                new Assert\NotNull(),
-             ),
-        ));
-        
         $builder->add('chiefs', 'collection', array(
             'label' => "Betriebsleiter",
             'type' => new PupilType(),
@@ -69,8 +62,8 @@ class CompanyType extends AbstractType {
             'required' => false,
         ));
         
-        $builder->add('desiredRoom', null, array(
-            'label' => 'Raumwunsch',
+        $builder->add('room', null, array(
+            'label' => 'Raum',
             'required' => false,
         ));
         
