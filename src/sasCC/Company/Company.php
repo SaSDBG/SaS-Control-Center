@@ -130,6 +130,22 @@ class Company {
     public function addChief(Pupil $chief) {
         $this->chiefs[] = $chief;
     }
+    
+    public function removeChief(Pupil $chief) {
+        foreach($this->chiefs as $key => $c) {
+            if($c->getId() == $chief->getId()) {
+                unset($this->chiefs[$key]);
+            }
+        }
+    }
+    
+    public function hasChief(Pupil $chief) {
+        foreach($this->chiefs as $key => $c) {
+            if($c->getId() == $chief->getId()) {
+                return true;
+            }
+        }
+    }
 
     
     public function getId() {

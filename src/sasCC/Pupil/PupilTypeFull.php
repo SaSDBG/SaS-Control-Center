@@ -19,6 +19,13 @@ class PupilTypeFull extends PupilType {
             'constraints' => array(),
             'error_bubbling' => true,
         ));
+        
+        $builder->add('isChief', 'checkbox', array(
+           'label' => 'Ist Betriebsleiter',
+            'required' => false,
+            'constraints' => array(),
+            'error_bubbling' => true,
+        ));
     }
 
     public function getName() {
