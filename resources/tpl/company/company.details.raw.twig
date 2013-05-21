@@ -21,25 +21,6 @@
             <dt>Beschreibung</dt>
             <dd>{{ company.description | raw }}</dd>
         </dl>
-        <legend>Zuteilungsinformationen</legend>
-        <dl class="dl-horizontal">
-            <dt>Min. Arbeitspl&auml;tze</dt>
-            <dd>{{ company.constraints.minimalNumberOfWorkplaces }}</dd>
-            
-            <dt>Max. Arbeitspl&auml;tze</dt>
-            <dd>{{ company.constraints.maximalNumberOfWorkplaces }}</dd>
-            
-            <dt>Min. Klasse</dt>
-            <dd>{{ company.constraints.minimalGrade }}</dd>
-            
-            <dt>Max. Klasse</dt>
-            <dd>{{ company.constraints.maximalGrade }}</dd>
-            
-            {% if company.constraints.specialRules %}
-            <dt>Zuteilungsregeln</dt>
-            <dd>{{ company.constraints.specialRules | raw }}</dd>
-            {% endif %}
-        </dl>
         {% if company.desiredRoom or company.needs %}
         <legend>Sonstiges</legend>
         
