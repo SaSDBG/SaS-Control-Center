@@ -38,7 +38,25 @@ class Pupil
     protected $companyRaw;
     
     protected $rawClass;
+    
+    protected $isChief;
+    
+    public function getIsChief() {
+        if( ($this->isChief !== null) || !($this->getCompany() instanceof \sasCC\Company\Company) )  {
+            return $this->isChief;
+        }
+        return $this->getCompany()->hasChief($this);
+    }
+    
+    public function isChief() {
+        return $this->getIsChief();
+    }
 
+    public function setIsChief($isChief) {
+        $this->isChief = $isChief;
+    }
+
+    
     public function __construct()
     {
         $this->class = new SchoolClass();

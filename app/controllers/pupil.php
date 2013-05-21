@@ -122,9 +122,15 @@ function handlePupilEdit($title, Pupil $data, $pathArgs, App $app, $logMsg, $red
     if($app['request']->getMethod() == 'POST') {
         $form->bindRequest($app['request']);
         
-        $data->setCompany($app['em']->find("sasCC\Company\Company", (int)$data->getCompany()));
+        $c = $app['em']->find("sasCC\Company\Company", (int)$data->getCompany());
+        $data->setCompany($c);
+        
         
         if ($form->isValid()) {
+            $c->removeChief($data); //make sure he isnt chief already
+            if($data->isChief()) {
+                $c->addChief($data);
+            }
             $app['em']->persist($data);
             $app['em']->flush();
             
