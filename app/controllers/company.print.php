@@ -7,7 +7,7 @@ use sasCC\App;
 // Print company list
 $app->match('/companies/list/print', function (Request $r, App $app){  
     $companies = $app['em']->getRepository('sasCC\Company\Company')
-                           ->findAll(); 
+                           ->findAll();
     $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/list/print', $app->user()->getUserName(), $app->user()->getId()));
     return $app['twig']->render('company/company.list.print.twig', array("title" => "Betriebsliste", "companies" => $companies));
 })
@@ -20,7 +20,7 @@ $app->match('/companies/details/{id}/print', function (Request $r, App $app, $id
     if($company === null) return 'Company not Found';
     
     $app['logger.actions']->addInfo(sprintf('User %s (%d) printed details of company with id %d', $app->user()->getUserName(), $app->user()->getId(), $company->getId()));
-    return $app['twig']->render('company/company.print.twig', array("title" => "Betriebsdetails", "company" => $company));
+    return $app['twig']->render('company/company.print.twig', array("title" => "Betriebsdetails - {$company->getName()}", "company" => $company));
     
 })
 ->bind('company_detail_print')

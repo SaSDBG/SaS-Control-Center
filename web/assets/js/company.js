@@ -2,8 +2,8 @@ var hrefPrint = "";
 
 
 $(document).ready(function() {
-    $("a, button").tooltip({
-        "placement": "bottom"
+    $("a, button, input").tooltip({
+        "placement": "top"
     });
 
     $(".companyDetails").click(function() {
@@ -23,6 +23,15 @@ $(document).ready(function() {
         }
 
         showModal(id);
+    });
+
+    $(".companyPrintFilter").click(function() {
+        hrefPrint = $(this).data("href");
+
+        $("#companyPrintFilter").modal({
+            show: true
+        })
+
     });
 
     $("#company-list").dataTable({
@@ -52,19 +61,11 @@ $(document).ready(function() {
         "sWrapper": "dataTables_wrapper form-inline"
     });
 
-    $(".companyPrintFilter").click(function() {
-        hrefPrint = $(this).data("href");
-
-        $("#companyPrintFilter").modal({
-            show: true
-        })
-
-    });
-
     $(".companyPrintFilterPrint").click(function() {
-        var ids = ["#cpf-category", "#cpf-chiefs", "#cpf-members"];
+        var ids = ["#cpf-dtl", "#cpf-chiefs", "#cpf-members", "#cpf-descr"];
         var hrefAppend = "?values="
         var values = "";
+        var layout = $("#layout-selection .active").data("value");
 
         $.each(ids, function(index, value) {
             if ($(value).prop("checked"))
@@ -75,11 +76,11 @@ $(document).ready(function() {
 
         if (values != "" && values != undefined)
         {
-            var hrefFull = hrefPrint + hrefAppend + values;
+            var hrefFull = hrefPrint + hrefAppend + values + "&layout=" + layout;
         }
         else
         {
-            var hrefFull = hrefPrint;
+            var hrefFull = hrefPrint + "?layout=" + layout; 
         }
 
         window.open(hrefFull);

@@ -1,0 +1,11 @@
+{% if app.request.get('layout') %}
+    {% if app.request.get('layout') == 'print-aushg' %}
+        {% include ('company/company.print.meta.public.twig') %}
+    {% elseif app.request.get('layout') == 'print-chf' %}
+    {% elseif app.request.get('layout') == 'print-dtl' %}   
+        {% include ('company/company.print.meta.detail.twig') %}
+    {% endif %}
+
+{% else %}
+    {% include ('company/company.print.meta.public.twig') %}
+{% endif %}
