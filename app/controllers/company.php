@@ -98,6 +98,11 @@ $app->match('/companies/{id}/delete', function(Request $r, App $app, $id) {
     if($app['request']->getMethod() == 'POST') {
         $form->bindRequest($app['request']);
         if ($form->isValid() && $form->getData()['sure'] === true) {
+            foreach($company->getMembers() as $p) {
+                $p->setCompany(null);
+            }
+            $app['em']->persist($company);
+            $app['em']->flush();
             $app['em']->remove($company);
             $app['em']->flush();
             $app['logger.actions']->addInfo(sprintf('Betrieb mit ID %d wurde von %s (%d) gelöscht.', $company->getId(), $app->user()->getUserName(), $app->user()->getId()));
