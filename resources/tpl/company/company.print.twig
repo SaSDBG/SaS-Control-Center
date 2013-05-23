@@ -1,47 +1,9 @@
 {% extends 'print/print.twig' %}
 
+{% block additional_meta %}
+    {% include ('company/company.print.manager.meta.twig') %}
+{% endblock %}
+
 {% block content %}
-
-<div class="row">   
-    <div class="span12">
-        <div class="company">
-            <!-- ID and title -->
-                 <div class="row-fluid">
-                    <div class="span1">
-                        <p class="company-id">{{ company.getId | e }}</p>
-                    </div>
-                    <div class="span11">
-                        <p class="company-name">{{ company.getName | e }}</p>
-                    </div>
-                </div>
-
-                <!-- Meta and description -->
-                <div class="row-fluid">
-                    <div class="span7">
-                        <div class="company-description">
-                        {{ company.getDescription | raw }}
-                        </div>
-                    </div>
-                    <div class="span5">
-                        <div class="company-meta">
-                            <dl class="dl-horizontal">
-                                <dt>Kategorie</dt>
-                                <dd>{{ company.getCategory | e }}</dd>
-
-                                <dt>Betriebsleiter</dt>
-                                <dd>
-                                    <ul>
-                                        {% for chief in company.chiefs %}
-                                            <li>{{ chief.lastName | e }}, {{ chief.firstName | e }} ({{ chief.class.getFullClass() | e }})</li>
-                                        {% endfor %}
-                                    </ul>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-        </div>
-    </div>
-</div>
-
+    {% include ('company/company.print.manager.detail.twig') %}
 {% endblock %}

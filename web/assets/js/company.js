@@ -2,35 +2,8 @@ var hrefPrint = "";
 
 
 $(document).ready(function() {
-    $("a, button").tooltip({
-        "placement": "bottom"
-    });
-
-    $("#company-list").dataTable({
-        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
-        "sPaginationType": "bootstrap",
-        "bStateSave": true,
-        "oLanguage": {
-            "sProcessing": "Bitte warten...",
-            "sLengthMenu": "_MENU_ Einträge anzeigen",
-            "sZeroRecords": "Keine Einträge vorhanden.",
-            "sInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
-            "sInfoEmpty": "0 bis 0 von 0 Einträgen",
-            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
-            "sInfoPostFix": "",
-            "sSearch": "Suchen",
-            "sUrl": "",
-            "oPaginate": {
-                "sFirst": "Erster",
-                "sPrevious": "Zurück",
-                "sNext": "Nächster",
-                "sLast": "Letzter"
-            }
-        }
-    });
-
-    $.extend($.fn.dataTableExt.oStdClasses, {
-        "sWrapper": "dataTables_wrapper form-inline"
+    $("a, button, input").tooltip({
+        "placement": "top"
     });
 
     $(".companyDetails").click(function() {
@@ -61,10 +34,38 @@ $(document).ready(function() {
 
     });
 
+    $("#company-list").dataTable({
+        "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+        "sPaginationType": "bootstrap",
+        "bStateSave": true,
+        "oLanguage": {
+            "sProcessing": "Bitte warten...",
+            "sLengthMenu": "_MENU_ Einträge anzeigen",
+            "sZeroRecords": "Keine Einträge vorhanden.",
+            "sInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
+            "sInfoEmpty": "0 bis 0 von 0 Einträgen",
+            "sInfoFiltered": "(gefiltert von _MAX_  Einträgen)",
+            "sInfoPostFix": "",
+            "sSearch": "Suchen",
+            "sUrl": "",
+            "oPaginate": {
+                "sFirst": "Erster",
+                "sPrevious": "Zurück",
+                "sNext": "Nächster",
+                "sLast": "Letzter"
+            }
+        }
+    });
+
+    $.extend($.fn.dataTableExt.oStdClasses, {
+        "sWrapper": "dataTables_wrapper form-inline"
+    });
+
     $(".companyPrintFilterPrint").click(function() {
-        var ids = ["#cpf-category", "#cpf-chiefs", "#cpf-members"];
+        var ids = ["#cpf-dtl", "#cpf-chiefs", "#cpf-members", "#cpf-descr"];
         var hrefAppend = "?values="
         var values = "";
+        var layout = $("#layout-selection .active").data("value");
 
         $.each(ids, function(index, value) {
             if ($(value).prop("checked"))
@@ -75,11 +76,11 @@ $(document).ready(function() {
 
         if (values != "" && values != undefined)
         {
-            var hrefFull = hrefPrint + hrefAppend + values;
+            var hrefFull = hrefPrint + hrefAppend + values + "&layout=" + layout;
         }
         else
         {
-            var hrefFull = hrefPrint;
+            var hrefFull = hrefPrint + "?layout=" + layout; 
         }
 
         window.open(hrefFull);

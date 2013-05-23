@@ -106,9 +106,13 @@
     </div>
     <div class="modal-body">
         <p>Bitte ausw&auml;hlen, welche Informationen gedruckt werden sollen:</p>
+        <label class="checkbox" title="Zeigt Id, Name und Kategorie an">
+            <input type="checkbox" value="1" id="cpf-dtl" checked="checked" data-v="dtl">
+            Details
+        </label>
         <label class="checkbox">
-            <input type="checkbox" value="1" id="cpf-category" checked="checked" data-v="cat">
-            Betriebskategorie
+            <input type="checkbox" value="1" id="cpf-descr" checked="checked" data-v="descr">
+            Beschreibung
         </label>
         <label class="checkbox">
             <input type="checkbox" value="1" id="cpf-chiefs" checked="checked" data-v="chf">
@@ -118,6 +122,13 @@
             <input type="checkbox" value="1" id="cpf-members" checked="checked" data-v="members">
             Angestellte (Personen, die im Betrieb mitarbeiten)
         </label>
+        <br>
+        <p>Bitte Layouttyp ausw&auml;hlen:</p>
+        <div class="btn-group" data-toggle="buttons-radio" id="layout-selection">
+            <button type="button" title="Layout, um Aushänge zu drucken" class="btn btn-primary active" data-value="print-aushg">Aushang</button>
+            <button type="button" title="Layout, um für Betriebsleiter zu drucken" class="btn btn-primary" data-value="print-chf">Betriebsleiter</button>
+            <button type="button" title="Internes Layout" class="btn btn-primary" data-value="print-dtl">Detailliert</button>
+        </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary companyPrintFilterPrint" aria-hidden="true"><i class="icon-print"></i> Drucken</button>

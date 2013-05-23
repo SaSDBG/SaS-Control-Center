@@ -10,6 +10,7 @@ $app = new sasCC\App;
 require_once 'services.php';
 require_once 'controllers.php';
 $app->boot();
+
 return $app;
 
 ?>

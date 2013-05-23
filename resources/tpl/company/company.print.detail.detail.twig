@@ -1,0 +1,66 @@
+<div class="row">   
+    <div class="span12">
+        
+        {% if ((app.request.get('values') and 'dtl' in app.request.get('values')) or (app.request.get('values') and 'descr' in app.request.get('values'))) %}
+        <legend>Details</legend>
+        <dl class="dl-horizontal">
+            {% if 'dtl' in app.request.get('values') %}
+                <dt>ID</dt>
+                <dd>{{ company.getId | e }}</dd>
+                <dt>Betrieb</dt>
+                <dd>{{ company.getName | e }}</dd>
+                <dt>Kategorie</dt>
+                <dd>{{ company.getCategory | e }}</dd>
+            {% endif %}
+            {% if 'descr' in app.request.get('values') %}
+                <dt>Beschreibung</dt>
+                <dd>{{ company.getDescription | raw }}</dd>
+            {% endif %}
+        </dl>
+        {% endif %}
+        
+        {% if app.request.get('values') and 'chf' in app.request.get('values') %}
+        <legend>Betriebsleiter</legend>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Vorname</th>
+                    <th>Klasse</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for chief in company.chiefs %}
+                    <tr>
+                        <td>{{ chief.lastName | e }}</td>
+                        <td>{{ chief.firstName | e }}</td>
+                        <td>{{ chief.class.getFullClass() | e }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        
+        {% if app.request.get('values') and 'members' in app.request.get('values') %}
+        <legend>Mitarbeiter</legend>
+                <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Vorname</th>
+                    <th>Klasse</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in company.members %}
+                    <tr>
+                        <td>{{ member.lastName | e }}</td>
+                        <td>{{ member.firstName | e }}</td>
+                        <td>{{ member.class.getFullClass() | e }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>

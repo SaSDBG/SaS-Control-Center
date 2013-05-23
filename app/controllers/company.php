@@ -9,8 +9,7 @@ $app->match('/companies/list', function(Request $r, App $app) {
     $companies = $app['em']->getRepository('sasCC\Company\Company')
                            ->findAll();
     $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/list', $app->user()->getUserName(), $app->user()->getId()));
-    return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies));
-    
+    return $app['twig']->render('company.list.html.twig', array("title" => "Betriebsliste", "companies" => $companies)); 
 })
 ->bind('list_companies')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
