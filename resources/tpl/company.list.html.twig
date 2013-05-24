@@ -17,7 +17,7 @@
             {% endif %}
         {% endif %}
         
-        {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+        {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
         <div class="row">
             <div class="span12">
                     <div class="btn-group pull-right">
@@ -26,7 +26,8 @@
                           <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('company_list_print') }}" target="_blank"><i class="icon-print"></i> Betriebsliste drucken</a></li>
+                            <li><a href="#" class="companyPrintFilter" data-href="http://testing.devmx.de/maxe/sas/web/companies/list/print"><i class="icon-print"></i> Betriebsliste drucken</a></li>
+                            <li><a href="{{ url('room_list_print') }}" target="_blank"><i class="icon-print"></i> Raumliste drucken</a></li>
                             <li><a href="{{ url('company_export_csv') }}" target="_blank"><i class="icon-download-alt"></i> Betriebsliste als CSV exportieren</a></li>
                         </ul>
                     </div> 
@@ -42,6 +43,7 @@
                     <th>Name</th>
                     <th>Kategorie</th>
                     <th>Betriebsleiter</th>
+                    <th>Raum</th>
                     <th>Operationen</th>
                     <th></th>
                 </tr>
@@ -60,6 +62,7 @@
                             {% endfor %}
                             </ul>
                         </td>
+                        <td>{{ company.room | e }}</td>
                         <td>
                             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
                             <button title="Details anzeigen" data-company="{{ company.getId() | e }}" class="btn btn-primary companyDetails"><i class="icon-reorder"></i></button>

@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="page-header">
-    <h1>SaSCP &#150; &Uuml;bersicht</h1>
+    <h1>SaSCP &#150; Dashboard</h1>
 </div>
 
 
@@ -16,7 +16,7 @@
         <h3><i class="icon-cogs"></i> Betriebe</h3>
         <ul class="nav nav-pills nav-stacked">
             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-            <li><a href="{{ url("list_companies") }}"><i class="icon-reorder"></i> Betriebe anzeigen</a></li>
+            <li><a href="{{ url("list_companies") }}"><i class="icon-reorder"></i> Betriebsliste</a></li>
             {% endif %}
             
             {% if is_granted('ROLE_WIRTSCHAFT_CREATE') %}
@@ -41,7 +41,7 @@
     
     <!-- Schüler -->
     <div class="span4">
-        <h3><i class="icon-user"></i> Pupils</h3>
+        <h3><i class="icon-user"></i> Sch&uuml;ler &amp; Lehrer</h3>
         <ul class="nav nav-pills nav-stacked">
             {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
                 <li><a href="{{ url('pupil_list') }}"><i class="icon-reorder"></i> Sch&uuml;lerliste</a></li>

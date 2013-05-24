@@ -8,6 +8,8 @@
 
 {% block content %}
     {% for company in companies %}
-        {% include ('company/company.print.manager.twig') %}
+        <h2>{{ company.name | e }}</h2>
+        {% include ('company/company.print.manager.detail.twig') %}
+        <div class="page-break"></div>
     {% endfor %}
 {% endblock %}
