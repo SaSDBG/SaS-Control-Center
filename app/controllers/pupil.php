@@ -103,6 +103,12 @@ $app->match('/pupils/{id}/delete', function(Request $r, App $app, $id) {
     if($app['request']->getMethod() == 'POST') {
         $form->bindRequest($app['request']);
         if ($form->isValid() && $form->getData()['sure'] === true) {
+            if($pupil->isChief()) {
+                $c = $pupil->getCompany();
+                $c->removeChief($pupil);
+                $app['em']->persist($c);
+            }
+            $app['em']->flush();
             $app['em']->remove($pupil);
             $app['em']->flush();
             $app['logger.actions']->addInfo(sprintf('Schüler mit ID %d wurde von %s (%d) gelöscht.', $pupil->getId(), $app->user()->getUserName(), $app->user()->getId()));
