@@ -22,7 +22,7 @@
             <dd>{{ company.description | raw }}</dd>
         </dl>
 
-        {% if company.members %}
+        {% if members %}
         <legend>Angestellte</legend>
         <table class="table table-condensed">
             <thead>
@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody>
-            {% for member in company.members %}
+            {% for member in members %}
                 <tr>
                     <td>{{ member.lastName | e }}</td>
                     <td>{{ member.firstName | e }}</td>

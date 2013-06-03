@@ -2,14 +2,15 @@
 
 {% block content %}
 <div class="page-header">
-    <h1><i class="icon-search"></i> Magic search</h1>
+    <h1><i class="icon-search"></i> Suche</h1>
 </div>
 <div class="row">
     <div class="span12">
         <div class="span8 offset2">
-                <input placeholder="Tippen, um Suche zu starten..." type="text" name="search" class="input-xxlarge tt-query sf" id="sf">
-                <button class="btn">Suchen</button>
+            <input placeholder="Tippen, um Suche zu starten..." type="text" name="search" class="input-xxxlarge sf" id="sf">
+            <a target="_blank" href="#" class="btn pull-right hidden" id="search-nw" title="Details in neuem Fenster öffnen"><i class="icon-reply"></i></a>
         </div>
+        <div class="search-results"></div>
     </div>
 </div>
 
@@ -23,6 +24,10 @@
 {% endblock %}
 
 {% block js %}
+<script type="text/javascript">
+    var urlCompanyDetail = "{{ url('company_detail_raw', {'id': 'IDS'} ) }}";
+    var urlPupilDetail = "{{ url('pupil_detail_raw', {'id' : 'IDS'} ) }}";
+</script>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/typeahead.js/typeahead.min.js"></script>
 <script type="text/javascript" src="http://twitter.github.com/hogan.js/builds/2.0.0/hogan-2.0.0.js"></script>
 <script type="text/javascript" src="{{ app.request.baseUrl }}/assets/js/search.js"></script>

@@ -47,6 +47,15 @@ $app->match('/pupils/{id}/details', function(Request $r, App $app, $id){
 ->bind('pupil_detail')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
 
+// Get pupil details raw
+$app->match('/pupils/{id}/details/raw', function(Request $r, App $app, $id){
+    $pupil = $app['em']->find("sasCC\Pupil\Pupil", (int)$id);
+    if($pupil=== null) return 'Pupil not Found';
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/%d/details/raw', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('pupil/pupil.details.raw.twig', array("pupil" => $pupil));
+})
+->bind('pupil_detail_raw')
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Get pupil information for modal window
 $app->match('/pupils/{id}/details/modal', function(Request $r, App $app, $id){

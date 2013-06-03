@@ -1,0 +1,3 @@
+{% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+<li><a href="{{ url('search') }}"><i class="icon-search"></i> Suche</a></li>
+{% endif %}

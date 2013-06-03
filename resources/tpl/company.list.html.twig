@@ -64,25 +64,33 @@
                         </td>
                         <td>{{ company.room | e }}</td>
                         <td>
-                            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-                            <button title="Details anzeigen" data-company="{{ company.getId() | e }}" class="btn btn-primary companyDetails"><i class="icon-reorder"></i></button>
-                            {% endif %}
-
-                            {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
-                            <a href="{{ url('edit_company',  { "id" : company.getId() } ) }}" title="Betrieb editieren" class="btn"><i class="icon-pencil"></i></a>
-                            {% endif %}
-                           
-                            {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-                            <button data-href="{{ url('company_detail_print', { "id" : company.getId() } ) }}" title="Betriebsdetails drucken" class="btn companyPrintFilter"><i class="icon-print"></i></button>
-                            {% endif %}
-                            
-                            {% if is_granted ('ROLE_WIRTSCHAFT_PRIV') %}
-                            <button data-id="{{ company.getId()|raw}}" title="Zum Löschen (de)markieren" class="btn companyToggleDelete"><i class="icon-flag"></i></button>   
-                            {% endif %}
-                            
-                            {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
-                            <a href="{{ url('delete_company',  { "id" : company.getId() } ) }}" title="Betrieb l&ouml;schen" class="btn btn-danger"><i class="icon-trash"></i></a>
-                            {% endif %}
+                            <div class="btn-group">                    
+                                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Aktionen
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+                                    <li><a href="#" data-company="{{ company.getId() | e }}" class="companyDetails"><i class="icon-reorder"></i> Details anzeigen</a></li>
+                                    {% endif %}
+                                        
+                                    {% if is_granted('ROLE_WIRTSCHAFT_PRIV') %}
+                                    <li><a href="{{ url('edit_company',  { "id" : company.getId() } ) }}" ><i class="icon-pencil"></i> Editieren</a></li>
+                                    {% endif %}
+                                    
+                                    {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+                                    <li><a href="#" data-href="{{ url('company_detail_print', { "id" : company.getId() } ) }}" class="companyPrintFilter"><i class="icon-print"></i> Details drucken</a></li>
+                                    {% endif %}
+                                        
+                                    {% if is_granted ('ROLE_WIRTSCHAFT_PRIV') %}
+                                    <li><a href="#" data-id="{{ company.getId()|raw}}" class="companyToggleDelete"><i class="icon-flag"></i> Zum Löschen (de)markieren</a></li>
+                                    {% endif %}
+                                    
+                                    {% if is_granted('ROLE_WIRTSCHAFT_ADMIN') %}
+                                    <li><a href="{{ url('delete_company',  { "id" : company.getId() } ) }}" ><i class="icon-trash"></i> Betrieb l&ouml;schen</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
                         </td>
                         <td>
                             <span class="to-delete-badge{{ company.getId() | raw }} badge badge-warning" {% if company.isMarkedToDelete == 0 %} style="display:none"{% endif %}>z.L.vgm.</span>

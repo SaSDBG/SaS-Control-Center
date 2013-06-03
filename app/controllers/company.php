@@ -33,18 +33,43 @@ $app->match('/companies/add', function(Request $r) use ($app) {
 $app->match('/companies/{id}/details', function(Request $r, App $app, $id){
     $company = $app['em']->find("sasCC\Company\Company", (int)$id);
     if($company === null) return 'Company not Found';
+        
+    $query = $app['em']->createQuery("SELECT u FROM sasCC\Pupil\Pupil u WHERE u.company = :cid ORDER BY u.lastName ASC");  
+    $query->setParameter("cid", $id);
+    $members = $query->getResult();
+    
     $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/details/%d', $app->user()->getUserName(), $app->user()->getId(), $id));
-    return $app['twig']->render('company/company.details.twig', array("title" => "Betriebsdetails", "company" => $company));
+    return $app['twig']->render('company/company.details.twig', array("title" => "Betriebsdetails", "company" => $company, "members" => $members));
 })
 ->bind('company_detail')
+->secure('ROLE_WIRTSCHAFT_PRIV');
+
+// Get company details raw
+$app->match('/companies/{id}/details/raw', function(Request $r, App $app, $id){
+    $company = $app['em']->find("sasCC\Company\Company", (int)$id);
+    if($company === null) return 'Company not Found';
+    
+    $query = $app['em']->createQuery("SELECT u FROM sasCC\Pupil\Pupil u WHERE u.company = :cid ORDER BY u.lastName ASC");  
+    $query->setParameter("cid", $id);
+    $members = $query->getResult();
+    
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/details/%d/raw', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('company/company.details.raw.twig', array("company" => $company, "members" => $members));
+})
+->bind('company_detail_raw')
 ->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Get company details modal
 $app->match('/companies/{id}/details/modal', function(Request $r, App $app, $id){
     $company = $app['em']->find("sasCC\Company\Company", (int)$id);
     if($company === null) return 'Company not Found';
+    
+    $query = $app['em']->createQuery("SELECT u FROM sasCC\Pupil\Pupil u WHERE u.company = :cid ORDER BY u.lastName ASC");       
+    $query->setParameter("cid", $id);
+    $members = $query->getResult();
+    
     $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/details/%d/modal', $app->user()->getUserName(), $app->user()->getId(), $id));
-    return $app['twig']->render('company/company.details.modal.twig', array("title" => "Betriebsdetails", "company" => $company));
+    return $app['twig']->render('company/company.details.modal.twig', array("title" => "Betriebsdetails", "company" => $company, "members" => $members));
 })
 ->bind('company_detail_modal')
 ->secure('ROLE_WIRTSCHAFT_PRIV');

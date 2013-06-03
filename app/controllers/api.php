@@ -47,8 +47,8 @@ $app->match('/api/companies', function(Request $r) use ($app) {
             "chiefs" => $chiefHtml,
             
             "value" => $company->getName(),
-            "tokens" => $tokens
-            
+            "tokens" => $tokens,
+            "type" => "company"
         );
     }
     
@@ -95,8 +95,8 @@ $app->match('/api/persons', function(Request $r) use ($app) {
             "class" => $pupil->getClass()->getFullClass(),
             
             "value" => $pupil->getName(),
-            "tokens" => $tokens
-            
+            "tokens" => $tokens,
+            "type" => "pupil"
         );
     }
     

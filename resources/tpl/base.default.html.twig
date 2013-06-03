@@ -20,6 +20,12 @@
     {% endif %}
 {% endblock %}
     
+{% block navbar_right %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {% include "nav/base.nav.right.twig" %}
+    {% endif %}
+{% endblock %}
+    
 {% block sidebar_nav %}
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         {% include "base.sidebarnav.html.twig" %}
