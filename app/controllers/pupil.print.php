@@ -6,8 +6,9 @@ use sasCC\App;
 
 // Print company list
 $app->match('/pupils/list/print', function (Request $r, App $app){  
-    $pupils = $app['em']->getRepository('sasCC\Pupil\Pupil')
-                           ->findAll(); 
+    $query = $app['em']->createQuery("SELECT u FROM sasCC\Pupil\Pupil u ORDER BY u.lastName ASC");  
+    $pupils = $query->getResult();
+    
     $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /pupils/list/print', $app->user()->getUserName(), $app->user()->getId()));
     return $app['twig']->render('pupil/pupil.list.print.twig', array("title" => "Schülerliste", "pupils" => $pupils));
 })
