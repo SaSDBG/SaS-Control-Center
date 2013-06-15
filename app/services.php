@@ -59,7 +59,7 @@ $app['companies.schemaManager'] = $app->share(function($app){
 });
 
 
-$app['em.entity-paths'] = array(ROOT."/src/sasCC/Company", ROOT."/src/sasCC/Pupil", ROOT.'/src/sasCC/User');
+$app['em.entity-paths'] = array(ROOT."/src/sasCC/Company", ROOT."/src/sasCC/Pupil", ROOT.'/src/sasCC/User', ROOT."/src/sasCC/Broadcast");
 
 $app['em.config'] = $app->share(function($app) {
     return Setup::createAnnotationMetadataConfiguration($app['em.entity-paths'], $app['debug']);

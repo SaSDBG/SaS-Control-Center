@@ -49,7 +49,6 @@ class UserType extends UserTypeNoPassword{
     }
     
     public static function passwordsAreIdentical() {
-        var_dump(func_get_args());
         if(! $user->getPlainPass() === $user->getPlainPassSave()) {
             $context->addViolationAtSubPath('plainPass', 'Die beiden Passwörter müssen übereinstimmen', array(), null);
         }
