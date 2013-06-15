@@ -17,12 +17,7 @@ class BroadcastType extends AbstractType {
     {
         $builder->add('name', null, array(
             'label' => "Name des Broadcasts",
-            'required' => true,
-            'constraints' => array(
-                new Assert\NotBlank(array(
-                    'message' => 'Es muss ein Name eingetragen werden.'
-                )),
-            )
+            'required' => true
         ));
         
         $builder->add('type', 'choice', array(
@@ -37,15 +32,15 @@ class BroadcastType extends AbstractType {
         
         $builder->add('content', 'textarea', array(
             'label' => "Inhalt",
-            'required' => true,
+            'required' => false,
         ));
         
-        $builder->add('start', null, array(
+        $builder->add('start', 'datetime', array(
             'label' => 'Start',
             'required' => true,
         ));
         
-        $builder->add('end', null, array(
+        $builder->add('end', 'datetime', array(
             'label' => 'Ende',
             'required' => true,
         ));

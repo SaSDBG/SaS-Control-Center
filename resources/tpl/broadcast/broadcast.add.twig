@@ -30,7 +30,7 @@
 
 <div class="row">
     <div class="span12">
-        <form method="post" class="form-horizontal">
+        <form method="post" class="form-horizontal" id="broadcast-add">
 
             {% if app.request.get("success") %}
             <div class="alert alert-block alert-success">
@@ -63,14 +63,14 @@
             
             <div class="control-group {{ macro.hasError(form.start) }}">
                    {{ form_label(form.start, "", { 'label_attr': { 'class' : 'control-label' } }) }}
-                   <div class="controls">
+                   <div class="controls">    
                         {{ form_widget(form.start) }}
                    </div>
             </div>
             
             <div class="control-group {{ macro.hasError(form.end) }}">
                    {{ form_label(form.end, "", { 'label_attr': { 'class' : 'control-label' } }) }}
-                   <div class="controls">
+                   <div class="controls" id="dpend">
                         {{ form_widget(form.end) }}
                    </div>
             </div>
@@ -93,13 +93,16 @@
 
 {% endblock %}
 
-{% block footer %}
-
-                
+{% block footer %}               
                 <script src="{{ app.request.baseUrl }}/assets/ckeditor/ckeditor.js"></script>
                 <script src="{{ app.request.baseUrl }}/assets/js/ckeditorOptions.js"></script>
-                
-                <script>
-                        CKEDITOR.replace('broadcast[content]', ckeditorOptionsLarge);
-                </script>
+                <script src="{{ app.request.baseUrl }}/assets/nod/nod.js"></script>
+                <script src="{{ app.request.baseUrl }}/assets/js/broadcast.add.js"></script>
 {% endblock %}
+                
+{% block css %}
+                <style type="text/css">
+                        #broadcast_start_time, #broadcast_end_time { margin-top: 5px; }
+                </style>
+{% endblock %}
+

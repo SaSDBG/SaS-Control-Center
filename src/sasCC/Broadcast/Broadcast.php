@@ -40,6 +40,8 @@ class Broadcast {
     protected $id;
        
     public function __construct() {
+        $this->start = new \DateTime();
+        $this->end = new \DateTime();
     }   
     
     public function getId() {
@@ -63,18 +65,30 @@ class Broadcast {
     }
     
     public function getStart() {
+       /* if($this->start instanceof \DateTime)
+            return $this->start;
+        else
+            return \DateTime::createFromFormat ("dd.mm.YYYY HH:ii:ss", $this->start);*(
+        */
         return $this->start;
     }
     
     public function setStart($start) {
+        //$this->start = \DateTime::createFromFormat("dd.mm.YYYY HH:ii:ss", $start);
         $this->start = $start;
+        
     }
     
     public function getEnd() {
+    /*    if($this->end instanceof \DateTime)
+            return $this->end;
+        else 
+            return \DateTime::createFromFormat ("dd.mm.YYYY HH:ii:ss", $this->end);*/
         return $this->end;
     }
     
     public function setEnd($end) {
+      //  $this->end = \DateTime::createFromFormat("dd.mm.YYYY HH:ii:ss", $end);
         $this->end = $end;
     }
     

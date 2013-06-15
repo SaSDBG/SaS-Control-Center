@@ -6,7 +6,7 @@ var ckeditorOptionsSmall = {
         { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
         { name: 'tools' },
         { name: 'others' },
-        { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] }
+       
         ]
     };
 
@@ -15,9 +15,7 @@ var ckeditorOptionsLarge = {
     { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
     { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
     { name: 'insert' },
-    { name: 'forms' },
     { name: 'tools' },
-    { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
     { name: 'others' },
     '/',
     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },

@@ -12,7 +12,7 @@ $app->match('/broadcasts/add', function(Request $r) use ($app) {
             array(),
             $app,
             sprintf('Broadcast mit ID %%d wurde von %s (%d) angelegt', $app->user()->getUserName(), $app->user()->getId()),
-            'add_broadcast'
+            'broadcast_add'
      );
 
 })
