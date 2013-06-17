@@ -65,30 +65,26 @@ class Broadcast {
     }
     
     public function getStart() {
-       /* if($this->start instanceof \DateTime)
-            return $this->start;
-        else
-            return \DateTime::createFromFormat ("dd.mm.YYYY HH:ii:ss", $this->start);*(
-        */
         return $this->start;
     }
     
+    public function getStartFormat() {
+        return $this->start->format("d.m.Y H:i:s");
+    }
+            
     public function setStart($start) {
-        //$this->start = \DateTime::createFromFormat("dd.mm.YYYY HH:ii:ss", $start);
-        $this->start = $start;
-        
+        $this->start = $start;       
     }
     
     public function getEnd() {
-    /*    if($this->end instanceof \DateTime)
-            return $this->end;
-        else 
-            return \DateTime::createFromFormat ("dd.mm.YYYY HH:ii:ss", $this->end);*/
         return $this->end;
     }
     
+    public function getEndFormat () {
+        return $this->end->format("d.m.Y H:i:s");
+    }
+    
     public function setEnd($end) {
-      //  $this->end = \DateTime::createFromFormat("dd.mm.YYYY HH:ii:ss", $end);
         $this->end = $end;
     }
     

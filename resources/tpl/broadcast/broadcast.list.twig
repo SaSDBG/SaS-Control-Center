@@ -1,0 +1,64 @@
+{% extends "base.default.html.twig" %}
+
+{% block content %}
+<div class="page-header">
+    <h1><i class="icon-desktop"></i> Broadcastliste</h1>
+</div>
+
+<div class="row">
+    <div class="span12">
+        {% if app.request.get("success") %}
+            {% if app.request.get("deleted") %}
+                {{ macros.successMsg("Broadcast wurde erfolgreich gelöscht.") }}
+            {% endif %}
+
+            {% if app.request.get("edited") %}
+                {{ macros.successMsg("Broadcast wurde erfolgreich editiert.") }}
+            {% endif %}
+        {% endif %}
+
+            <table class="table table-hover" id="company-list">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Start</th>
+                        <th>Ende</th>
+                        <th>Operationen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for broadcast in broadcasts %}
+                    <tr>
+                        <td>{{ broadcast.getId | e }}</td>
+                        <td>{{ broadcast.getName | e }}</td>
+                        <td>{{ broadcast.getStartFormat |e }}</td>
+                        <td>{{ broadcast.getEndFormat | e }}</td>
+                        <td>
+                            <div class="btn-group">                    
+                                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Aktionen
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ url('broadcast_edit',  { "id" : broadcast.getId() } ) }}" ><i class="icon-pencil"></i> Broadcast editieren</a></li>
+                                    <li><a href="{{ url('broadcast_delete',  { "id" : broadcast.getId() } ) }}" ><i class="icon-trash"></i> Broadcast l&ouml;schen</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+<script>
+    $(document).ready(function(){
+            $("a, button").tooltip( { "placement" : "bottom" });
+    });
+</script>
+{% endblock %}

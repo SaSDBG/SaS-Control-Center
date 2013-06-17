@@ -78,11 +78,11 @@ body {
 {
     position: fixed;
     left: 0;
-    top: 100px;
+    top: 40px;
     max-width: 200px;
-    padding: 8px 0;
+    padding: 8px 20px 0 0;
+    height: 100%;
     margin-left: -2px;
-    
 }
 
 @media (max-width: 1680px)

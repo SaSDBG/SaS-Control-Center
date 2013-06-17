@@ -53,14 +53,24 @@
     </div>
 </div>
 
-{% if is_granted('ROLE_ADMIN') %}
-<h2><i class="icon-wrench"></i> Administrator</h2>
+{% if is_granted('ROLE_PRIV') %}
+<h2><i class="icon-wrench"></i> Verwaltung</h2>
 <div class="row">
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="span4">
         <h3><i class="icon-group"></i> Benutzerverwaltung</h3>
         <ul class="nav nav-pills nav-stacked">     
             <li><a href="{{ url('user_list') }}"><i class="icon-reorder"></i> Benutzerliste</a></li>
             <li><a href="{{ url('user_create') }}"><i class="icon-plus"></i> Benutzer hinzuf&uuml;gen</a></li>
+        </ul> 
+    </div>
+    {% endif %}
+     
+    <div class="span4">
+        <h3><i class="icon-desktop"></i> Broadcasts</h3>
+        <ul class="nav nav-pills nav-stacked">     
+            <li><a href="{{ url('broadcast_list') }}"><i class="icon-reorder"></i> Broadcastliste</a></li>
+            <li><a href="{{ url('broadcast_add') }}"><i class="icon-plus"></i> Broadcast hinzuf&uuml;gen</a></li>
         </ul> 
     </div>
 </div>
