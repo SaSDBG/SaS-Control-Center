@@ -56,7 +56,7 @@ $app->match('/api/companies', function(Request $r) use ($app) {
    
 })
 ->bind('api_companies')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 
 // Returns all pupils as JSON
 $app->match('/api/persons', function(Request $r) use ($app) {
@@ -103,5 +103,5 @@ $app->match('/api/persons', function(Request $r) use ($app) {
     return json_encode($data);
 })
 ->bind('api_persons')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>

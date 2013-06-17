@@ -8,5 +8,5 @@ $app->match('/search', function(Request $r) use ($app) {
    return $app['twig']->render('search/search.twig', array("title" => "Magic search"));
 })
 ->bind('search')
-->secure('ROLE_ADMIN');
+->secure('ROLE_WIRTSCHAFT_PRIV');
 ?>
