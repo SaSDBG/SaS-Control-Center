@@ -24,6 +24,7 @@
                         <th>Name</th>
                         <th>Start</th>
                         <th>Ende</th>
+                        <th>Status</th>
                         <th>Operationen</th>
                     </tr>
                 </thead>
@@ -35,12 +36,30 @@
                         <td>{{ broadcast.getStartFormat |e }}</td>
                         <td>{{ broadcast.getEndFormat | e }}</td>
                         <td>
+                            {% if broadcast.isVisible %}
+                                <i data-url="{{ url('broadcast_toggle_visible',  { "id" : broadcast.getId() } ) }}" title="Status umschalten" class="icon-eye-open toggler broadcastToggleVisible"></i>
+                            {% else %}
+                                <i data-url="{{ url('broadcast_toggle_visible',  { "id" : broadcast.getId() } ) }}" title="Status umschalten" class="icon-eye-close toggler broadcastToggleVisible"></i>
+                            {% endif %}
+                            
+                            {% if broadcast.isActive %}
+                                <i data-url="{{ url('broadcast_toggle_active',  { "id" : broadcast.getId() } ) }}" title="Status umschalten" class="icon-ok toggler broadcastToggleActive"></i>
+                            {% else %}
+                                <i data-url="{{ url('broadcast_toggle_active',  { "id" : broadcast.getId() } ) }}" title="Status umschalten" class="icon-remove toggler broadcastToggleActive"></i>
+                            {% endif %}
+                                
+                            {% if broadcast.isManual %}
+                                <i title="Manuell" class="icon-exclamation"></i>
+                            {% endif %}
+                        </td>
+                        <td>
                             <div class="btn-group">                    
                                 <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
                                     Aktionen
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
+                                    <li><a href="{{ url('broadcast_detail',  { "id" : broadcast.getId() } ) }}" target="_blank" ><i class="icon-reorder"></i> Details anzeigen</a></li>
                                     <li><a href="{{ url('broadcast_edit',  { "id" : broadcast.getId() } ) }}" ><i class="icon-pencil"></i> Broadcast editieren</a></li>
                                     <li><a href="{{ url('broadcast_delete',  { "id" : broadcast.getId() } ) }}" ><i class="icon-trash"></i> Broadcast l&ouml;schen</a></li>
                                 </ul>
@@ -55,10 +74,12 @@
 
 {% endblock %}
 
-{% block footer %}
-<script>
-    $(document).ready(function(){
-            $("a, button").tooltip( { "placement" : "bottom" });
-    });
-</script>
+{% block js %}
+<script src="{{ app.request.baseUrl }}/assets/js/broadcast.list.js"></script>
+{% endblock %}
+
+{% block css %}
+<style type="text/css">
+.toggler { cursor: pointer !important;}
+</style>
 {% endblock %}

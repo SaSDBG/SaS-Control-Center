@@ -90,4 +90,77 @@ $app->match('/broadcasts/{id}/delete', function(Request $r, App $app, $id) {
 })
 ->bind('broadcast_delete')
 ->secure('ROLE_PRIV');
+
+// Broadcast details
+$app->match('/broadcasts/{id}/details', function(Request $r, App $app, $id){
+    $broadcast = $app['em']->find("sasCC\Broadcast\Broadcast", (int)$id);
+    if($broadcast === null) return 'Broadcast not Found';
+
+    
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /broadcasts/%d/details', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('broadcast/broadcast.details.twig', array("title" => "Betriebsdetails", "broadcast" => $broadcast));
+})
+->bind('broadcast_detail')
+->secure('ROLE_PRIV');
+
+// Broadcast details raw
+$app->match('/broadcasts/{id}/details/raw', function(Request $r, App $app, $id){
+    $company = $app['em']->find("sasCC\Broadcast\Broadcast", (int)$id);
+    if($company === null) return 'Broadcast not Found';
+    
+    $app['logger.actions']->addInfo(sprintf('User %s (%d) accessed /companies/details/%d/raw', $app->user()->getUserName(), $app->user()->getId(), $id));
+    return $app['twig']->render('broadcast/broadcast.details.raw.twig', array("broadcast" => $broadcast));
+})
+->bind('broadcast_detail_raw')
+->secure('ROLE_PRIV');
+
+// Toggle visibility
+$app->match('/broadcasts/{id}/toggle/visible', function(Request $r, App $app, $id) {
+    $broadcast = $app['em']->find("sasCC\Broadcast\Broadcast", (int) $id);
+    if($broadcast === null) return 'Invalid broadcast';
+    
+    $val = 0;
+    //return $broadcast->getIsVisible()."s";
+    
+    if($broadcast->getIsVisible() == 1)
+    {
+        $broadcast->setIsVisible(0);
+        $val = 0;
+    }
+    else 
+    {
+        $broadcast->setIsVisible(1);
+        $val = 1;
+    }
+    
+    $app['em']->flush();
+    return $val;
+})
+->bind('broadcast_toggle_visible')
+->secure('ROLE_PRIV');
+
+// Toggle active state
+$app->match('/broadcasts/{id}/toggle/active', function(Request $r, App $app, $id) {
+    $broadcast = $app['em']->find("sasCC\Broadcast\Broadcast", (int) $id);
+    if($broadcast === null) return 'Invalid broadcast';
+    
+    $val = 0;
+    
+    if($broadcast->getIsActive())
+    {
+        $broadcast->setIsActive(0);
+        $val = 0;
+    }
+    else 
+    {
+        $broadcast->setIsActive(1);
+        $val = 1;
+    }
+    
+    $app['em']->flush();
+    return $val;
+})
+->bind('broadcast_toggle_active')
+->secure('ROLE_PRIV');
+
 ?>

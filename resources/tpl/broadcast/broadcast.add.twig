@@ -53,7 +53,21 @@
                         {{ form_widget(form.name) }}
                    </div>
             </div>
+            
+            <div class="control-group {{ macro.hasError(form.isActive) }}">
+                   {{ form_label(form.isActive, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.isActive, { 'attr': {'name': 'ckDescr'} }) }}
+                   </div>
+            </div>
 
+            <div class="control-group {{ macro.hasError(form.isVisible) }}">
+                   {{ form_label(form.isVisible, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.isVisible, { 'attr': {'name': 'ckDescr'} }) }}
+                   </div>
+            </div>
+            
             <div class="control-group {{ macro.hasError(form.type) }}">
                    {{ form_label(form.type, "", { 'label_attr': { 'class' : 'control-label' } }) }}
                    <div class="controls">
@@ -70,8 +84,15 @@
             
             <div class="control-group {{ macro.hasError(form.end) }}">
                    {{ form_label(form.end, "", { 'label_attr': { 'class' : 'control-label' } }) }}
-                   <div class="controls" id="dpend">
+                   <div class="controls">
                         {{ form_widget(form.end) }}
+                   </div>
+            </div>
+            
+            <div class="control-group {{ macro.hasError(form.isManual) }}">
+                   {{ form_label(form.isManual, "", { 'label_attr': { 'class' : 'control-label' } }) }}
+                   <div class="controls">
+                        {{ form_widget(form.isManual) }}
                    </div>
             </div>
 

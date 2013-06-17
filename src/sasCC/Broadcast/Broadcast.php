@@ -33,6 +33,22 @@ class Broadcast {
      * @Column(type="integer", nullable=true)
      */
     protected $type;
+    
+    /**
+     * @Column(type="boolean", nullable=false)
+     */
+    protected $isManual = false;
+    
+    /**
+     * @Column(type="boolean", nullable=false)
+     */
+    protected $isActive = true;
+
+    /**
+     * @Column(type="boolean", nullable=false)
+     */
+    protected $isVisible = true;
+    
     /**
      * @var int
      * @Id @Column(type="integer") @GeneratedValue
@@ -94,6 +110,42 @@ class Broadcast {
     
     public function setType($type) {
         $this->type = $type;
+    }
+    
+    public function getIsManual() {
+        return $this->isManual;
+    }
+    
+    public function isManual() {
+        return $this->getIsManual();
+    }
+    
+    public function setIsManual($isManual) {
+        $this->isManual = $isManual;
+    }
+    
+    public function getIsActive() {
+        return $this->isActive;
+    }
+    
+    public function isActive() {
+        return $this->getIsActive();
+    }
+    
+    public function setIsActive($isActive) {
+        $this->isActive = $isActive;
+    }
+    
+    public function getIsVisible() {
+        return $this->isVisible;
+    }
+    
+    public function isVisible() {
+        return $this->getIsVisible();
+    }
+    
+    public function setIsVisible($isVisible) {
+        $this->isVisible = $isVisible;
     }
 }
 ?>

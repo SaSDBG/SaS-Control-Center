@@ -1,0 +1,27 @@
+{% extends 'base.default.html.twig' %}
+
+{% block content %}
+
+<div class="page-header">
+    <h1><i class="icon-question-sign"></i> {{broadcast.getName()|e}}</h1>
+</div>
+{% include "broadcast/broadcast.details.raw.twig" %}
+
+<legend>Allgemeines</legend>
+
+<dl class="dl-horizontal">
+    <dt>Name</dt>
+    <dd>{{ broadcast.name | e }}</dd>
+    
+    <dt>Start</dt>
+    <dd>{{ broadcast.start | date("l, d.m.Y H:i:s") }}</dd>
+    
+    <dt>Ende</dt>
+    <dd>{{ broadcast.end | date("l, d.m.Y H:i:s") }}</dd>
+</dl>
+
+<legend>Inhalt</legend>
+<div>
+{{ broadcast.content | raw }}
+</div>
+{% endblock %}

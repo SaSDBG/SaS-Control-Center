@@ -20,6 +20,16 @@ class BroadcastType extends AbstractType {
             'required' => true
         ));
         
+        $builder->add('isActive', 'checkbox', array(
+           'label' => 'Aktiv',
+            'required' => false
+        ));
+        
+        $builder->add('isVisible', 'checkbox', array(
+           'label' => 'Aktiv',
+            'required' => false
+        ));
+        
         $builder->add('type', 'choice', array(
             'label' => 'Broadcasttyp',
             'required' => true,
@@ -43,6 +53,11 @@ class BroadcastType extends AbstractType {
         $builder->add('end', 'datetime', array(
             'label' => 'Ende',
             'required' => true,
+        ));
+        
+        $builder->add('isManual', 'checkbox', array(
+           'label' => 'Manuelle Steuerung',
+            'required' => false
         ));
     }
 
