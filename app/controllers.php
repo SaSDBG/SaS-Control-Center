@@ -25,6 +25,7 @@ require_once 'controllers/pupil.php';
 require_once 'controllers/pupil.print.php';
 require_once 'controllers/room.php';
 require_once 'controllers/broadcast.php';
+require_once 'controllers/public.php';
 
 $app->error(function (\Exception $e, $code) use ($app) {
             if ($app['debug'])

@@ -1,0 +1,71 @@
+{% import "macros.twig" as macros %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>SMV SaS CP &#150; {{ title|e }}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="{{ app.request.baseUrl }}/favicon.png" type="image/png">
+    
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/animate.min.css">
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/main.css">
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/bxslider/jquery.bxslider.css">
+    <link rel="stylesheet" href="{{ app.request.baseUrl }}/assets/css/broadcast.public.css">
+
+    </head>
+    <body>
+        <div class="container">
+            <h1>DBG Metzingen &ndash; Schule als Staat 2013 &mdash; Ank&uuml;ndingen</h1>
+            
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="news">
+                        <div>
+                            <ul id="news1" class="hidden">
+
+                            </ul>
+                        </div>
+                        <div>
+                            <ul id="news2" class="hidden">
+
+                            </ul>
+                        </div>
+                        <div>
+                            <ul id="news3" class="hidden">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="span12" id="placeholder">
+                    <div class="placeholder animated flash"><p>Im Moment keine Meldungen.</p></div>
+                </div>
+            </div>
+        </div>
+            
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="{{ app.request.baseUrl }}/assets/js/vendor/jquery.min.js"><\/script>')</script>
+
+        <script src="{{ app.request.baseUrl }}/assets/bxslider/jquery.bxslider.min.js"></script>
+        <script src="{{ app.request.baseUrl }}/assets/timer/jquery.timer.js"></script>
+        <script src="{{ app.request.baseUrl }}/assets/js/vendor/bootstrap.min.js"></script>
+        <script src="{{ app.request.baseUrl }}/assets/js/main.js"></script>
+        <script src="{{ app.request.baseUrl }}/assets/js/broadcast.public.js"></script>
+
+        <script>
+            var baseUrl = "{{ app.request.baseUrl }}";
+            var sourceUrl = "{{ url('pub_broadcast_json') }}";
+        </script>
+    </body>
+</html>

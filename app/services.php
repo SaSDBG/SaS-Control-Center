@@ -84,6 +84,10 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
           'pattern' => '^/login$',
           'anonymous' => true,
         ],
+        'puplic' => [
+          'pattern' => '^/pub.*$',
+          'anonymous' => true,
+        ],
         'secured' => [
             'pattern' => '^/.*$',
             'anonymous' => false,

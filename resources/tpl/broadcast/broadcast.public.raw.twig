@@ -1,0 +1,13 @@
+<li id="nws{{ broadcast.id | raw }}">
+    <div class="newsitem">
+        <div class="newsitem-left span1">
+            <i class="icon-5x icon-warning-sign"></i>
+        </div>
+        <div class="newsitem-right span11">
+            <h2>{{ broadcast.name | e }}</h2>
+            <div class="newsitem-content">
+            {{ broadcast.content | raw }}
+            </div>
+        </div>
+    </div>
+</li>

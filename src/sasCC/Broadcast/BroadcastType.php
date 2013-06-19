@@ -26,7 +26,7 @@ class BroadcastType extends AbstractType {
         ));
         
         $builder->add('isVisible', 'checkbox', array(
-           'label' => 'Aktiv',
+           'label' => 'Sichtbar',
             'required' => false
         ));
         
@@ -36,7 +36,8 @@ class BroadcastType extends AbstractType {
             'choices' => [
                 '0' => 'Standard (Grau)',
                 '1' => 'Attention (Gelb)',
-                '2' => 'Alert (Rot)'
+                '2' => 'Alert (Rot)',
+                '3' => 'Werbung (Grün)'
             ],
         ));
         
