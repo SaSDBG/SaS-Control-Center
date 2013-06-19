@@ -1,0 +1,54 @@
+<div class="row">   
+    <div class="span12">        
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <th>Name</th>
+                    {% if app.request.get('values') and 'descr' in app.request.get('values') %} 
+                    <th>Beschreibung</th>
+                    {% endif %}
+                    <th>Raum</th>
+                    {% if app.request.get('values') and 'chf' in app.request.get('values') %} 
+                    <th>Betriebsleiter</th>
+                    {% endif %}
+                    <th>Anzahl Mitarbeiter</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in companies %}
+                    <tr>
+                        <td>{{ company.id | e }}</td>
+                        <td>{{ company.name | e }}</td>
+                        {% if app.request.get('values') and 'descr' in app.request.get('values') %} 
+                        <td>{{ company.description | raw }}</td>
+                        {% endif %}
+                        <td>{{ company.room | e }}</td>
+                        {% if app.request.get('values') and 'chf' in app.request.get('values') %} 
+                        <td>
+                            {% if company.chiefs %}
+                                <ul>
+                                    {% for chief in company.chiefs %}
+                                        <li>{{ chief.getFullName() | e }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        <td>{{ company.members | length }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<style type="text/css">
+        @media print
+        {              
+            table, tbody, thead, tr, td, th
+            {
+                border: 1px solid black !important;
+            }       
+        }
+        
+</style>

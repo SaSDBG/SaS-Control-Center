@@ -7,9 +7,21 @@
 
 
 {% block content %}
-    {% for company in companies %}
-        <h2>{{ company.name | e }}</h2>
-        {% include ('company/company.print.manager.detail.twig') %}
-        <div class="page-break"></div>
-    {% endfor %}
+    {% if app.request.get('layout') %}
+        {% if app.request.get('layout') == 'print-list' %}
+            {% include ('company/company.print.detail.list.twig') %}
+        {% else %}
+            {% for company in companies %}
+                <h2>{{ company.name | e }}</h2>
+                {% include ('company/company.print.manager.detail.twig') %}
+                <div class="page-break"></div>
+            {% endfor %}   
+        {% endif %}
+    {% else %}
+        {% for company in companies %}
+            <h2>{{ company.name | e }}</h2>
+            {% include ('company/company.print.manager.detail.twig') %}
+            <div class="page-break"></div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

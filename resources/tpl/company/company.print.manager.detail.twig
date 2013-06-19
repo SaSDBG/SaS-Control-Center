@@ -4,6 +4,8 @@
     {% elseif app.request.get('layout') == 'print-chf' %}
     {% elseif app.request.get('layout') == 'print-dtl' %}   
         {% include ('company/company.print.detail.detail.twig') %}
+    {% elseif app.request.get('layout') == 'print-list' %}
+        {% include ('company/company.print.detail.list.twig') %}
     {% endif %}
 
 {% else %}
