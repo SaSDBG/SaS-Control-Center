@@ -112,7 +112,7 @@ class SchoolClass {
 
     public function getFullClass() {
         if($this->isTeacher()) {
-            return 'L';
+            return 'Lehrer(in)';
         }
         if($this->getGrade() === 'k')  {
             return 'K'.$this->getIdentifyer();
