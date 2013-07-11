@@ -1,7 +1,23 @@
 <li id="nws{{ broadcast.id | raw }}">
     <div class="newsitem">
         <div class="newsitem-left span1">
-            <i class="icon-5x icon-warning-sign"></i>
+            <h2>&nbsp;</h2>
+            <div>
+                {# Alert #}
+                {% if broadcast.type == 2 %}
+                    <i style="color: red;" class="icon-5x icon-warning-sign"></i>
+                {# Attention #}
+                {% elseif broadcast.type == 1 %}
+                    <i style="color: orange;" class="icon-5x icon-exclamation-sign"></i>
+                {# Standard #}
+                {% elseif broadcast.type == 0 %}
+                    <i style="color: green;" class="icon-5x icon-info-sign"></i>
+                {# Ad #}
+                {% elseif broadcast.type == 3 %}
+                    <i class="icon-5x icon-thumbs-up"></i>
+                {% endif %}
+
+            </div>
         </div>
         <div class="newsitem-right span11">
             <h2>{{ broadcast.name | e }}</h2>

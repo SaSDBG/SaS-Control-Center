@@ -3,12 +3,13 @@ $(document).ready(function() {
     var timer = $.timer(function() {
         getBroadcasts();
     });
-    timer.set({time: 10000, autostart: true});
+    timer.set({time: 30000, autostart: true});
 });
 
 var options = {
     controls: false,
     auto: true,
+    pause: 7000,
 }
 
 var newsHandler = new News(".newsitem", "#placeholder");
@@ -164,7 +165,7 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
 
     this.fixItems = function() {
         var selector = this.selector + " * " + this.newsItemSelector;
-        console.log(selector);
+       // console.log(selector);
         $(selector).css('height', ($(window).height() - 370) / 3);
     };
 
@@ -200,13 +201,7 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
         $.each(items, function(key, value) {
             if ($.inArray(value.id, savedIds) === -1)
             {
-                /*$(target).append('\
-                        <li id="nws' + value.id + '">\
-                            <div class="newsitem">\
-                            <h2>' + value.name + '\
-                            <div class="newsitem-content">' + value.content + '\
-                            </div>\
-                        </li>'); */
+
                 $(target).append(value.html);
             }
             ids.push(value.id);
@@ -217,7 +212,7 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
             // Not needed anymore
             if ($.inArray(value, ids) === -1)
             {
-                console.log("Delete " + value);
+               // console.log("Delete " + value);
                 var sel = "#nws" + value;
                 
                 while($(sel).length > 0)

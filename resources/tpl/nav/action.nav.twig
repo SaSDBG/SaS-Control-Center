@@ -37,3 +37,10 @@
 <li {{ macros.activeNav('pupil_add') }}><a href="{{ url('pupil_add') }}"><i class="icon-plus"></i> Sch&uuml;ler eintragen</a></li>
 {% endif %}
 {% endif %}
+
+{% if is_granted('ROLE_PRIV') %}
+<li class="divider"></li> 
+<li class="nav-header"><i class="icon-reorder"></i> Broadcasts</a></li>
+<li {{ macros.activeNav('broadcast_list') }}><a href="{{ url('broadcast_list') }}"><i class="icon-reorder"></i> Broadcastliste</a></li>
+<li {{ macros.activeNav('broadcast_add') }}><a href="{{ url('broadcast_add') }}"><i class="icon-plus"></i> Broadcast hinzuf&uuml;gen</a></li>
+{% endif %}
