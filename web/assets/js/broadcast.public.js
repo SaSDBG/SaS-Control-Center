@@ -10,6 +10,8 @@ var options = {
     controls: false,
     auto: true,
     pause: 7000,
+    useCss: false,
+    
 }
 
 var newsHandler = new News(".newsitem", "#placeholder");
