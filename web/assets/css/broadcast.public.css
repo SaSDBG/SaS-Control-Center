@@ -11,6 +11,24 @@ h2
     font-family: 'Open Sans', sans-serif;
 }
 
+.countdown-container
+{
+    margin-top:20px;
+}
+
+.countdown-label
+{
+    font-size: 30px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.countdown
+{
+    font-size:40px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
 .container
 {
     width: 75%;
@@ -24,7 +42,7 @@ h2
 .newsitem
 {
     margin-left: -20px;
-    font-size: 18px;
+    font-size: 22px;
     font-family: 'Open Sans', sans-serif;
 }
 

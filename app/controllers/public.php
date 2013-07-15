@@ -59,7 +59,7 @@ $app->match('/pub/broadcasts/json', function(Request $r) use ($app) {
 
 $app->match('/pub/broadcasts', function(Request $r) use ($app) {
     
-   return $app['twig']->render('broadcast/broadcast.public.twig', array("title" => "Broadcasts"));
+   return $app['twig']->render('broadcast/broadcast.public.twig', array("title" => "Broadcasts", "timer" => $app['timer']));
 })
 ->bind('pub_broadcast');
         

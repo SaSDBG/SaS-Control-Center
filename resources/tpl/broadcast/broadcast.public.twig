@@ -26,10 +26,15 @@
     </head>
     <body>
         <div class="container">
-            <h1><img src="{{ app.request.baseUrl }}/assets/img/SaS-Logo_1000px.png" width="40" height="40" alt="">&nbsp;&nbsp; DBG Metzingen &ndash; Schule als Staat 2013 &mdash; Ank&uuml;ndingen</h1>
+            <h1><img src="{{ app.request.baseUrl }}/assets/img/SaS-Logo_1000px.png" width="40" height="40" alt="">&nbsp;&nbsp; DBG Metzingen &ndash; Schule als Staat 2013 &mdash; Ank&uuml;ndigungen</h1>
             
             <div class="row-fluid">
                 <div class="span12">
+                    {% if timer %}
+                        <div class="well" >
+                            <p class="text-center"><i class="icon-3x icon-calendar">&nbsp;&nbsp;</i><span class="countdown-label">Noch...</span>&nbsp;<span class="countdown"></span></p>
+                        </div>                        
+                    {% endif %}
                     <div class="news">
                         <div>
                             <ul id="news1" class="hidden">
@@ -41,11 +46,13 @@
 
                             </ul>
                         </div>
+                        {% if not timer %}
                         <div>
                             <ul id="news3" class="hidden">
 
                             </ul>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="span12" id="placeholder">
@@ -62,7 +69,8 @@
         <script src="{{ app.request.baseUrl }}/assets/js/vendor/bootstrap.min.js"></script>
         <script src="{{ app.request.baseUrl }}/assets/js/main.js"></script>
         <script src="{{ app.request.baseUrl }}/assets/js/broadcast.public.js"></script>
-
+        <script src="{{ app.request.baseUrl }}/assets/js/jquery.countdown.min.js"></script>
+        
         <script>
             var baseUrl = "{{ app.request.baseUrl }}";
             var sourceUrl = "{{ url('pub_broadcast_json') }}";

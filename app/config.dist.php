@@ -11,7 +11,9 @@ $app['db.params'] = array(
 $app['users'] = array(
     'user' => array('ROLE', 'pass')
 );
-        
+       
+$app['timer'] = false;
+
 $app['debug'] = false;
         
 

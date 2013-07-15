@@ -1,4 +1,8 @@
 $(document).ready(function() {
+
+    $('.countdown').countdown({
+        date: "July 17, 2013 10:00:00"
+    });
     // getBroadcasts();
     var timer = $.timer(function() {
         getBroadcasts();
@@ -11,7 +15,7 @@ var options = {
     auto: true,
     pause: 7000,
     useCss: false,
-    
+    mode: 'fade',
 }
 
 var newsHandler = new News(".newsitem", "#placeholder");
@@ -152,7 +156,7 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
     this.savedIds = [];
     this.setUp = false;
     this.shown = false;
-    
+
     this.sliderObj = null;
 
     this.show = function() {
@@ -167,7 +171,7 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
 
     this.fixItems = function() {
         var selector = this.selector + " * " + this.newsItemSelector;
-       // console.log(selector);
+        // console.log(selector);
         $(selector).css('height', ($(window).height() - 370) / 3);
     };
 
@@ -178,9 +182,9 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
         this.sliderObj = $(this.selector).bxSlider(this.sliderOptions);
         this.setUp = true;
     };
-    
+
     this.reloadSlider = function() {
-        if(!this.setUp)
+        if (!this.setUp)
             this.setupSlider();
         this.sliderObj.reloadSlider();
     }
@@ -214,10 +218,10 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
             // Not needed anymore
             if ($.inArray(value, ids) === -1)
             {
-               // console.log("Delete " + value);
+                // console.log("Delete " + value);
                 var sel = "#nws" + value;
-                
-                while($(sel).length > 0)
+
+                while ($(sel).length > 0)
                     $(sel).remove();
             }
         });
@@ -228,6 +232,6 @@ function NewsItem(selector, newsItemSelector, sliderOptions)
             this.setupSlider();
         else
             this.reloadSlider();
-            
+
     };
 }
